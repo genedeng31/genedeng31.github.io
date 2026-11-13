@@ -1,0 +1,636 @@
+{
+  "name": "卫奕信径徒步地图 · 资料清单",
+  "generatedAt": "2026-11-08T03:28:27.591Z",
+  "generator": "node scripts/build-geojson.mjs --trail wilson",
+  "files": {
+    "route": "wilson-route.geojson",
+    "sections": "wilson-sections.geojson",
+    "facilities": "wilson-facilities.geojson",
+    "posts": "wilson-posts.geojson",
+    "transportLinks": "wilson-transport-links.geojson",
+    "waterSources": "wilson-water-sources.geojson"
+  },
+  "totals": {
+    "routeSegments": 121,
+    "sections": 10,
+    "routeDistanceKm": 79.2,
+    "facilities": 856,
+    "facilitiesByCategory": {
+      "eatery": 113,
+      "toilets": 89,
+      "shelter": 264,
+      "campsite": 4,
+      "shop": 72,
+      "drinking_water": 36,
+      "vending_machine": 10,
+      "bus_stop": 214,
+      "village": 54
+    },
+    "facilitiesOutsideCorridor": 23357,
+    "posts": 133,
+    "postsFromOsm": 133,
+    "postsManual": 0,
+    "postsAtSectionBoundary": 2,
+    "postsSkippedWithoutRef": 339,
+    "postsMissingNumbers": [
+      "W009",
+      "W010",
+      "W011",
+      "W012",
+      "W013",
+      "W138",
+      "W139",
+      "W140",
+      "W141",
+      "W142",
+      "W143",
+      "W144",
+      "W145",
+      "W146",
+      "W147",
+      "W148",
+      "W149",
+      "W150",
+      "W151",
+      "W152",
+      "W153",
+      "W154",
+      "W155",
+      "W156"
+    ],
+    "postsSkippedFarFromTrail": [],
+    "postValidation": {
+      "localJumps": [
+        {
+          "ref": "W007",
+          "fromRef": "W006",
+          "jumpM": 341,
+          "sectionId": "W1"
+        },
+        {
+          "ref": "W008",
+          "fromRef": "W007",
+          "jumpM": 261,
+          "sectionId": "W1"
+        },
+        {
+          "ref": "W016",
+          "fromRef": "W015",
+          "jumpM": 590,
+          "sectionId": "W2"
+        },
+        {
+          "ref": "W018",
+          "fromRef": "W017",
+          "jumpM": 481,
+          "sectionId": "W2"
+        },
+        {
+          "ref": "W019",
+          "fromRef": "W018",
+          "jumpM": 2328,
+          "sectionId": "W3"
+        },
+        {
+          "ref": "W025",
+          "fromRef": "W024",
+          "jumpM": 457,
+          "sectionId": "W3"
+        },
+        {
+          "ref": "W034",
+          "fromRef": "W033",
+          "jumpM": 356,
+          "sectionId": "W4"
+        },
+        {
+          "ref": "W037",
+          "fromRef": "W036",
+          "jumpM": -299,
+          "sectionId": "W4"
+        },
+        {
+          "ref": "W061",
+          "fromRef": "W060",
+          "jumpM": 357,
+          "sectionId": "W6"
+        },
+        {
+          "ref": "W066",
+          "fromRef": "W065",
+          "jumpM": 363,
+          "sectionId": "W6"
+        },
+        {
+          "ref": "W069",
+          "fromRef": "W068",
+          "jumpM": 473,
+          "sectionId": "W6"
+        },
+        {
+          "ref": "W074",
+          "fromRef": "W073",
+          "jumpM": 299,
+          "sectionId": "W7"
+        },
+        {
+          "ref": "W077",
+          "fromRef": "W076",
+          "jumpM": 381,
+          "sectionId": "W7"
+        },
+        {
+          "ref": "W098",
+          "fromRef": "W097",
+          "jumpM": 312,
+          "sectionId": "W8"
+        },
+        {
+          "ref": "W134",
+          "fromRef": "W133",
+          "jumpM": 251,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W136",
+          "fromRef": "W135",
+          "jumpM": 282,
+          "sectionId": "W10"
+        }
+      ],
+      "validated": 133,
+      "medianAbsOffsetM": 8783,
+      "p95AbsOffsetM": 10413,
+      "maxAbsOffsetM": 10913,
+      "meanOffsetM": 7652,
+      "note": "偏差 = 沿 OSM 路线几何推算的里程 − 名义里程（第 n 支 = (n-1)×500 m）。偏差大代表路线几何有缺漏、绕道或标距柱位置有误，属于需要人工核实的信号。",
+      "worst": [
+        {
+          "ref": "W136",
+          "number": 136,
+          "nominalM": 67500,
+          "alongM": 78413,
+          "offsetM": 10913,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W137",
+          "number": 137,
+          "nominalM": 68000,
+          "alongM": 78875,
+          "offsetM": 10875,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W134",
+          "number": 134,
+          "nominalM": 66500,
+          "alongM": 77257,
+          "offsetM": 10757,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W135",
+          "number": 135,
+          "nominalM": 67000,
+          "alongM": 77631,
+          "offsetM": 10631,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W133",
+          "number": 133,
+          "nominalM": 66000,
+          "alongM": 76506,
+          "offsetM": 10506,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W132",
+          "number": 132,
+          "nominalM": 65500,
+          "alongM": 75943,
+          "offsetM": 10443,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W131",
+          "number": 131,
+          "nominalM": 65000,
+          "alongM": 75413,
+          "offsetM": 10413,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W130",
+          "number": 130,
+          "nominalM": 64500,
+          "alongM": 74886,
+          "offsetM": 10386,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W129",
+          "number": 129,
+          "nominalM": 64000,
+          "alongM": 74226,
+          "offsetM": 10226,
+          "sectionId": "W10"
+        },
+        {
+          "ref": "W128",
+          "number": 128,
+          "nominalM": 63500,
+          "alongM": 73632,
+          "offsetM": 10132,
+          "sectionId": "W10"
+        }
+      ]
+    },
+    "elevationAvailableSegments": 121,
+    "totalAscentM": 5308,
+    "totalDescentM": 5370,
+    "surfaceUsageKm": {
+      "concrete_steps": 4.5,
+      "natural_dirt": 37.9,
+      "paved_trail": 7.5,
+      "mixed": 3.3,
+      "paved_road": 21.5,
+      "rocky": 4
+    },
+    "trailTotalM": 79212,
+    "inferredSurfaceSegments": 63,
+    "unknownSurfaceSegments": 0
+  },
+  "perSection": [
+    {
+      "id": "W1",
+      "computedDistanceKm": 4.8,
+      "computedAscentM": 652,
+      "computedDescentM": 482,
+      "officialDistanceKm": 4.8,
+      "distanceDeltaKm": 0,
+      "segmentCount": 12,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "concrete_steps": {
+          "km": 1.7,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "mixed": {
+          "km": 1.6,
+          "labelZh": "混合路面"
+        },
+        "natural_dirt": {
+          "km": 1.4,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_trail": {
+          "km": 0.2,
+          "labelZh": "铺装步道"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W2",
+      "computedDistanceKm": 7,
+      "computedAscentM": 388,
+      "computedDescentM": 633,
+      "officialDistanceKm": 6.6,
+      "distanceDeltaKm": 0.4,
+      "segmentCount": 17,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 3.2,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_trail": {
+          "km": 1.5,
+          "labelZh": "铺装步道"
+        },
+        "mixed": {
+          "km": 1.4,
+          "labelZh": "混合路面"
+        },
+        "paved_road": {
+          "km": 0.6,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.3,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W3",
+      "computedDistanceKm": 9.5,
+      "computedAscentM": 739,
+      "computedDescentM": 589,
+      "officialDistanceKm": 9.3,
+      "distanceDeltaKm": 0.2,
+      "segmentCount": 21,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_trail": {
+          "km": 4.5,
+          "labelZh": "铺装步道"
+        },
+        "paved_road": {
+          "km": 2.2,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 2,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "concrete_steps": {
+          "km": 0.5,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "mixed": {
+          "km": 0.3,
+          "labelZh": "混合路面"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W4",
+      "computedDistanceKm": 7.9,
+      "computedAscentM": 663,
+      "computedDescentM": 546,
+      "officialDistanceKm": 8,
+      "distanceDeltaKm": -0.1,
+      "segmentCount": 9,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 3.9,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 3.6,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "concrete_steps": {
+          "km": 0.3,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "paved_trail": {
+          "km": 0.1,
+          "labelZh": "铺装步道"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W5",
+      "computedDistanceKm": 8.2,
+      "computedAscentM": 423,
+      "computedDescentM": 572,
+      "officialDistanceKm": 7.4,
+      "distanceDeltaKm": 0.8,
+      "segmentCount": 7,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 4.5,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 3,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "concrete_steps": {
+          "km": 0.6,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W6",
+      "computedDistanceKm": 5.5,
+      "computedAscentM": 372,
+      "computedDescentM": 319,
+      "officialDistanceKm": 5.3,
+      "distanceDeltaKm": 0.2,
+      "segmentCount": 13,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 4.4,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "concrete_steps": {
+          "km": 0.5,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "paved_road": {
+          "km": 0.5,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W7",
+      "computedDistanceKm": 10.3,
+      "computedAscentM": 533,
+      "computedDescentM": 645,
+      "officialDistanceKm": 10.2,
+      "distanceDeltaKm": 0.1,
+      "segmentCount": 6,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 6.6,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_road": {
+          "km": 3.6,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.1,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W8",
+      "computedDistanceKm": 8.9,
+      "computedAscentM": 660,
+      "computedDescentM": 311,
+      "officialDistanceKm": 9,
+      "distanceDeltaKm": -0.1,
+      "segmentCount": 13,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 4.1,
+          "labelZh": "铺装道路"
+        },
+        "rocky": {
+          "km": 1.9,
+          "labelZh": "岩石崎岖路段"
+        },
+        "natural_dirt": {
+          "km": 1.7,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_trail": {
+          "km": 1.1,
+          "labelZh": "铺装步道"
+        },
+        "concrete_steps": {
+          "km": 0.1,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W9",
+      "computedDistanceKm": 10.2,
+      "computedAscentM": 774,
+      "computedDescentM": 679,
+      "officialDistanceKm": 10.6,
+      "distanceDeltaKm": -0.4,
+      "segmentCount": 21,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 6.4,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "rocky": {
+          "km": 2.1,
+          "labelZh": "岩石崎岖路段"
+        },
+        "paved_road": {
+          "km": 1,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.7,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "W10",
+      "computedDistanceKm": 6.9,
+      "computedAscentM": 104,
+      "computedDescentM": 594,
+      "officialDistanceKm": 6.8,
+      "distanceDeltaKm": 0.1,
+      "segmentCount": 2,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 5.7,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_road": {
+          "km": 1.2,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    }
+  ],
+  "sources": [
+    {
+      "name": "漁農自然護理署（AFCD）— 郊野公園的遠足徑（官方線位）",
+      "url": "https://data.gov.hk/tc-data/dataset/hk-afcd-afcdlist-hikingtrailscp",
+      "license": "data.gov.hk 開放數據使用條款（使用時須署名）",
+      "retrievedAt": "2026-11-08",
+      "usage": "路線幾何（官方測量線位，經 CSDI WFS 取得）"
+    },
+    {
+      "name": "OpenStreetMap（卫奕信径 route relations 与沿线设施）",
+      "url": "https://www.openstreetmap.org/relation/1281208",
+      "license": "ODbL-1.0",
+      "retrievedAt": "2026-11-08",
+      "usage": "路面標籤（surface/highway/sac_scale）、標距柱、設施節點（幾何改用 AFCD 官方線）"
+    },
+    {
+      "name": "香港地政总署 5 米 DTM（Digital Terrain Model）",
+      "url": "https://portal.csdi.gov.hk/geoportal/?lang=zh-hk&datasetId=landsd_rcd_1638158088368_93806",
+      "license": "data.gov.hk 開放數據使用條款（使用時須署名）",
+      "retrievedAt": "2026-11-08",
+      "usage": "各分段爬升／下降与高程剖面（约 5 公尺网格；噪声门槛 5 公尺）"
+    },
+    {
+      "name": "漁農自然護理署（AFCD）郊野樂行 — 衞奕信徑分段頁",
+      "url": "https://www.hiking.gov.hk/trail",
+      "license": "政府公开资料（转述，需人工复核）",
+      "usage": "路段名称与公布里程（转述，待人工复核）"
+    }
+  ],
+  "pendingVerification": [
+    "爬升／下降来自 香港地政总署 5 米 DTM（Digital Terrain Model）（约 5 公尺网格），非官方测量值，未与香港地政总署 5 公尺 DTM 比对；陡坡与植被覆盖处可能被低估。",
+    "没有 surface 标签的分段（inferredSurface=true）：路面分类是推测值，需人工核实。",
+    "路面分类为 unknown 的分段：需要人工判读或实地补测。",
+    "路段公布里程（officialDistanceKm）：转述自公开资料，需人工对照官方来源复核；与 OSM 几何长度的差值已列在 perSection。",
+    "所有设施的位置与营业状态：来自 OSM 社群资料，没有实地核实记录。",
+    "标距柱坐标：来自 OSM 社群测绘（M001–M200 完整、编号连续），但非官方测量基准；偏差统计见 totals.postValidation，偏差过大的柱位需人工核实。",
+    "路面类别「铺装步道」被标为 reserved，但资料里出现了 7.5 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "路面类别「岩石崎岖路段」被标为 reserved，但资料里出现了 4 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "路面类别「混合路面」被标为 reserved，但资料里出现了 3.3 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "标距柱编号缺号 24 个：W009, W010, W011, W012, W013, W138, W139, W140, W141, W142, W143, W144 …",
+    "标距柱 W007（W1）：相对 W006 的偏移跳变 +341 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W008（W1）：相对 W007 的偏移跳变 +261 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W016（W2）：相对 W015 的偏移跳变 +590 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W018（W2）：相对 W017 的偏移跳变 +481 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W019（W3）：相对 W018 的偏移跳变 +2328 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W025（W3）：相对 W024 的偏移跳变 +457 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W034（W4）：相对 W033 的偏移跳变 +356 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W037（W4）：相对 W036 的偏移跳变 -299 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W061（W6）：相对 W060 的偏移跳变 +357 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W066（W6）：相对 W065 的偏移跳变 +363 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W069（W6）：相对 W068 的偏移跳变 +473 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W074（W7）：相对 W073 的偏移跳变 +299 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W077（W7）：相对 W076 的偏移跳变 +381 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W098（W8）：相对 W097 的偏移跳变 +312 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W134（W10）：相对 W133 的偏移跳变 +251 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 W136（W10）：相对 W135 的偏移跳变 +282 m，代表这一段前后几何长度对不上，需人工核实"
+  ]
+}

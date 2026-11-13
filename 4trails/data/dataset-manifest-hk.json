@@ -1,0 +1,438 @@
+{
+  "name": "港岛径徒步地图 · 资料清单",
+  "generatedAt": "2026-11-08T03:28:27.871Z",
+  "generator": "node scripts/build-geojson.mjs --trail hk",
+  "files": {
+    "route": "hk-route.geojson",
+    "sections": "hk-sections.geojson",
+    "facilities": "hk-facilities.geojson",
+    "posts": "hk-posts.geojson",
+    "transportLinks": "hk-transport-links.geojson",
+    "waterSources": "hk-water-sources.geojson"
+  },
+  "totals": {
+    "routeSegments": 45,
+    "sections": 8,
+    "routeDistanceKm": 46.4,
+    "facilities": 479,
+    "facilitiesByCategory": {
+      "shop": 47,
+      "toilets": 47,
+      "shelter": 109,
+      "eatery": 55,
+      "drinking_water": 21,
+      "vending_machine": 1,
+      "campsite": 3,
+      "bus_stop": 187,
+      "village": 9
+    },
+    "facilitiesOutsideCorridor": 17581,
+    "posts": 95,
+    "postsFromOsm": 95,
+    "postsManual": 0,
+    "postsAtSectionBoundary": 5,
+    "postsSkippedWithoutRef": 64,
+    "postsMissingNumbers": [
+      "H053",
+      "H054",
+      "H055",
+      "H056",
+      "H057"
+    ],
+    "postsSkippedFarFromTrail": [],
+    "postValidation": {
+      "localJumps": [
+        {
+          "ref": "H045",
+          "fromRef": "H044",
+          "jumpM": 285,
+          "sectionId": "H4"
+        },
+        {
+          "ref": "H071",
+          "fromRef": "H070",
+          "jumpM": -263,
+          "sectionId": "H7"
+        }
+      ],
+      "validated": 95,
+      "medianAbsOffsetM": 1915,
+      "p95AbsOffsetM": 3126,
+      "maxAbsOffsetM": 3399,
+      "meanOffsetM": -1795,
+      "note": "偏差 = 沿 OSM 路线几何推算的里程 − 名义里程（第 n 支 = (n-1)×500 m）。偏差大代表路线几何有缺漏、绕道或标距柱位置有误，属于需要人工核实的信号。",
+      "worst": [
+        {
+          "ref": "H100",
+          "number": 100,
+          "nominalM": 49500,
+          "alongM": 46101,
+          "offsetM": -3399,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H092",
+          "number": 92,
+          "nominalM": 45500,
+          "alongM": 42270,
+          "offsetM": -3230,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H099",
+          "number": 99,
+          "nominalM": 49000,
+          "alongM": 45813,
+          "offsetM": -3187,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H090",
+          "number": 90,
+          "nominalM": 44500,
+          "alongM": 41365,
+          "offsetM": -3135,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H097",
+          "number": 97,
+          "nominalM": 48000,
+          "alongM": 44874,
+          "offsetM": -3126,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H089",
+          "number": 89,
+          "nominalM": 44000,
+          "alongM": 40884,
+          "offsetM": -3116,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H082",
+          "number": 82,
+          "nominalM": 40500,
+          "alongM": 37411,
+          "offsetM": -3089,
+          "sectionId": "H7"
+        },
+        {
+          "ref": "H088",
+          "number": 88,
+          "nominalM": 43500,
+          "alongM": 40418,
+          "offsetM": -3082,
+          "sectionId": "H8"
+        },
+        {
+          "ref": "H080",
+          "number": 80,
+          "nominalM": 39500,
+          "alongM": 36421,
+          "offsetM": -3079,
+          "sectionId": "H7"
+        },
+        {
+          "ref": "H081",
+          "number": 81,
+          "nominalM": 40000,
+          "alongM": 36929,
+          "offsetM": -3071,
+          "sectionId": "H7"
+        }
+      ]
+    },
+    "elevationAvailableSegments": 45,
+    "totalAscentM": 1961,
+    "totalDescentM": 2325,
+    "surfaceUsageKm": {
+      "paved_trail": 5.6,
+      "natural_dirt": 32,
+      "concrete_steps": 1.4,
+      "mixed": 0.9,
+      "paved_road": 6.3
+    },
+    "trailTotalM": 46442,
+    "inferredSurfaceSegments": 27,
+    "unknownSurfaceSegments": 0
+  },
+  "perSection": [
+    {
+      "id": "H1",
+      "computedDistanceKm": 6.3,
+      "computedAscentM": 267,
+      "computedDescentM": 435,
+      "officialDistanceKm": 7,
+      "distanceDeltaKm": -0.7,
+      "segmentCount": 5,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_trail": {
+          "km": 3,
+          "labelZh": "铺装步道"
+        },
+        "natural_dirt": {
+          "km": 2.3,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "mixed": {
+          "km": 0.9,
+          "labelZh": "混合路面"
+        },
+        "concrete_steps": {
+          "km": 0.1,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H2",
+      "computedDistanceKm": 4.3,
+      "computedAscentM": 183,
+      "computedDescentM": 290,
+      "officialDistanceKm": 4.5,
+      "distanceDeltaKm": -0.2,
+      "segmentCount": 9,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 2.6,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 1.3,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "concrete_steps": {
+          "km": 0.4,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "paved_trail": {
+          "km": 0,
+          "labelZh": "铺装步道"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H3",
+      "computedDistanceKm": 5.8,
+      "computedAscentM": 232,
+      "computedDescentM": 177,
+      "officialDistanceKm": 6.5,
+      "distanceDeltaKm": -0.7,
+      "segmentCount": 2,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 5.2,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_road": {
+          "km": 0.6,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H4",
+      "computedDistanceKm": 7.2,
+      "computedAscentM": 362,
+      "computedDescentM": 349,
+      "officialDistanceKm": 7.5,
+      "distanceDeltaKm": -0.3,
+      "segmentCount": 10,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 4.3,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_trail": {
+          "km": 1.6,
+          "labelZh": "铺装步道"
+        },
+        "paved_road": {
+          "km": 1.3,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.1,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H5",
+      "computedDistanceKm": 3.5,
+      "computedAscentM": 380,
+      "computedDescentM": 255,
+      "officialDistanceKm": 4,
+      "distanceDeltaKm": -0.5,
+      "segmentCount": 6,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 1.6,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_trail": {
+          "km": 1.1,
+          "labelZh": "铺装步道"
+        },
+        "paved_road": {
+          "km": 0.6,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.3,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "mixed": {
+          "km": 0,
+          "labelZh": "混合路面"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H6",
+      "computedDistanceKm": 4.4,
+      "computedAscentM": 94,
+      "computedDescentM": 366,
+      "officialDistanceKm": 4.5,
+      "distanceDeltaKm": -0.1,
+      "segmentCount": 1,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 4.4,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H7",
+      "computedDistanceKm": 7.1,
+      "computedAscentM": 177,
+      "computedDescentM": 96,
+      "officialDistanceKm": 7.5,
+      "distanceDeltaKm": -0.4,
+      "segmentCount": 4,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 6.7,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "concrete_steps": {
+          "km": 0.4,
+          "labelZh": "石阶／水泥梯级"
+        },
+        "paved_road": {
+          "km": 0,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "H8",
+      "computedDistanceKm": 7.8,
+      "computedAscentM": 266,
+      "computedDescentM": 357,
+      "officialDistanceKm": 8.5,
+      "distanceDeltaKm": -0.7,
+      "segmentCount": 8,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 6.2,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_road": {
+          "km": 1.4,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.2,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    }
+  ],
+  "sources": [
+    {
+      "name": "漁農自然護理署（AFCD）— 郊野公園的遠足徑（官方線位）",
+      "url": "https://data.gov.hk/tc-data/dataset/hk-afcd-afcdlist-hikingtrailscp",
+      "license": "data.gov.hk 開放數據使用條款（使用時須署名）",
+      "retrievedAt": "2026-11-08",
+      "usage": "路線幾何（官方測量線位，經 CSDI WFS 取得）"
+    },
+    {
+      "name": "OpenStreetMap（港岛径 route relations 与沿线设施）",
+      "url": "https://www.openstreetmap.org/relation/1281208",
+      "license": "ODbL-1.0",
+      "retrievedAt": "2026-11-08",
+      "usage": "路面標籤（surface/highway/sac_scale）、標距柱、設施節點（幾何改用 AFCD 官方線）"
+    },
+    {
+      "name": "香港地政总署 5 米 DTM（Digital Terrain Model）",
+      "url": "https://portal.csdi.gov.hk/geoportal/?lang=zh-hk&datasetId=landsd_rcd_1638158088368_93806",
+      "license": "data.gov.hk 開放數據使用條款（使用時須署名）",
+      "retrievedAt": "2026-11-08",
+      "usage": "各分段爬升／下降与高程剖面（约 5 公尺网格；噪声门槛 5 公尺）"
+    },
+    {
+      "name": "漁農自然護理署（AFCD）郊野樂行 — 港島徑分段頁",
+      "url": "https://www.hiking.gov.hk/trail",
+      "license": "政府公开资料（转述，需人工复核）",
+      "usage": "路段名称与公布里程（转述，待人工复核）"
+    }
+  ],
+  "pendingVerification": [
+    "爬升／下降来自 香港地政总署 5 米 DTM（Digital Terrain Model）（约 5 公尺网格），非官方测量值，未与香港地政总署 5 公尺 DTM 比对；陡坡与植被覆盖处可能被低估。",
+    "没有 surface 标签的分段（inferredSurface=true）：路面分类是推测值，需人工核实。",
+    "路面分类为 unknown 的分段：需要人工判读或实地补测。",
+    "路段公布里程（officialDistanceKm）：转述自公开资料，需人工对照官方来源复核；与 OSM 几何长度的差值已列在 perSection。",
+    "所有设施的位置与营业状态：来自 OSM 社群资料，没有实地核实记录。",
+    "标距柱坐标：来自 OSM 社群测绘（M001–M200 完整、编号连续），但非官方测量基准；偏差统计见 totals.postValidation，偏差过大的柱位需人工核实。",
+    "路面类别「铺装步道」被标为 reserved，但资料里出现了 5.6 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "路面类别「混合路面」被标为 reserved，但资料里出现了 0.9 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "facility-overrides.json：找不到设施 osm:node/333379660，已略过（可能是 OSM id 变了）",
+    "标距柱编号缺号 5 个：H053, H054, H055, H056, H057",
+    "标距柱 H045（H4）：相对 H044 的偏移跳变 +285 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 H071（H7）：相对 H070 的偏移跳变 -263 m，代表这一段前后几何长度对不上，需人工核实"
+  ]
+}

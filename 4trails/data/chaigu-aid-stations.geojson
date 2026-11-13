@@ -1,0 +1,268 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "id": "chaigu-50k-aid-stations",
+    "raceNameZh": "2026 柴古唐斯括苍越野赛 50K",
+    "stationCount": 6,
+    "distanceBasis": "computedDistanceKm = 轨迹上最近 trkpt 的 cumulativePathM",
+    "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程/关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+    "confidence": "high",
+    "verification": "data/races/chaigu-50k/route-verification.md（由 node scripts/race-route-report.mjs 产生）",
+    "note": "elevationM 取自轨迹、非官方 wpt；SP1 与 START 无关门（cutoffElapsedMin = null）",
+    "generatedBy": "node scripts/race-route-report.mjs --write"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.11259,
+          28.840969
+        ]
+      },
+      "properties": {
+        "id": "CG-START",
+        "nameZh": "兴善门广场（起点）",
+        "nameEn": "Xingshanmen Square",
+        "kind": "start",
+        "kindLabelZh": "起点",
+        "seq": 1,
+        "officialDistanceKm": 0,
+        "computedDistanceKm": 0,
+        "computedDistanceDiffKm": 0,
+        "elevationM": 0,
+        "elevationSource": "官方 GPX 轨迹上最近点 <ele>（原始值，未平滑）；官方 <wpt> 的高程仅作交叉验证，不取代轨迹值",
+        "trackPointIndex": 0,
+        "hasCutoff": false,
+        "cutoffElapsedMin": null,
+        "cutoffLabelZh": null,
+        "officialSegmentAscentM": null,
+        "officialSegmentDescentM": null,
+        "computedSegmentAscentM": null,
+        "computedSegmentDescentM": null,
+        "deviationSegmentAscentPct": null,
+        "deviationSegmentDescentPct": null,
+        "waterNote": null,
+        "waypointNameZh": null,
+        "waypointOffsetM": null,
+        "waypointElevationM": null,
+        "waypointElevationDeltaM": null,
+        "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程与关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+        "confidence": "medium",
+        "verification": "起终点＝轨迹端点（官方未给 wpt）；与起点（同一广场）水平距离见报告",
+        "pendingVerification": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.079878,
+          28.816748
+        ]
+      },
+      "properties": {
+        "id": "CG-CP1",
+        "nameZh": "法云寺",
+        "nameEn": "Fayun Temple",
+        "kind": "cp",
+        "kindLabelZh": "检查点",
+        "seq": 2,
+        "officialDistanceKm": 13,
+        "computedDistanceKm": 13.001,
+        "computedDistanceDiffKm": 0.001,
+        "elevationM": 434,
+        "elevationSource": "官方 GPX 轨迹上最近点 <ele>（原始值，未平滑）；官方 <wpt> 的高程仅作交叉验证，不取代轨迹值",
+        "trackPointIndex": 6833,
+        "hasCutoff": true,
+        "cutoffElapsedMin": 130,
+        "cutoffLabelZh": "2 小时 10 分",
+        "officialSegmentAscentM": 620,
+        "officialSegmentDescentM": 193,
+        "computedSegmentAscentM": 599.8,
+        "computedSegmentDescentM": 166.8,
+        "deviationSegmentAscentPct": -3.3,
+        "deviationSegmentDescentPct": -13.6,
+        "waterNote": null,
+        "waypointNameZh": "法云寺补给站",
+        "waypointOffsetM": 1.9,
+        "waypointElevationM": 428,
+        "waypointElevationDeltaM": 0,
+        "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程与关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+        "confidence": "high",
+        "verification": "坐标取自轨迹上最近 trkpt；与官方 wpt「法云寺补给站」偏移 1.9 m",
+        "pendingVerification": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.030592,
+          28.809972
+        ]
+      },
+      "properties": {
+        "id": "CG-SP1",
+        "nameZh": "道场基",
+        "nameEn": "Daochangji",
+        "kind": "sp",
+        "kindLabelZh": "补水站",
+        "seq": 3,
+        "officialDistanceKm": 22.8,
+        "computedDistanceKm": 22.801,
+        "computedDistanceDiffKm": 0.001,
+        "elevationM": 862,
+        "elevationSource": "官方 GPX 轨迹上最近点 <ele>（原始值，未平滑）；官方 <wpt> 的高程仅作交叉验证，不取代轨迹值",
+        "trackPointIndex": 13466,
+        "hasCutoff": false,
+        "cutoffElapsedMin": null,
+        "cutoffLabelZh": "简单补给，不打卡（无关门）",
+        "officialSegmentAscentM": 696,
+        "officialSegmentDescentM": 259,
+        "computedSegmentAscentM": 681.3,
+        "computedSegmentDescentM": 252.3,
+        "deviationSegmentAscentPct": -2.1,
+        "deviationSegmentDescentPct": -2.6,
+        "waterNote": "官方路书：道场基补水站「简单补给」；未提供水量／品项，故本栏 null。",
+        "waypointNameZh": "道场基补水站",
+        "waypointOffsetM": 0.1,
+        "waypointElevationM": 865,
+        "waypointElevationDeltaM": -2,
+        "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程与关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+        "confidence": "high",
+        "verification": "坐标取自轨迹上最近 trkpt；与官方 wpt「道场基补水站」偏移 0.1 m",
+        "pendingVerification": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.015193,
+          28.848735
+        ]
+      },
+      "properties": {
+        "id": "CG-CP2",
+        "nameZh": "杨杜村",
+        "nameEn": "Yangdu Village",
+        "kind": "cp",
+        "kindLabelZh": "检查点",
+        "seq": 4,
+        "officialDistanceKm": 33.1,
+        "computedDistanceKm": 33.101,
+        "computedDistanceDiffKm": 0.001,
+        "elevationM": 36.4,
+        "elevationSource": "官方 GPX 轨迹上最近点 <ele>（原始值，未平滑）；官方 <wpt> 的高程仅作交叉验证，不取代轨迹值",
+        "trackPointIndex": 18648,
+        "hasCutoff": true,
+        "cutoffElapsedMin": 415,
+        "cutoffLabelZh": "6 小时 55 分",
+        "officialSegmentAscentM": 436,
+        "officialSegmentDescentM": 1280,
+        "computedSegmentAscentM": 433.7,
+        "computedSegmentDescentM": 1259.3,
+        "deviationSegmentAscentPct": -0.5,
+        "deviationSegmentDescentPct": -1.6,
+        "waterNote": null,
+        "waypointNameZh": "杨杜村补给站",
+        "waypointOffsetM": 0.7,
+        "waypointElevationM": null,
+        "waypointElevationDeltaM": null,
+        "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程与关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+        "confidence": "high",
+        "verification": "坐标取自轨迹上最近 trkpt；与官方 wpt「杨杜村补给站」偏移 0.7 m",
+        "pendingVerification": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.074598,
+          28.844578
+        ]
+      },
+      "properties": {
+        "id": "CG-CP3",
+        "nameZh": "荣村",
+        "nameEn": "Rongcun",
+        "kind": "cp",
+        "kindLabelZh": "检查点",
+        "seq": 5,
+        "officialDistanceKm": 41.8,
+        "computedDistanceKm": 41.802,
+        "computedDistanceDiffKm": 0.002,
+        "elevationM": 44.6,
+        "elevationSource": "官方 GPX 轨迹上最近点 <ele>（原始值，未平滑）；官方 <wpt> 的高程仅作交叉验证，不取代轨迹值",
+        "trackPointIndex": 21497,
+        "hasCutoff": true,
+        "cutoffElapsedMin": 560,
+        "cutoffLabelZh": "9 小时 20 分",
+        "officialSegmentAscentM": 692,
+        "officialSegmentDescentM": 656,
+        "computedSegmentAscentM": 644.4,
+        "computedSegmentDescentM": 634.4,
+        "deviationSegmentAscentPct": -6.9,
+        "deviationSegmentDescentPct": -3.3,
+        "waterNote": null,
+        "waypointNameZh": "荣村补给站",
+        "waypointOffsetM": 8.5,
+        "waypointElevationM": null,
+        "waypointElevationDeltaM": null,
+        "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程与关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+        "confidence": "high",
+        "verification": "坐标取自轨迹上最近 trkpt；与官方 wpt「荣村补给站」偏移 8.5 m",
+        "pendingVerification": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.11261,
+          28.841129
+        ]
+      },
+      "properties": {
+        "id": "CG-FINISH",
+        "nameZh": "兴善门广场（终点）",
+        "nameEn": "Xingshanmen Square (finish)",
+        "kind": "finish",
+        "kindLabelZh": "终点",
+        "seq": 6,
+        "officialDistanceKm": 49.7,
+        "computedDistanceKm": 49.38,
+        "computedDistanceDiffKm": -0.32,
+        "elevationM": 11,
+        "elevationSource": "官方 GPX 轨迹上最近点 <ele>（原始值，未平滑）；官方 <wpt> 的高程仅作交叉验证，不取代轨迹值",
+        "trackPointIndex": 23556,
+        "hasCutoff": true,
+        "cutoffElapsedMin": 645,
+        "cutoffLabelZh": "10 小时 45 分",
+        "officialSegmentAscentM": 185,
+        "officialSegmentDescentM": 241,
+        "computedSegmentAscentM": 163.8,
+        "computedSegmentDescentM": 197.3,
+        "deviationSegmentAscentPct": -11.5,
+        "deviationSegmentDescentPct": -18.1,
+        "waterNote": null,
+        "waypointNameZh": null,
+        "waypointOffsetM": null,
+        "waypointElevationM": null,
+        "waypointElevationDeltaM": null,
+        "source": "data/races/chaigu-50k/route.gpx（官方 GPX，Garmin Desktop App 汇出，不进版控）；官方里程与关门：data/races/chaigu-50k/README.md（官方赛道图转录）",
+        "confidence": "medium",
+        "verification": "起终点＝轨迹端点（官方未给 wpt）；与起点（同一广场）水平距离见报告",
+        "pendingVerification": null
+      }
+    }
+  ]
+}
