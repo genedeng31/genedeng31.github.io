@@ -1,0 +1,9 @@
+# Cloudflare Pages / Netlify 都支援这个格式。
+#
+# 只留一条真正必要的规则：service worker 本身绝对不能被快取，
+# 否则更新永远送不出去（线上会一直跑旧版）。
+# 其余交给托管方预设 —— Cloudflare 官方建议不要自订快取，
+# 因为每次部署本来就会让 CDN 上的资源更新。
+
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
