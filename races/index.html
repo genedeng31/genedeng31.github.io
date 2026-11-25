@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>越野赛计划</title><style>
+:root{--ink:#0f172a;--dim:#475569;--line:#cbd5e1;--accent:#1d4ed8;--night:#5b21b6;--bg:#f8fafc}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+main{max-width:min(1600px,94vw);margin:0 auto;padding:24px 18px 50px}
+h1{font-size:clamp(24px,1.7vw,30px);margin:0 0 2px}
+h2{font-size:17px;margin:26px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.sub{color:var(--dim);font-size:13px;margin:0 0 10px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+.btn{display:inline-block;border:1px solid var(--ink);border-radius:8px;padding:5px 12px;font-size:13px;text-decoration:none;color:var(--ink);background:#fff;cursor:pointer}
+.btn.primary{background:var(--ink);color:#fff}
+.btn:active{transform:translateY(1px)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.card .k{font-size:11.5px;color:var(--dim)}
+.card .v{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 14px}
+.summary-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.summary-title{font-size:12px;color:var(--dim);font-weight:600;margin-bottom:4px;letter-spacing:.02em}
+.summary-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;padding:4px 0;border-bottom:1px dashed #e2e8f0}
+.summary-row:last-child{border-bottom:none}
+.summary-row .v{font-weight:600;font-variant-numeric:tabular-nums}
+.summary-row input{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 6px;text-align:right;font-variant-numeric:tabular-nums}
+.summary-row input[type=time]{width:108px}
+.summary-row input.num{width:54px}
+@media(max-width:860px){.summary{grid-template-columns:1fr}}
+.m-only{display:none}
+.mobile-only{display:none}
+.myplan{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin:8px 0 14px;font-size:13px;color:var(--dim)}
+.myplan label{display:inline-flex;align-items:center;gap:6px}
+.myplan input{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 6px;text-align:right;font-variant-numeric:tabular-nums;background:#fff}
+.myplan input[type=time]{width:102px}
+.myplan input.num{width:50px}
+.myplan b{color:var(--ink);font-variant-numeric:tabular-nums}
+.myplan-actions{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.myplan-status{font-size:12px;color:var(--dim)}
+.btn.soft{background:#E0F2FE;border-color:#7DD3FC;color:#0369A1}
+#imgPreview{position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.85);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+#imgPreview.show{display:flex}
+#imgPreview img{max-width:100%;max-height:78vh;border-radius:8px;background:#fff}
+#imgPreview .tip{color:#fff;font-size:13px;margin:10px 0}
+#imgPreview .btn{background:#fff;color:#0f172a}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0}
+.controls label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--dim)}
+.controls input{font:inherit;font-size:15px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:clamp(12.5px,0.82vw,14px)}
+th,td{border-bottom:1px solid #e2e8f0;padding:5px 7px;text-align:left;vertical-align:middle}
+th{background:#1f4e79;color:#fff;font-weight:600;white-space:nowrap;font-size:clamp(11.5px,0.75vw,13px)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.night td{background:#f5f2fc}
+tr:hover td{background:#f1f5f9}
+input.stop,input.pace{width:54px;font:inherit;font-size:inherit;text-align:right;padding:2px 4px;border:1px solid var(--line);border-radius:5px;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:0 6px;border:1px solid currentColor}
+.tag.night{color:var(--night)}
+.tag.day{color:#047857}
+.note{font-size:12.5px;color:var(--dim);background:#fff;border-left:3px solid var(--accent);padding:8px 12px;margin:10px 0}
+svg.profile{width:100%;margin:0 auto;display:block;height:auto;background:#fff;border:none;border-radius:0}
+.viz{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin:10px 0;position:relative}
+.map-btns{position:absolute;top:10px;right:10px;z-index:1000;display:flex;gap:6px}
+.map-btns .btn{background:#fff;box-shadow:0 1px 6px rgba(15,23,42,.25)}
+#map{height:clamp(520px,42vh,680px);background:#eef2f7}
+.cp-map-label{background:transparent!important;border:none!important;box-shadow:none!important;padding:0 2px;font-size:11px;font-weight:800;color:#111827;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff,0 0 2px #fff}
+.cp-map-label.leaflet-tooltip:before{display:none}
+.viz #chart{padding:2px 6px 0}
+footer{margin-top:28px;font-size:12px;color:var(--dim)}
+.bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#e5e7eb;min-width:140px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px;padding-bottom:2px}
+.table-scroll table{min-width:960px}
+table.merged{font-size:clamp(12.5px,0.8vw,13.5px)}
+@media (max-width:640px){
+  main{padding:16px 10px 40px}
+  #map{height:300px}
+  .viz #chart{padding:0 2px}
+  .table-scroll{overflow:visible}
+  .table-scroll table{min-width:0}
+  table.merged{min-width:0}
+  table.merged thead{display:none}
+  table.merged, table.merged tbody, table.merged tr, table.merged td{display:block;width:100%}
+  table.merged tr{background:#fff;border:1px solid var(--line);border-radius:10px;margin:8px 0;padding:8px 10px}
+  table.merged td{border:none;padding:3px 0;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  table.merged td::before{content:attr(data-label);color:var(--dim);font-size:11.5px;font-weight:400;flex:0 0 auto}
+  table.merged td[data-label="CP"]{font-weight:700;font-size:14px}
+  table.merged td[data-label="路况"] .bar{min-width:0;flex:1;max-width:180px}
+  table.merged td[data-label="备注"]{display:block}
+  table.merged td[data-label="备注"]::before{display:block;margin-bottom:2px}
+  table.merged td.num{text-align:right}
+  .m-only{display:block}
+  body{background:#F1F5F9}
+  details.m-collapse{background:#F0FDFA;border:1px solid #CCFBF1;border-radius:12px;padding:10px 14px;margin:10px 0;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+  details.m-pre{background:#EEF2FF;border:1px solid #C7D2FE;border-radius:12px;padding:10px 14px;margin:10px 0;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+  .page-actions{display:flex;justify-content:flex-end;margin:14px 0 6px}
+  .desktop-only{display:none}
+  .mobile-only{display:inline}
+  h1{font-size:20px;line-height:1.25}
+  .h1-suffix{display:none}
+  .m-status{position:sticky;top:6px;z-index:30;background:#E0F2FE;border:1px solid #7DD3FC;border-radius:12px;box-shadow:0 4px 14px rgba(3,105,161,.15);padding:9px 12px;margin:10px 0 10px;font-size:13px;line-height:1.55}
+  .m-status b{font-weight:700;font-variant-numeric:tabular-nums}
+  .m-status .row{display:block;line-height:1.55}
+  .m-status .stat-title{color:#0369A1;font-weight:800;letter-spacing:.04em}
+  .m-status .row.dim{color:var(--dim)}
+  .m-cps{display:flex;gap:6px;overflow-x:auto;padding:6px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .m-cps::-webkit-scrollbar{display:none}
+  .m-cp{border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:#fff;font-size:12.5px;white-space:nowrap;flex:0 0 auto}
+  .m-cp.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .m-next-cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 0 10px;margin:4px 0 6px;scrollbar-width:none}
+  .m-next-cards::-webkit-scrollbar{display:none}
+  .m-next-card{flex:0 0 86%;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .m-next-card h3{margin:0 0 2px;font-size:16px}
+  .m-next-card .meta{font-size:12.5px;color:var(--dim);margin-bottom:6px}
+  .m-next-card .big{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin:6px 0}
+  .m-next-card .big b{font-size:17px;font-variant-numeric:tabular-nums}
+  .m-next-card .cmt{font-size:12.5px;color:var(--ink);margin-top:6px;line-height:1.5}
+  .myplan{flex-wrap:wrap;gap:6px 12px;font-size:12px}
+  .myplan label{gap:4px}
+  .myplan input[type=time]{width:78px;font-size:12px;padding:1px 4px}
+  .myplan input.num{width:36px;font-size:12px;padding:1px 4px}
+  .m-plan-cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 0 12px;scrollbar-width:none}
+  .m-plan-cards::-webkit-scrollbar{display:none}
+  .m-plan-card{flex:0 0 100%;scroll-snap-align:start;background:#F8FAFF;border:1px solid #DBEAFE;border-radius:12px;padding:12px;font-size:12.5px}
+  .m-plan-card .ph{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:14px;margin-bottom:3px}
+  .m-plan-card .nums{color:var(--dim);margin-bottom:6px}
+  .m-plan-card .arr{font-size:12.5px;margin:4px 0}
+  .m-plan-card .cmt{margin:6px 0;line-height:1.5}
+  .m-plan-card .edit{display:flex;gap:12px;align-items:center;margin-top:8px;color:var(--dim)}
+  .m-plan-card input{width:54px;font:inherit;font-size:13px;text-align:right;border:1px solid var(--line);border-radius:6px;padding:2px 5px;font-variant-numeric:tabular-nums}
+  .table-scroll{display:none}
+  .plan-details{display:none}
+  .desk-save{display:none}
+}
+table.merged .bar{min-width:86px;height:10px}
+table.merged th{font-size:11.5px}
+.bar span{display:block;height:100%}
+.bar.wide{height:20px;border-radius:10px}
+.mini-legend{display:flex;flex-wrap:wrap;gap:3px 10px;font-size:11px;color:var(--dim);margin:4px 0 2px}
+.mini-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:3px;vertical-align:0}
+details.m-collapse{border-bottom:1px solid var(--line);margin:8px 0}
+details.m-collapse>summary{cursor:pointer;font-size:17px;font-weight:600;padding:9px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.m-collapse>summary::-webkit-details-marker{display:none}
+details.m-collapse>summary::after{content:"展开";font-size:12px;color:var(--dim);font-weight:400;flex:0 0 auto}
+details.m-collapse[open]>summary::after{content:"收起"}
+details.m-pre{}
+details.m-pre>summary{font-size:14px;font-weight:600;color:var(--dim);padding:2px 0 8px}
+.pre-tabs{display:flex;gap:6px;margin:2px 0 9px}
+.pre-tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 13px;font-size:13px;color:var(--dim);cursor:pointer}
+.pre-tab.active{font-weight:700;color:var(--ink);background:#e8f0ff;border-color:#93c5fd}
+.pre-pane[hidden]{display:none}
+details.m-pre>summary::after{font-size:12px}
+svg.spark{display:block}
+svg.spark-wide{width:100%;height:auto}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin:8px 0}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.bar span.unk,.sw.unk{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 2px,transparent 2px 5px)}
+input[type=time]{width:120px}
+@media print{
+  @page{size:A4 landscape;margin:8mm}
+  body{background:#fff}
+  main{max-width:none;padding:0}
+  .no-print{display:none!important}
+  input.stop,input[type=time],input.numinput{border:none!important;background:transparent!important;text-align:right;width:auto!important;padding:0!important;font-weight:600}
+  table{font-size:10px}
+  table.merged{font-size:9px}
+  table.merged .bar{min-width:60px;height:8px}
+  tr{break-inside:avoid}
+  svg.profile{max-height:100mm}
+  #map{height:95mm}
+  .leaflet-control-zoom{display:none!important}
+}
+</style></head>
+<body><main><h1>越野赛计划</h1><p class="sub">race-planner · 本地入口</p>
+<p class="sub">赛前准备用：赛道分析、可自己改的时刻表、可打印 PDF。</p><table><thead><tr><th>比赛</th><th class='num'>距离</th><th class='num'>爬升</th><th>日期</th><th>计划</th></tr></thead><tbody><tr><td>2026 从化一百 100K</td><td class='num'>99.5 km</td><td class='num'>5937 m</td><td>2026-11-28</td><td><a class="btn" href="conghua100-2026.html">打开计划</a></td></tr></tbody></table>
+<div class="note">新增比赛：在 <code>races/</code> 下建目录放 <code>course.gpx</code> 与
+<code>race.toml</code>，再跑 <code>python -m planner site</code>。</div>
+</main><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}</script></body></html>

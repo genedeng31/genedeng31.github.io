@@ -1,0 +1,506 @@
+{
+  "name": "凤凰径徒步地图 · 资料清单",
+  "generatedAt": "2026-11-22T09:29:19.674Z",
+  "generator": "node scripts/build-geojson.mjs --trail lantau",
+  "files": {
+    "route": "lantau-route.geojson",
+    "sections": "lantau-sections.geojson",
+    "facilities": "lantau-facilities.geojson",
+    "posts": "lantau-posts.geojson",
+    "transportLinks": "lantau-transport-links.geojson",
+    "waterSources": "lantau-water-sources.geojson"
+  },
+  "totals": {
+    "routeSegments": 27,
+    "sections": 12,
+    "routeDistanceKm": 67.6,
+    "facilities": 294,
+    "facilitiesByCategory": {
+      "toilets": 51,
+      "eatery": 18,
+      "campsite": 17,
+      "shop": 10,
+      "shelter": 58,
+      "drinking_water": 14,
+      "vending_machine": 3,
+      "village": 36,
+      "bus_stop": 89
+    },
+    "facilitiesOutsideCorridor": 15004,
+    "posts": 139,
+    "postsFromOsm": 139,
+    "postsManual": 0,
+    "postsAtSectionBoundary": 10,
+    "postsSkippedWithoutRef": 158,
+    "postsMissingNumbers": [
+      "L140"
+    ],
+    "postsSkippedFarFromTrail": [],
+    "postValidation": {
+      "localJumps": [
+        {
+          "ref": "L007",
+          "fromRef": "L006",
+          "jumpM": -291,
+          "sectionId": "L2"
+        },
+        {
+          "ref": "L011",
+          "fromRef": "L010",
+          "jumpM": 269,
+          "sectionId": "L2"
+        }
+      ],
+      "validated": 139,
+      "medianAbsOffsetM": 759,
+      "p95AbsOffsetM": 1844,
+      "maxAbsOffsetM": 1992,
+      "meanOffsetM": -340,
+      "note": "偏差 = 沿 OSM 路线几何推算的里程 − 名义里程（第 n 支 = (n-1)×500 m）。偏差大代表路线几何有缺漏、绕道或标距柱位置有误，属于需要人工核实的信号。",
+      "worst": [
+        {
+          "ref": "L121",
+          "number": 121,
+          "nominalM": 60000,
+          "alongM": 58008,
+          "offsetM": -1992,
+          "sectionId": "L11"
+        },
+        {
+          "ref": "L138",
+          "number": 138,
+          "nominalM": 68500,
+          "alongM": 66522,
+          "offsetM": -1978,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L137",
+          "number": 137,
+          "nominalM": 68000,
+          "alongM": 66096,
+          "offsetM": -1904,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L136",
+          "number": 136,
+          "nominalM": 67500,
+          "alongM": 65616,
+          "offsetM": -1884,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L139",
+          "number": 139,
+          "nominalM": 69000,
+          "alongM": 67117,
+          "offsetM": -1883,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L120",
+          "number": 120,
+          "nominalM": 59500,
+          "alongM": 57618,
+          "offsetM": -1882,
+          "sectionId": "L11"
+        },
+        {
+          "ref": "L122",
+          "number": 122,
+          "nominalM": 60500,
+          "alongM": 58656,
+          "offsetM": -1844,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L123",
+          "number": 123,
+          "nominalM": 61000,
+          "alongM": 59179,
+          "offsetM": -1821,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L131",
+          "number": 131,
+          "nominalM": 65000,
+          "alongM": 63186,
+          "offsetM": -1814,
+          "sectionId": "L12"
+        },
+        {
+          "ref": "L133",
+          "number": 133,
+          "nominalM": 66000,
+          "alongM": 64212,
+          "offsetM": -1788,
+          "sectionId": "L12"
+        }
+      ]
+    },
+    "elevationAvailableSegments": 27,
+    "totalAscentM": 4040,
+    "totalDescentM": 4024,
+    "surfaceUsageKm": {
+      "unknown": 0.1,
+      "paved_road": 23.8,
+      "natural_dirt": 40.4,
+      "mixed": 0.2,
+      "paved_trail": 2.9,
+      "concrete_steps": 0.1
+    },
+    "trailTotalM": 67576,
+    "inferredSurfaceSegments": 18,
+    "unknownSurfaceSegments": 1
+  },
+  "perSection": [
+    {
+      "id": "L1",
+      "computedDistanceKm": 2.2,
+      "computedAscentM": 246,
+      "computedDescentM": 125,
+      "officialDistanceKm": 2.5,
+      "distanceDeltaKm": -0.3,
+      "segmentCount": 2,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 2.1,
+          "labelZh": "铺装道路"
+        },
+        "unknown": {
+          "km": 0.1,
+          "labelZh": "待确认（无路面资料）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L2",
+      "computedDistanceKm": 6.3,
+      "computedAscentM": 710,
+      "computedDescentM": 507,
+      "officialDistanceKm": 6.5,
+      "distanceDeltaKm": -0.2,
+      "segmentCount": 1,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 6.3,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L3",
+      "computedDistanceKm": 4.4,
+      "computedAscentM": 630,
+      "computedDescentM": 501,
+      "officialDistanceKm": 4.5,
+      "distanceDeltaKm": -0.1,
+      "segmentCount": 1,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 4.4,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L4",
+      "computedDistanceKm": 5.2,
+      "computedAscentM": 95,
+      "computedDescentM": 290,
+      "officialDistanceKm": 4,
+      "distanceDeltaKm": 1.2,
+      "segmentCount": 5,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 2.5,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 2.5,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "mixed": {
+          "km": 0.2,
+          "labelZh": "混合路面"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L5",
+      "computedDistanceKm": 7.7,
+      "computedAscentM": 540,
+      "computedDescentM": 585,
+      "officialDistanceKm": 7.5,
+      "distanceDeltaKm": 0.2,
+      "segmentCount": 1,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 7.7,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L6",
+      "computedDistanceKm": 1.9,
+      "computedAscentM": 22,
+      "computedDescentM": 232,
+      "officialDistanceKm": 2.5,
+      "distanceDeltaKm": -0.6,
+      "segmentCount": 1,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 1.9,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L7",
+      "computedDistanceKm": 9.8,
+      "computedAscentM": 416,
+      "computedDescentM": 326,
+      "officialDistanceKm": 10.5,
+      "distanceDeltaKm": -0.7,
+      "segmentCount": 5,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 5.7,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_trail": {
+          "km": 2.9,
+          "labelZh": "铺装步道"
+        },
+        "paved_road": {
+          "km": 1.2,
+          "labelZh": "铺装道路"
+        },
+        "concrete_steps": {
+          "km": 0.1,
+          "labelZh": "石阶／水泥梯级"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L8",
+      "computedDistanceKm": 4.7,
+      "computedAscentM": 123,
+      "computedDescentM": 150,
+      "officialDistanceKm": 5.5,
+      "distanceDeltaKm": -0.8,
+      "segmentCount": 1,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 4.7,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L9",
+      "computedDistanceKm": 6.4,
+      "computedAscentM": 228,
+      "computedDescentM": 287,
+      "officialDistanceKm": 6.5,
+      "distanceDeltaKm": -0.1,
+      "segmentCount": 3,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 3.5,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_road": {
+          "km": 2.9,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L10",
+      "computedDistanceKm": 5.8,
+      "computedAscentM": 349,
+      "computedDescentM": 243,
+      "officialDistanceKm": 6.5,
+      "distanceDeltaKm": -0.7,
+      "segmentCount": 2,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 5,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 0.7,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L11",
+      "computedDistanceKm": 4.2,
+      "computedAscentM": 223,
+      "computedDescentM": 326,
+      "officialDistanceKm": 4.5,
+      "distanceDeltaKm": -0.3,
+      "segmentCount": 3,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "paved_road": {
+          "km": 3.2,
+          "labelZh": "铺装道路"
+        },
+        "natural_dirt": {
+          "km": 1,
+          "labelZh": "山径（石砌／土径）"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    },
+    {
+      "id": "L12",
+      "computedDistanceKm": 9,
+      "computedAscentM": 458,
+      "computedDescentM": 452,
+      "officialDistanceKm": 9,
+      "distanceDeltaKm": 0,
+      "segmentCount": 2,
+      "gapCount": 0,
+      "geometryGaps": [],
+      "filledGapCount": 0,
+      "surfaceBreakdown": {
+        "natural_dirt": {
+          "km": 6.8,
+          "labelZh": "山径（石砌／土径）"
+        },
+        "paved_road": {
+          "km": 2.2,
+          "labelZh": "铺装道路"
+        }
+      },
+      "orientationFlipped": false,
+      "orientationReason": "官方幾何（已依標距柱校正方向）"
+    }
+  ],
+  "sources": [
+    {
+      "name": "漁農自然護理署（AFCD）— 郊野公園的遠足徑（官方線位）",
+      "url": "https://data.gov.hk/tc-data/dataset/hk-afcd-afcdlist-hikingtrailscp",
+      "license": "data.gov.hk 開放數據使用條款（使用時須署名）",
+      "retrievedAt": "2026-11-08",
+      "usage": "路線幾何（官方測量線位，經 CSDI WFS 取得）"
+    },
+    {
+      "name": "OpenStreetMap（凤凰径 route relations 与沿线设施）",
+      "url": "https://www.openstreetmap.org/relation/1281208",
+      "license": "ODbL-1.0",
+      "retrievedAt": "2026-11-22",
+      "usage": "路面標籤（surface/highway/sac_scale）、標距柱、設施節點（幾何改用 AFCD 官方線）"
+    },
+    {
+      "name": "香港地政总署 5 米 DTM（Digital Terrain Model）",
+      "url": "https://portal.csdi.gov.hk/geoportal/?lang=zh-hk&datasetId=landsd_rcd_1638158088368_93806",
+      "license": "data.gov.hk 開放數據使用條款（使用時須署名）",
+      "retrievedAt": "2026-11-08",
+      "usage": "各分段爬升／下降与高程剖面（约 5 公尺网格；噪声门槛 5 公尺）"
+    },
+    {
+      "name": "漁農自然護理署（AFCD）郊野樂行 — 鳳凰徑分段頁",
+      "url": "https://www.hiking.gov.hk/trail",
+      "license": "政府公开资料（转述，需人工复核）",
+      "usage": "路段名称与公布里程（转述，待人工复核）"
+    }
+  ],
+  "pendingVerification": [
+    "爬升／下降来自 香港地政总署 5 米 DTM（Digital Terrain Model）（约 5 公尺网格），非官方测量值，未与香港地政总署 5 公尺 DTM 比对；陡坡与植被覆盖处可能被低估。",
+    "没有 surface 标签的分段（inferredSurface=true）：路面分类是推测值，需人工核实。",
+    "路面分类为 unknown 的分段：需要人工判读或实地补测。",
+    "路段公布里程（officialDistanceKm）：转述自公开资料，需人工对照官方来源复核；与 OSM 几何长度的差值已列在 perSection。",
+    "所有设施的位置与营业状态：来自 OSM 社群资料，没有实地核实记录。",
+    "标距柱坐标：来自 OSM 社群测绘（M001–M200 完整、编号连续），但非官方测量基准；偏差统计见 totals.postValidation，偏差过大的柱位需人工核实。",
+    "路面类别「铺装步道」被标为 reserved，但资料里出现了 2.9 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "路面类别「混合路面」被标为 reserved，但资料里出现了 0.2 km。请确认是否要把 data/curated/surface-categories.json 里的 reserved 改成 false，让它出现在图例。",
+    "facility-overrides.json：找不到设施 osm:node/333379660，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/1026528670，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/10578800986，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:way/691389055，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:way/691389052，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/26412241，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/2131730501，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/2131730503，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/2131730512，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/2318832097，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/4509291125，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/9171436524，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/11770657535，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/11770657538，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/11770657543，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/12441137901，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/13481601842，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/13724515017，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:way/185087340，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:way/1181694822，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/1051247306，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/6564166185，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/7568333454，已略过（可能是 OSM id 变了）",
+    "facility-overrides.json：找不到设施 osm:node/7568335731，已略过（可能是 OSM id 变了）",
+    "标距柱编号缺号 1 个：L140",
+    "标距柱 L007（L2）：相对 L006 的偏移跳变 -291 m，代表这一段前后几何长度对不上，需人工核实",
+    "标距柱 L011（L2）：相对 L010 的偏移跳变 +269 m，代表这一段前后几何长度对不上，需人工核实"
+  ]
+}

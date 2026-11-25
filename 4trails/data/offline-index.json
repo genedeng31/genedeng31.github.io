@@ -1,0 +1,61 @@
+{
+ "version": 1,
+ "generatedAt": "2026-11-08T03:28:28.137Z",
+ "generator": "node scripts/build-offline-index.mjs",
+ "note": "由 scripts/lib/trails.mjs 产生；service worker install 时依此预快取。新增山径只需重新产生这份索引。",
+ "static": [
+  "/",
+  "/all",
+  "/plan/full",
+  "/icon.svg",
+  "/maplibre-gl-worker.mjs"
+ ],
+ "shells": [
+  "/maclehose",
+  "/hk",
+  "/wilson",
+  "/lantau"
+ ],
+ "plans": [
+  "/maclehose/plan",
+  "/hk/plan",
+  "/wilson/plan",
+  "/lantau/plan"
+ ],
+ "manifests": [
+  "dataset-manifest.json",
+  "dataset-manifest-hk.json",
+  "dataset-manifest-wilson.json",
+  "dataset-manifest-lantau.json"
+ ],
+ "trails": [
+  {
+   "id": "maclehose",
+   "nameZh": "麦理浩径",
+   "mapUrl": "/maclehose",
+   "planUrl": "/maclehose/plan",
+   "manifest": "dataset-manifest.json"
+  },
+  {
+   "id": "hk",
+   "nameZh": "港岛径",
+   "mapUrl": "/hk",
+   "planUrl": "/hk/plan",
+   "manifest": "dataset-manifest-hk.json"
+  },
+  {
+   "id": "wilson",
+   "nameZh": "卫奕信径",
+   "mapUrl": "/wilson",
+   "planUrl": "/wilson/plan",
+   "manifest": "dataset-manifest-wilson.json"
+  },
+  {
+   "id": "lantau",
+   "nameZh": "凤凰径",
+   "mapUrl": "/lantau",
+   "planUrl": "/lantau/plan",
+   "manifest": "dataset-manifest-lantau.json"
+  }
+ ]
+}

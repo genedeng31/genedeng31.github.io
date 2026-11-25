@@ -1,0 +1,1373 @@
+<!DOCTYPE html><html lang='zh-Hans'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>2026 从化一百 100K · 完赛计划</title><link rel="stylesheet" href="vendor/leaflet/leaflet.css"><style>
+:root{--ink:#0f172a;--dim:#475569;--line:#cbd5e1;--accent:#1d4ed8;--night:#5b21b6;--bg:#f8fafc}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+main{max-width:min(1600px,94vw);margin:0 auto;padding:24px 18px 50px}
+h1{font-size:clamp(24px,1.7vw,30px);margin:0 0 2px}
+h2{font-size:17px;margin:26px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.sub{color:var(--dim);font-size:13px;margin:0 0 10px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+.btn{display:inline-block;border:1px solid var(--ink);border-radius:8px;padding:5px 12px;font-size:13px;text-decoration:none;color:var(--ink);background:#fff;cursor:pointer}
+.btn.primary{background:var(--ink);color:#fff}
+.btn:active{transform:translateY(1px)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.card .k{font-size:11.5px;color:var(--dim)}
+.card .v{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 14px}
+.summary-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.summary-title{font-size:12px;color:var(--dim);font-weight:600;margin-bottom:4px;letter-spacing:.02em}
+.summary-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;padding:4px 0;border-bottom:1px dashed #e2e8f0}
+.summary-row:last-child{border-bottom:none}
+.summary-row .v{font-weight:600;font-variant-numeric:tabular-nums}
+.summary-row input{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 6px;text-align:right;font-variant-numeric:tabular-nums}
+.summary-row input[type=time]{width:108px}
+.summary-row input.num{width:54px}
+@media(max-width:860px){.summary{grid-template-columns:1fr}}
+.m-only{display:none}
+.mobile-only{display:none}
+.myplan{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin:8px 0 14px;font-size:13px;color:var(--dim)}
+.myplan label{display:inline-flex;align-items:center;gap:6px}
+.myplan input{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 6px;text-align:right;font-variant-numeric:tabular-nums;background:#fff}
+.myplan input[type=time]{width:102px}
+.myplan input.num{width:50px}
+.myplan b{color:var(--ink);font-variant-numeric:tabular-nums}
+.myplan-actions{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.myplan-status{font-size:12px;color:var(--dim)}
+.btn.soft{background:#E0F2FE;border-color:#7DD3FC;color:#0369A1}
+#imgPreview{position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.85);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+#imgPreview.show{display:flex}
+#imgPreview img{max-width:100%;max-height:78vh;border-radius:8px;background:#fff}
+#imgPreview .tip{color:#fff;font-size:13px;margin:10px 0}
+#imgPreview .btn{background:#fff;color:#0f172a}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin:10px 0}
+.controls label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--dim)}
+.controls input{font:inherit;font-size:15px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:clamp(12.5px,0.82vw,14px)}
+th,td{border-bottom:1px solid #e2e8f0;padding:5px 7px;text-align:left;vertical-align:middle}
+th{background:#1f4e79;color:#fff;font-weight:600;white-space:nowrap;font-size:clamp(11.5px,0.75vw,13px)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.night td{background:#f5f2fc}
+tr:hover td{background:#f1f5f9}
+input.stop,input.pace{width:54px;font:inherit;font-size:inherit;text-align:right;padding:2px 4px;border:1px solid var(--line);border-radius:5px;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:0 6px;border:1px solid currentColor}
+.tag.night{color:var(--night)}
+.tag.day{color:#047857}
+.note{font-size:12.5px;color:var(--dim);background:#fff;border-left:3px solid var(--accent);padding:8px 12px;margin:10px 0}
+svg.profile{width:100%;margin:0 auto;display:block;height:auto;background:#fff;border:none;border-radius:0}
+.viz{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin:10px 0;position:relative}
+.map-btns{position:absolute;top:10px;right:10px;z-index:1000;display:flex;gap:6px}
+.map-btns .btn{background:#fff;box-shadow:0 1px 6px rgba(15,23,42,.25)}
+#map{height:clamp(520px,42vh,680px);background:#eef2f7}
+.cp-map-label{background:transparent!important;border:none!important;box-shadow:none!important;padding:0 2px;font-size:11px;font-weight:800;color:#111827;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff,0 0 2px #fff}
+.cp-map-label.leaflet-tooltip:before{display:none}
+.viz #chart{padding:2px 6px 0}
+footer{margin-top:28px;font-size:12px;color:var(--dim)}
+.bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#e5e7eb;min-width:140px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px;padding-bottom:2px}
+.table-scroll table{min-width:960px}
+table.merged{font-size:clamp(12.5px,0.8vw,13.5px)}
+@media (max-width:640px){
+  main{padding:16px 10px 40px}
+  #map{height:300px}
+  .viz #chart{padding:0 2px}
+  .table-scroll{overflow:visible}
+  .table-scroll table{min-width:0}
+  table.merged{min-width:0}
+  table.merged thead{display:none}
+  table.merged, table.merged tbody, table.merged tr, table.merged td{display:block;width:100%}
+  table.merged tr{background:#fff;border:1px solid var(--line);border-radius:10px;margin:8px 0;padding:8px 10px}
+  table.merged td{border:none;padding:3px 0;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  table.merged td::before{content:attr(data-label);color:var(--dim);font-size:11.5px;font-weight:400;flex:0 0 auto}
+  table.merged td[data-label="CP"]{font-weight:700;font-size:14px}
+  table.merged td[data-label="路况"] .bar{min-width:0;flex:1;max-width:180px}
+  table.merged td[data-label="备注"]{display:block}
+  table.merged td[data-label="备注"]::before{display:block;margin-bottom:2px}
+  table.merged td.num{text-align:right}
+  .m-only{display:block}
+  body{background:#F1F5F9}
+  details.m-collapse{background:#F0FDFA;border:1px solid #CCFBF1;border-radius:12px;padding:10px 14px;margin:10px 0;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+  details.m-pre{background:#EEF2FF;border:1px solid #C7D2FE;border-radius:12px;padding:10px 14px;margin:10px 0;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+  .page-actions{display:flex;justify-content:flex-end;margin:14px 0 6px}
+  .desktop-only{display:none}
+  .mobile-only{display:inline}
+  h1{font-size:20px;line-height:1.25}
+  .h1-suffix{display:none}
+  .m-status{position:sticky;top:6px;z-index:30;background:#E0F2FE;border:1px solid #7DD3FC;border-radius:12px;box-shadow:0 4px 14px rgba(3,105,161,.15);padding:9px 12px;margin:10px 0 10px;font-size:13px;line-height:1.55}
+  .m-status b{font-weight:700;font-variant-numeric:tabular-nums}
+  .m-status .row{display:block;line-height:1.55}
+  .m-status .stat-title{color:#0369A1;font-weight:800;letter-spacing:.04em}
+  .m-status .row.dim{color:var(--dim)}
+  .m-cps{display:flex;gap:6px;overflow-x:auto;padding:6px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .m-cps::-webkit-scrollbar{display:none}
+  .m-cp{border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:#fff;font-size:12.5px;white-space:nowrap;flex:0 0 auto}
+  .m-cp.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .m-next-cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 0 10px;margin:4px 0 6px;scrollbar-width:none}
+  .m-next-cards::-webkit-scrollbar{display:none}
+  .m-next-card{flex:0 0 86%;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .m-next-card h3{margin:0 0 2px;font-size:16px}
+  .m-next-card .meta{font-size:12.5px;color:var(--dim);margin-bottom:6px}
+  .m-next-card .big{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin:6px 0}
+  .m-next-card .big b{font-size:17px;font-variant-numeric:tabular-nums}
+  .m-next-card .cmt{font-size:12.5px;color:var(--ink);margin-top:6px;line-height:1.5}
+  .myplan{flex-wrap:wrap;gap:6px 12px;font-size:12px}
+  .myplan label{gap:4px}
+  .myplan input[type=time]{width:78px;font-size:12px;padding:1px 4px}
+  .myplan input.num{width:36px;font-size:12px;padding:1px 4px}
+  .m-plan-cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 0 12px;scrollbar-width:none}
+  .m-plan-cards::-webkit-scrollbar{display:none}
+  .m-plan-card{flex:0 0 100%;scroll-snap-align:start;background:#F8FAFF;border:1px solid #DBEAFE;border-radius:12px;padding:12px;font-size:12.5px}
+  .m-plan-card .ph{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:14px;margin-bottom:3px}
+  .m-plan-card .nums{color:var(--dim);margin-bottom:6px}
+  .m-plan-card .arr{font-size:12.5px;margin:4px 0}
+  .m-plan-card .cmt{margin:6px 0;line-height:1.5}
+  .m-plan-card .edit{display:flex;gap:12px;align-items:center;margin-top:8px;color:var(--dim)}
+  .m-plan-card input{width:54px;font:inherit;font-size:13px;text-align:right;border:1px solid var(--line);border-radius:6px;padding:2px 5px;font-variant-numeric:tabular-nums}
+  .table-scroll{display:none}
+  .plan-details{display:none}
+  .desk-save{display:none}
+}
+table.merged .bar{min-width:86px;height:10px}
+table.merged th{font-size:11.5px}
+.bar span{display:block;height:100%}
+.bar.wide{height:20px;border-radius:10px}
+.mini-legend{display:flex;flex-wrap:wrap;gap:3px 10px;font-size:11px;color:var(--dim);margin:4px 0 2px}
+.mini-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:3px;vertical-align:0}
+details.m-collapse{border-bottom:1px solid var(--line);margin:8px 0}
+details.m-collapse>summary{cursor:pointer;font-size:17px;font-weight:600;padding:9px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.m-collapse>summary::-webkit-details-marker{display:none}
+details.m-collapse>summary::after{content:"展开";font-size:12px;color:var(--dim);font-weight:400;flex:0 0 auto}
+details.m-collapse[open]>summary::after{content:"收起"}
+details.m-pre{}
+details.m-pre>summary{font-size:14px;font-weight:600;color:var(--dim);padding:2px 0 8px}
+.pre-tabs{display:flex;gap:6px;margin:2px 0 9px}
+.pre-tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 13px;font-size:13px;color:var(--dim);cursor:pointer}
+.pre-tab.active{font-weight:700;color:var(--ink);background:#e8f0ff;border-color:#93c5fd}
+.pre-pane[hidden]{display:none}
+details.m-pre>summary::after{font-size:12px}
+svg.spark{display:block}
+svg.spark-wide{width:100%;height:auto}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin:8px 0}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.bar span.unk,.sw.unk{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 2px,transparent 2px 5px)}
+input[type=time]{width:120px}
+@media print{
+  @page{size:A4 landscape;margin:8mm}
+  body{background:#fff}
+  main{max-width:none;padding:0}
+  .no-print{display:none!important}
+  input.stop,input[type=time],input.numinput{border:none!important;background:transparent!important;text-align:right;width:auto!important;padding:0!important;font-weight:600}
+  table{font-size:10px}
+  table.merged{font-size:9px}
+  table.merged .bar{min-width:60px;height:8px}
+  tr{break-inside:avoid}
+  svg.profile{max-height:100mm}
+  #map{height:95mm}
+  .leaflet-control-zoom{display:none!important}
+}
+</style></head><body><main>
+<h1><span class="h1-main">2026 从化一百 100K</span><span class="h1-suffix"> · 完赛计划</span></h1>
+<p class="sub" style="margin:2px 0 0;text-align:right"><a href="index.html" style="color:var(--accent);text-decoration:none">← 赛事列表</a></p>
+<details class="m-collapse m-pre" id="preBox">
+<summary>赛事信息</summary>
+
+<div class="pre-tabs">
+  <button class="pre-tab active" type="button" data-tab="official">官方信息</button>
+  <button class="pre-tab" type="button" data-tab="mine">我的设置</button>
+</div>
+<div class="pre-pane" data-pane="official">
+<p class="sub">2026-11-28 07:00 起跑 ｜ 关门 11-29 11:00（28h） ｜ 99.5 km / ↑5937 m ｜ 日落 17:37 / 日出 06:47</p>
+</div>
+<div class="pre-pane" data-pane="mine" hidden>
+<div class="myplan">
+  <label>出发 <input id="start" type="time" step="60"></label>
+  <label>目标 <input id="targetH" class="num numinput" type="text" inputmode="numeric"> 时 <input id="targetM" class="num numinput" type="text" inputmode="numeric"> 分</label>
+  <span>预计冲线 <b id="c-finish">—</b></span>
+  <span>关门余量 <b id="c-buffer">—</b></span>
+  <span>移动／补给 <b><span id="c-move">—</span> ／ <span id="c-aid">—</span></b></span>
+</div>
+<div class="myplan-actions"><button class="btn" id="reset" type="button">返回上一设置</button><button class="btn soft" id="savePlanImg" type="button">保存计划图片</button><span class="myplan-status"><span id="status"></span></span></div>
+</div>
+</details>
+<div class="m-status m-only" id="mStatus"></div>
+<div class="m-cps m-only" id="mCps"></div>
+<div class="m-plan-cards m-only" id="mPlanCards"></div>
+
+<details class="m-collapse">
+<summary>路线地图与高程剖面</summary>
+<div class="viz" id="vizBox">
+  <div id="map"></div>
+  <div class="map-btns">
+    <button class="btn" id="mapLocate" type="button">定位我</button>
+    <button class="btn" id="mapReset" type="button">全览</button>
+  </div>
+</div>
+<div class="viz" id="chartBox" style="padding:4px 6px 0">
+  <div id="chart"></div>
+</div>
+<div class="no-print" id="surfaceBox" style="margin:10px 0 4px"><div style="font-size:12.5px;color:var(--dim);margin-bottom:4px">全段路况比例（官方路书赛道解析）</div><div class="bar wide"><span class="" style="width:30.20%;background:#15803D;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)" title="山径 30.2%"></span><span class="" style="width:25.30%;background:#CA8A04;display:flex;align-items:center;justify-content:center;color:#1f2937;font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)" title="机耕路 25.3%"></span><span class="" style="width:17.40%;background:#1D4ED8;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)" title="公路 17.4%"></span><span class="" style="width:12.50%;background:#0891B2;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)" title="绿道 12.5%"></span><span class="" style="width:10.60%;background:#DC2626;display:flex;align-items:center;justify-content:center;color:#ffffff;font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)" title="台阶 10.6%"></span><span class="" style="width:4.10%;background:#9CA3AF;display:flex;align-items:center;justify-content:center;color:#1f2937;font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)" title="步道 4.1%"></span></div><div class="legend"><span><span class="sw" style="background:#15803D"></span>山径 30.2%</span><span><span class="sw" style="background:#CA8A04"></span>机耕路 25.3%</span><span><span class="sw" style="background:#1D4ED8"></span>公路 17.4%</span><span><span class="sw" style="background:#0891B2"></span>绿道 12.5%</span><span><span class="sw" style="background:#DC2626"></span>台阶 10.6%</span><span><span class="sw" style="background:#9CA3AF"></span>步道 4.1%</span></div></div>
+<div class="note no-print">
+<span class="desktop-only">上下联动：鼠标在任一图移动，另一图显示同一位置（里程／时刻／海拔）。<br>
+地图缩放：按住 ⌘/Ctrl 滚轮，或先点一下地图再滚（鼠标移出后恢复页面滚动）。</span>
+<span class="mobile-only">双指缩放地图；单指上下滑可滚动页面，移动地图请用「定位我 / 全览」。</span>
+</div>
+</details>
+<details class="m-collapse plan-details">
+<summary>分段计划（时刻＋路况＋难度）</summary>
+
+<div class="table-scroll" id="planBox">
+<table class="merged">
+  <thead><tr>
+    <th>CP</th><th>地点</th><th class="num">累计 km</th><th class="num">分段 km</th>
+    <th class="num">D+／D−</th><th class="num">难度</th><th>路况</th><th>高程</th>
+    <th>备注</th><th class="num">到达</th><th class="num">耗时</th><th class="num">配速</th><th class="num">停留</th><th class="num">离开</th>
+  </tr></thead>
+  <tbody id="plan-rows"></tbody>
+</table>
+</div>
+<p class="sub">「停留」和「配速」都可直接改：改配速会改该段耗时与总时间；改「目标总用时」会按比例缩放所有配速。路况条按官方路书赛道解析。
+难度＝距离 + 爬升/100 m + 下降/150 m，再按路面难度加权；星等是相对本场比赛。</p>
+</details>
+<div class="toolbar no-print" style="margin-top:18px">
+  <button class="btn primary desk-save" id="saveImage" type="button">保存表格为图片</button>
+</div>
+<div id="imgPreview"><img id="imgPreviewSrc" alt="计划图片"><div class="tip">长按图片 → 保存到相册</div><div style="display:flex;gap:8px"><button class="btn" id="imgPreviewShare" type="button" hidden>分享 / 保存到相册</button><button class="btn" id="imgPreviewClose" type="button">关闭</button></div></div>
+<footer>资料：2026 官方路书（99.5 km / 爬升 5937 m）+ course.gpx。
+页面 2026-11-25 20:40 生成；仅作个人赛前准备参考。</footer>
+<script>window.RACE_DATA = {"id": "conghua100-2026", "name": "2026 从化一百 100K", "date": "2026-11-28", "startMin": 420, "cutoffHours": 28.0, "distanceKm": 99.5, "ascentM": 5937.0, "flatSpeed": 7.0, "sunriseMin": 407, "sunsetMin": 1057, "targetHours": 25.0, "cps": [{"id": "CP1", "name": "五指山月牙湖北岸", "short": "五指山", "km": 12.3, "aid": 5.0, "cutoff": "2026-11-28T10:30:00+08:00", "note": "0–4.1 km 绿道；4.1 km 后山径约 3.1 km，与 50 km 组分流；之后陡上至山脊，穿竹林灌木，过老虎头大石后与 50 km 组合并；约 0.8 km 山径到景区台阶，最后 1.8 km 景区阶梯到月牙湖北岸。", "lat": 23.709429, "lon": 113.792296, "diff": 5, "dplus": 1085.0, "dminus": 280.0, "minEle": 65, "maxEle": 1087, "shares": {"山径": 52.0, "绿道": 33.3, "台阶": 14.6}, "surfaceRuns": [{"start_km": 0.0, "end_km": 4.1, "category": "绿道"}, {"start_km": 4.1, "end_km": 10.5, "category": "山径"}, {"start_km": 10.5, "end_km": 12.3, "category": "台阶"}], "ele": [65, 67, 72, 74, 79, 82, 84, 91, 92, 99, 134, 182, 241, 311, 399, 459, 529, 670, 849, 952, 1054, 1069, 1071, 1042, 1020, 942, 906, 877], "features": "0–4.1 km 绿道；4.1 km 后山径约 3.1 km，与 50 km 组分流；之后陡上至山脊，穿竹林灌木，过老虎头大石后与 50 km 组合并；约 0.8 km 山径到景区台阶，最后 1.8 km 景区阶梯到月牙湖北岸。"}, {"id": "CP2", "name": "月牙湖", "short": "月牙湖", "km": 24.0, "aid": 8.0, "cutoff": "2026-11-28T14:00:00+08:00", "note": "五指山四峰连穿，基本台阶路；之后左侧进丛林下降约 2 km，山径原始湿滑、属技术段；穿河道、机耕路到景区公路；盘山公路下到青年山庄右转，再景区台阶约 2.5 km 上到月牙湖南岸。", "lat": 23.708101, "lon": 113.794179, "diff": 5, "dplus": 980.0, "dminus": 1002.0, "minEle": 415, "maxEle": 1073, "shares": {"台阶": 44.4, "公路": 21.4, "山径": 17.1, "机耕路": 17.1}, "surfaceRuns": [{"start_km": 12.3, "end_km": 15.0, "category": "台阶"}, {"start_km": 15.0, "end_km": 17.0, "category": "山径"}, {"start_km": 17.0, "end_km": 19.0, "category": "机耕路"}, {"start_km": 19.0, "end_km": 21.5, "category": "公路"}, {"start_km": 21.5, "end_km": 24.0, "category": "台阶"}], "ele": [877, 988, 1072, 1024, 1005, 992, 1001, 966, 830, 731, 604, 527, 525, 577, 612, 550, 508, 488, 462, 425, 459, 498, 566, 655, 778, 838, 875, 894], "features": "五指山四峰连穿，基本台阶路；之后左侧进丛林下降约 2 km，山径原始湿滑、属技术段；穿河道、机耕路到景区公路；盘山公路下到青年山庄右转，再景区台阶约 2.5 km 上到月牙湖南岸。"}, {"id": "CP3", "name": "瓦坑", "short": "瓦坑", "km": 31.1, "aid": 5.0, "cutoff": "2026-11-28T15:30:00+08:00", "note": "全程山径为主，十八连环坡上下穿梭，可跑性佳但部分湿滑；约 6 km 到中心村与 50 km 组分流（100 组往左、50 组往右），再沿村道约 1 km 到瓦坑。", "lat": 23.717162, "lon": 113.835443, "diff": 2, "dplus": 258.0, "dminus": 627.0, "minEle": 469, "maxEle": 924, "shares": {"山径": 84.5, "公路": 15.5}, "surfaceRuns": [{"start_km": 24.0, "end_km": 30.0, "category": "山径"}, {"start_km": 30.0, "end_km": 31.1, "category": "公路"}], "ele": [894, 865, 883, 917, 914, 903, 897, 901, 915, 910, 883, 840, 798, 757, 719, 684, 666, 644, 643, 573, 560, 519, 470, 489, 518, 550, 548, 530], "features": "全程山径为主，十八连环坡上下穿梭，可跑性佳但部分湿滑；约 6 km 到中心村与 50 km 组分流（100 组往左、50 组往右），再沿村道约 1 km 到瓦坑。"}, {"id": "CP4", "name": "下溪村", "short": "下溪村", "km": 37.5, "aid": 5.0, "cutoff": "2026-11-28T17:00:00+08:00", "note": "先 1.2 km 硬化公路，注意车辆靠右；之后徒步道穿过竹海、果园；约 2.5 km 到溪头村牌坊，左转联溪村道 500 m 后右转；再穿竹海果园、经红耀村，沿村道约 2 km，见小桥左转过桥到 CP4。强装检查点。", "lat": 23.728901, "lon": 113.866268, "diff": 1, "dplus": 141.0, "dminus": 344.0, "minEle": 328, "maxEle": 530, "shares": {"山径": 50.0, "公路": 50.0}, "surfaceRuns": [{"start_km": 31.1, "end_km": 32.3, "category": "公路"}, {"start_km": 32.3, "end_km": 34.8, "category": "山径"}, {"start_km": 34.8, "end_km": 35.3, "category": "公路"}, {"start_km": 35.3, "end_km": 36.0, "category": "山径"}, {"start_km": 36.0, "end_km": 37.5, "category": "公路"}], "ele": [530, 508, 511, 489, 478, 476, 478, 486, 466, 465, 442, 434, 427, 422, 413, 420, 420, 410, 421, 431, 397, 385, 374, 360, 339, 337, 331, 328], "features": "先 1.2 km 硬化公路，注意车辆靠右；之后徒步道穿过竹海、果园；约 2.5 km 到溪头村牌坊，左转联溪村道 500 m 后右转；再穿竹海果园、经红耀村，沿村道约 2 km，见小桥左转过桥到 CP4。强装检查点。"}, {"id": "CP5", "name": "溪头村双水驿站", "short": "溪头村", "km": 48.1, "aid": 10.0, "cutoff": "2026-11-28T20:30:00+08:00", "note": "入夜段；沿影古徒步径往古田，经丹枫廊桥后约 1 km 开始爬黄茶园；前段机耕路宽敞舒适；约 43.2 km 黄茶园半山腰水库边路变窄，只能一人通过，穿茂密竹林；近山顶岔路多易跑错；登顶后下山步道经溪头古村，再 500 m 到双水驿站。换装点。", "lat": 23.713268, "lon": 113.863728, "diff": 5, "dplus": 942.0, "dminus": 955.0, "minEle": 327, "maxEle": 1125, "shares": {"山径": 55.7, "机耕路": 39.6, "公路": 4.7}, "surfaceRuns": [{"start_km": 37.5, "end_km": 39.0, "category": "山径"}, {"start_km": 39.0, "end_km": 43.2, "category": "机耕路"}, {"start_km": 43.2, "end_km": 47.6, "category": "山径"}, {"start_km": 47.6, "end_km": 48.1, "category": "公路"}], "ele": [328, 334, 362, 355, 338, 386, 484, 544, 574, 608, 627, 632, 670, 715, 845, 949, 1007, 1095, 1121, 979, 816, 678, 581, 545, 518, 412, 371, 367], "features": "入夜段；沿影古徒步径往古田，经丹枫廊桥后约 1 km 开始爬黄茶园；前段机耕路宽敞舒适；约 43.2 km 黄茶园半山腰水库边路变窄，只能一人通过，穿茂密竹林；近山顶岔路多易跑错；登顶后下山步道经溪头古村，再 500 m 到双水驿站。换装点。"}, {"id": "CP6", "name": "尧社", "short": "尧社", "km": 59.6, "aid": 8.0, "cutoff": "2026-11-29T00:00:00+08:00", "note": "出站约 1 km 公路转入机耕路，直奔阿婆六，缓坡机耕路可跑；抵茶花谷雕像左转，继续往广州最高观星台；沿步道盘山而上，之后盘山公路宽阔但坡度陡；翻过观星台直下尧社。", "lat": 23.692608, "lon": 113.855119, "diff": 4, "dplus": 778.0, "dminus": 471.0, "minEle": 367, "maxEle": 937, "shares": {"机耕路": 52.2, "公路": 34.8, "步道": 13.0}, "surfaceRuns": [{"start_km": 48.1, "end_km": 49.1, "category": "公路"}, {"start_km": 49.1, "end_km": 53.0, "category": "机耕路"}, {"start_km": 53.0, "end_km": 54.5, "category": "步道"}, {"start_km": 54.5, "end_km": 57.5, "category": "公路"}, {"start_km": 57.5, "end_km": 59.6, "category": "机耕路"}], "ele": [367, 390, 431, 437, 440, 459, 471, 492, 515, 565, 607, 602, 636, 642, 665, 645, 697, 714, 673, 640, 639, 696, 792, 920, 885, 815, 750, 694], "features": "出站约 1 km 公路转入机耕路，直奔阿婆六，缓坡机耕路可跑；抵茶花谷雕像左转，继续往广州最高观星台；沿步道盘山而上，之后盘山公路宽阔但坡度陡；翻过观星台直下尧社。"}, {"id": "CP7", "name": "影村散围", "short": "影村", "km": 71.1, "aid": 8.0, "cutoff": "2026-11-29T03:00:00+08:00", "note": "出站 250 m 左转花场机耕路约 2.8 km；第二个大棚右转 30 m 入径，进入约 4.5 km 原生态山径，密林、竹海、溪谷，碎石多、技术段易崴脚；到白水带水库转机耕道，越水库大坝后约 3 km 到影村散围。", "lat": 23.686146, "lon": 113.792397, "diff": 4, "dplus": 361.0, "dminus": 898.0, "minEle": 179, "maxEle": 893, "shares": {"机耕路": 60.9, "山径": 39.1}, "surfaceRuns": [{"start_km": 59.6, "end_km": 62.4, "category": "机耕路"}, {"start_km": 62.4, "end_km": 66.9, "category": "山径"}, {"start_km": 66.9, "end_km": 71.1, "category": "机耕路"}], "ele": [694, 699, 722, 743, 754, 737, 755, 774, 799, 779, 794, 808, 863, 810, 746, 696, 638, 594, 565, 552, 527, 525, 464, 390, 340, 266, 206, 179], "features": "出站 250 m 左转花场机耕路约 2.8 km；第二个大棚右转 30 m 入径，进入约 4.5 km 原生态山径，密林、竹海、溪谷，碎石多、技术段易崴脚；到白水带水库转机耕道，越水库大坝后约 3 km 到影村散围。"}, {"id": "CP8", "name": "天堂顶机耕路口", "short": "天堂顶", "km": 78.3, "aid": 5.0, "cutoff": "2026-11-29T05:00:00+08:00", "note": "出站 200 m 转绿道，71.8 km 处走村道，200 m 后左转绿道，150 m 左转过小桥；随后进入约 6 km 上坡机耕路，坑洼注意落脚，稳步向上到天堂顶机耕路口。", "lat": 23.671832, "lon": 113.814446, "diff": 2, "dplus": 664.0, "dminus": 60.0, "minEle": 155, "maxEle": 752, "shares": {"机耕路": 83.3, "绿道": 16.7}, "surfaceRuns": [{"start_km": 71.1, "end_km": 72.3, "category": "绿道"}, {"start_km": 72.3, "end_km": 78.3, "category": "机耕路"}], "ele": [179, 173, 166, 162, 156, 178, 211, 236, 246, 267, 293, 315, 325, 348, 368, 388, 422, 443, 464, 508, 549, 585, 612, 646, 656, 702, 721, 752], "features": "出站 200 m 转绿道，71.8 km 处走村道，200 m 后左转绿道，150 m 左转过小桥；随后进入约 6 km 上坡机耕路，坑洼注意落脚，稳步向上到天堂顶机耕路口。"}, {"id": "CP9", "name": "石门公园桃花源", "short": "石门", "km": 86.4, "aid": 8.0, "cutoff": "2026-11-29T08:00:00+08:00", "note": "登天堂顶最高峰猴子岭，沿步道一路向上；之后下坡台阶为主；80.9 km 右转、81.68 km 左转，约 3.5 km 魔鬼阶梯下坡，部分台阶窄陡；之后盘山公路与台阶穿插下降，过小桥沿公园内部路到桃花源。", "lat": 23.646696, "lon": 113.779192, "diff": 4, "dplus": 529.0, "dminus": 937.0, "minEle": 286, "maxEle": 1182, "shares": {"台阶": 43.2, "步道": 32.1, "公路": 24.7}, "surfaceRuns": [{"start_km": 78.3, "end_km": 80.9, "category": "步道"}, {"start_km": 80.9, "end_km": 84.4, "category": "台阶"}, {"start_km": 84.4, "end_km": 86.4, "category": "公路"}], "ele": [752, 810, 901, 1047, 1132, 1143, 1162, 1181, 1151, 1041, 1014, 961, 873, 820, 764, 718, 675, 610, 554, 520, 499, 495, 474, 432, 353, 315, 298, 286], "features": "登天堂顶最高峰猴子岭，沿步道一路向上；之后下坡台阶为主；80.9 km 右转、81.68 km 左转，约 3.5 km 魔鬼阶梯下坡，部分台阶窄陡；之后盘山公路与台阶穿插下降，过小桥沿公园内部路到桃花源。"}, {"id": "CP10", "name": "高山漂流停车场", "short": "漂流场", "km": 92.4, "aid": 5.0, "cutoff": "2026-11-29T09:30:00+08:00", "note": "石门公园桃花源出站后以景区道路为主，约 1.2 km 后穿栈道桥底、跨过河道；进入山径约 2 km，绿树成荫；出山径进入盘山公路，一路下坡到漂流谷，部分弯道坡度陡。", "lat": 23.678643, "lon": 113.771643, "diff": 1, "dplus": 189.0, "dminus": 300.0, "minEle": 126, "maxEle": 445, "shares": {"公路": 66.7, "山径": 33.3}, "surfaceRuns": [{"start_km": 86.4, "end_km": 87.6, "category": "公路"}, {"start_km": 87.6, "end_km": 89.6, "category": "山径"}, {"start_km": 89.6, "end_km": 92.4, "category": "公路"}], "ele": [286, 289, 291, 293, 284, 275, 281, 331, 361, 368, 388, 393, 413, 440, 436, 422, 414, 398, 373, 333, 299, 256, 228, 194, 166, 145, 131, 126], "features": "石门公园桃花源出站后以景区道路为主，约 1.2 km 后穿栈道桥底、跨过河道；进入山径约 2 km，绿树成荫；出山径进入盘山公路，一路下坡到漂流谷，部分弯道坡度陡。"}, {"id": "FINISH", "name": "生态设计小镇（终点）", "short": "终点", "km": 99.5, "aid": 0.0, "cutoff": "2026-11-29T11:00:00+08:00", "note": "出站后走绿道，进绿道口注意台阶；最后一段以绿道为主，几乎无爬升，可慢跑；过桥后 2.5 km 到终点。", "lat": 23.701252, "lon": 113.723557, "diff": 1, "dplus": 10.0, "dminus": 63.0, "minEle": 65, "maxEle": 126, "shares": {"绿道": 100.0}, "surfaceRuns": [{"start_km": 92.4, "end_km": 99.5, "category": "绿道"}], "ele": [126, 123, 118, 115, 114, 110, 107, 103, 101, 98, 97, 95, 92, 90, 90, 85, 84, 83, 80, 79, 76, 74, 73, 70, 68, 66, 65, 65], "features": "出站后走绿道，进绿道口注意台阶；最后一段以绿道为主，几乎无爬升，可慢跑；过桥后 2.5 km 到终点。"}], "segments": [{"lengthKm": 12.3, "baseHours": 4.960016, "dplus": 1085.0, "dminus": 280.0, "maxEle": 1087, "minEle": 65}, {"lengthKm": 11.7, "baseHours": 5.105743, "dplus": 980.0, "dminus": 1002.0, "maxEle": 1073, "minEle": 415}, {"lengthKm": 7.1, "baseHours": 2.593777, "dplus": 258.0, "dminus": 627.0, "maxEle": 924, "minEle": 469}, {"lengthKm": 6.4, "baseHours": 2.041838, "dplus": 141.0, "dminus": 344.0, "maxEle": 530, "minEle": 328}, {"lengthKm": 10.6, "baseHours": 4.706409, "dplus": 942.0, "dminus": 955.0, "maxEle": 1125, "minEle": 327}, {"lengthKm": 11.5, "baseHours": 4.441984, "dplus": 778.0, "dminus": 471.0, "maxEle": 937, "minEle": 367}, {"lengthKm": 11.5, "baseHours": 4.118081, "dplus": 361.0, "dminus": 898.0, "maxEle": 893, "minEle": 179}, {"lengthKm": 7.2, "baseHours": 2.916159, "dplus": 664.0, "dminus": 60.0, "maxEle": 752, "minEle": 155}, {"lengthKm": 8.1, "baseHours": 3.413954, "dplus": 529.0, "dminus": 937.0, "maxEle": 1182, "minEle": 286}, {"lengthKm": 6.0, "baseHours": 2.167714, "dplus": 189.0, "dminus": 300.0, "maxEle": 445, "minEle": 126}, {"lengthKm": 7.1, "baseHours": 1.963997, "dplus": 10.0, "dminus": 63.0, "maxEle": 126, "minEle": 65}], "profile": {"km": [0.0, 0.152, 0.502, 0.634, 0.894, 1.233, 1.339, 1.601, 1.764, 2.082, 2.23, 2.331, 2.5, 2.733, 2.853, 3.0, 3.116, 3.304, 3.575, 3.829, 4.018, 4.104, 4.245, 4.395, 4.546, 4.661, 4.768, 4.86, 4.975, 5.083, 5.173, 5.262, 5.351, 5.433, 5.533, 5.686, 5.791, 5.865, 5.966, 6.057, 6.172, 6.286, 6.4, 6.465, 6.55, 6.642, 6.726, 6.803, 6.889, 7.012, 7.107, 7.202, 7.304, 7.393, 7.473, 7.562, 7.658, 7.775, 7.824, 7.887, 7.937, 8.046, 8.146, 8.261, 8.329, 8.452, 8.517, 8.634, 8.735, 8.843, 8.9, 8.97, 9.087, 9.16, 9.277, 9.373, 9.463, 9.548, 9.662, 9.765, 9.866, 9.93, 10.008, 10.124, 10.208, 10.344, 10.432, 10.523, 10.595, 10.656, 10.747, 10.856, 11.02, 11.093, 11.147, 11.231, 11.314, 11.376, 11.481, 11.605, 11.76, 11.87, 11.972, 12.031, 12.155, 12.327, 12.46, 12.555, 12.611, 12.655, 12.753, 12.864, 12.947, 13.014, 13.08, 13.173, 13.265, 13.38, 13.547, 13.67, 13.8, 13.98, 14.043, 14.105, 14.167, 14.306, 14.377, 14.466, 14.578, 14.693, 14.805, 14.966, 15.037, 15.129, 15.193, 15.259, 15.346, 15.399, 15.451, 15.54, 15.598, 15.666, 15.733, 15.789, 15.869, 15.95, 16.028, 16.097, 16.142, 16.248, 16.308, 16.362, 16.437, 16.496, 16.557, 16.653, 16.727, 16.794, 16.881, 16.929, 17.054, 17.125, 17.195, 17.248, 17.373, 17.488, 17.551, 17.637, 17.723, 17.832, 17.959, 18.127, 18.223, 18.31, 18.481, 18.626, 18.741, 18.885, 18.944, 19.077, 19.213, 19.337, 19.454, 19.616, 19.772, 19.921, 20.006, 20.136, 20.216, 20.375, 20.476, 20.56, 20.621, 20.764, 20.894, 21.016, 21.202, 21.287, 21.389, 21.528, 21.629, 21.691, 21.77, 21.887, 21.96, 22.078, 22.157, 22.279, 22.372, 22.485, 22.582, 22.661, 22.74, 22.851, 22.961, 23.057, 23.158, 23.346, 23.441, 23.559, 23.763, 23.887, 23.999, 24.092, 24.163, 24.276, 24.329, 24.46, 24.567, 24.675, 24.821, 24.943, 25.05, 25.111, 25.243, 25.336, 25.444, 25.517, 25.607, 25.697, 25.81, 25.903, 25.997, 26.13, 26.299, 26.43, 26.568, 26.64, 26.711, 26.813, 26.904, 27.016, 27.146, 27.271, 27.365, 27.478, 27.572, 27.66, 27.736, 27.828, 27.886, 27.979, 28.109, 28.254, 28.328, 28.434, 28.495, 28.572, 28.653, 28.749, 28.81, 28.861, 28.934, 29.029, 29.12, 29.217, 29.298, 29.396, 29.493, 29.619, 29.684, 29.76, 29.839, 29.998, 30.073, 30.207, 30.334, 30.501, 30.591, 30.726, 30.854, 30.956, 31.054, 31.127, 31.225, 31.285, 31.407, 31.475, 31.575, 31.725, 31.895, 31.981, 32.081, 32.165, 32.26, 32.361, 32.481, 32.55, 32.633, 32.724, 32.831, 32.891, 32.953, 33.056, 33.116, 33.201, 33.309, 33.394, 33.465, 33.51, 33.606, 33.691, 33.797, 33.857, 33.978, 34.041, 34.124, 34.31, 34.465, 34.578, 34.717, 34.783, 34.884, 34.971, 35.056, 35.205, 35.267, 35.356, 35.397, 35.493, 35.605, 35.735, 35.827, 35.932, 36.035, 36.133, 36.293, 36.422, 36.572, 36.691, 36.793, 36.924, 37.073, 37.223, 37.343, 37.48, 37.57, 37.675, 37.83, 37.978, 38.093, 38.233, 38.374, 38.489, 38.571, 38.717, 38.813, 38.929, 39.056, 39.17, 39.272, 39.346, 39.424, 39.501, 39.642, 39.759, 39.828, 39.941, 40.033, 40.124, 40.199, 40.287, 40.352, 40.452, 40.583, 40.707, 40.8, 40.889, 41.012, 41.084, 41.166, 41.246, 41.312, 41.417, 41.532, 41.617, 41.729, 41.844, 41.919, 41.967, 42.068, 42.201, 42.292, 42.445, 42.572, 42.651, 42.749, 42.827, 42.937, 43.034, 43.129, 43.201, 43.329, 43.41, 43.525, 43.643, 43.749, 43.845, 43.921, 44.006, 44.157, 44.27, 44.377, 44.493, 44.59, 44.705, 44.809, 44.901, 45.018, 45.124, 45.206, 45.278, 45.381, 45.478, 45.568, 45.674, 45.793, 45.866, 45.965, 46.071, 46.173, 46.272, 46.379, 46.458, 46.534, 46.644, 46.747, 46.846, 46.966, 47.03, 47.123, 47.199, 47.282, 47.38, 47.479, 47.568, 47.684, 47.803, 47.89, 47.958, 48.148, 48.402, 48.5, 48.596, 48.676, 48.819, 48.961, 49.098, 49.178, 49.247, 49.299, 49.398, 49.501, 49.582, 49.667, 49.792, 49.895, 49.983, 50.182, 50.271, 50.374, 50.47, 50.589, 50.747, 50.881, 50.979, 51.15, 51.211, 51.297, 51.419, 51.497, 51.575, 51.648, 51.728, 51.812, 51.898, 51.973, 52.038, 52.126, 52.232, 52.298, 52.441, 52.511, 52.58, 52.635, 52.705, 52.787, 52.86, 52.913, 52.981, 53.069, 53.171, 53.269, 53.331, 53.412, 53.484, 53.576, 53.645, 53.739, 53.832, 53.917, 53.978, 54.042, 54.137, 54.196, 54.269, 54.343, 54.428, 54.487, 54.558, 54.632, 54.73, 54.82, 54.896, 54.972, 55.022, 55.129, 55.256, 55.32, 55.419, 55.485, 55.565, 55.631, 55.714, 55.781, 55.834, 55.871, 55.97, 56.054, 56.188, 56.311, 56.43, 56.552, 56.668, 56.748, 56.85, 56.974, 57.11, 57.207, 57.284, 57.419, 57.498, 57.659, 57.788, 57.909, 58.013, 58.084, 58.169, 58.263, 58.358, 58.429, 58.536, 58.633, 58.803, 58.898, 58.991, 59.064, 59.168, 59.236, 59.309, 59.425, 59.551, 59.682, 59.766, 59.926, 60.015, 60.068, 60.132, 60.27, 60.403, 60.513, 60.581, 60.681, 60.755, 60.876, 60.985, 61.12, 61.199, 61.276, 61.383, 61.481, 61.632, 61.845, 62.011, 62.076, 62.191, 62.305, 62.372, 62.465, 62.501, 62.601, 62.676, 62.752, 62.837, 62.944, 63.027, 63.138, 63.212, 63.302, 63.394, 63.559, 63.64, 63.71, 63.855, 63.974, 64.075, 64.156, 64.254, 64.334, 64.42, 64.519, 64.634, 64.721, 64.798, 64.899, 64.969, 65.034, 65.092, 65.172, 65.246, 65.346, 65.431, 65.513, 65.563, 65.638, 65.713, 65.797, 65.86, 65.925, 65.987, 66.096, 66.157, 66.225, 66.329, 66.425, 66.528, 66.643, 66.766, 66.852, 66.904, 67.003, 67.148, 67.241, 67.332, 67.472, 67.554, 67.672, 67.752, 67.873, 67.948, 68.024, 68.089, 68.153, 68.266, 68.347, 68.466, 68.586, 68.653, 68.754, 68.888, 69.016, 69.078, 69.129, 69.187, 69.356, 69.479, 69.554, 69.627, 69.662, 69.725, 69.844, 69.917, 70.102, 70.202, 70.271, 70.35, 70.442, 70.476, 70.587, 70.72, 70.871, 71.005, 71.142, 71.239, 71.343, 71.5, 71.646, 71.792, 71.966, 72.049, 72.212, 72.323, 72.418, 72.493, 72.578, 72.655, 72.784, 72.918, 72.986, 73.079, 73.178, 73.3, 73.373, 73.465, 73.606, 73.689, 73.748, 73.793, 73.855, 73.929, 74.054, 74.114, 74.222, 74.302, 74.39, 74.44, 74.502, 74.599, 74.676, 74.76, 74.837, 74.971, 75.072, 75.168, 75.241, 75.341, 75.403, 75.489, 75.58, 75.656, 75.733, 75.785, 75.866, 76.027, 76.096, 76.161, 76.25, 76.328, 76.435, 76.519, 76.581, 76.682, 76.799, 76.861, 76.96, 77.058, 77.161, 77.23, 77.306, 77.371, 77.49, 77.581, 77.672, 77.725, 77.813, 77.884, 78.025, 78.157, 78.224, 78.288, 78.354, 78.429, 78.553, 78.635, 78.786, 78.854, 78.955, 79.001, 79.062, 79.11, 79.175, 79.214, 79.285, 79.325, 79.379, 79.459, 79.535, 79.596, 79.68, 79.755, 79.857, 79.927, 79.992, 80.05, 80.108, 80.199, 80.287, 80.338, 80.405, 80.507, 80.593, 80.714, 80.83, 80.882, 80.938, 81.006, 81.124, 81.24, 81.308, 81.394, 81.457, 81.551, 81.663, 81.76, 81.869, 81.933, 82.006, 82.084, 82.159, 82.259, 82.355, 82.428, 82.516, 82.609, 82.737, 82.852, 82.917, 83.003, 83.094, 83.159, 83.258, 83.343, 83.453, 83.544, 83.663, 83.774, 83.84, 83.934, 84.062, 84.144, 84.353, 84.444, 84.555, 84.651, 84.734, 84.83, 84.922, 85.055, 85.124, 85.156, 85.204, 85.259, 85.373, 85.471, 85.541, 85.615, 85.662, 85.732, 85.868, 86.036, 86.225, 86.409, 86.596, 86.765, 86.905, 87.095, 87.172, 87.291, 87.402, 87.528, 87.577, 87.628, 87.678, 87.766, 87.86, 87.941, 88.009, 88.116, 88.2, 88.32, 88.4, 88.48, 88.539, 88.601, 88.671, 88.746, 88.813, 88.88, 88.948, 89.04, 89.101, 89.161, 89.224, 89.299, 89.383, 89.537, 89.67, 89.735, 89.88, 89.985, 90.078, 90.23, 90.353, 90.547, 90.652, 90.83, 90.876, 90.936, 91.063, 91.135, 91.228, 91.32, 91.415, 91.698, 91.909, 92.113, 92.243, 92.473, 92.7, 92.809, 93.064, 93.296, 93.401, 93.608, 93.813, 93.997, 94.104, 94.276, 94.617, 94.819, 94.987, 95.129, 95.244, 95.547, 95.733, 95.973, 96.147, 96.284, 96.434, 96.572, 96.79, 96.939, 97.086, 97.256, 97.546, 97.721, 97.939, 98.201, 98.429, 98.652, 98.855, 99.134, 99.249], "ele": [65, 65, 67, 69, 71, 73, 74, 76, 79, 80, 81, 83, 84, 84, 85, 86, 90, 91, 91, 93, 96, 99, 108, 121, 133, 143, 151, 162, 174, 189, 204, 214, 224, 233, 251, 273, 293, 306, 316, 332, 354, 378, 403, 418, 433, 452, 459, 456, 470, 495, 510, 519, 531, 543, 561, 593, 634, 677, 716, 751, 784, 811, 834, 865, 896, 916, 928, 943, 975, 1008, 1025, 1040, 1053, 1050, 1043, 1044, 1056, 1068, 1078, 1087, 1081, 1076, 1073, 1069, 1061, 1052, 1046, 1037, 1028, 1022, 1018, 1019, 1021, 1017, 1005, 986, 967, 945, 930, 923, 913, 903, 895, 889, 878, 879, 904, 937, 962, 980, 989, 1001, 1027, 1049, 1067, 1072, 1055, 1037, 1025, 1027, 1034, 1028, 1005, 977, 966, 969, 977, 990, 1007, 1007, 996, 1003, 1027, 1031, 1012, 990, 966, 946, 928, 905, 881, 862, 846, 823, 800, 784, 762, 745, 735, 727, 706, 681, 667, 655, 630, 599, 577, 566, 555, 543, 529, 524, 523, 526, 526, 525, 524, 521, 535, 558, 577, 591, 604, 615, 604, 586, 569, 543, 531, 526, 512, 506, 501, 491, 480, 468, 465, 461, 455, 447, 435, 421, 416, 428, 448, 461, 469, 486, 496, 505, 525, 546, 557, 572, 593, 609, 626, 655, 687, 716, 743, 768, 789, 807, 820, 832, 842, 860, 865, 872, 886, 892, 896, 882, 871, 865, 862, 871, 889, 904, 919, 924, 915, 912, 909, 903, 902, 901, 894, 885, 895, 911, 913, 915, 912, 904, 897, 883, 865, 851, 837, 822, 802, 779, 763, 751, 738, 725, 713, 700, 690, 681, 670, 663, 659, 649, 643, 646, 648, 640, 626, 610, 593, 573, 562, 562, 558, 547, 523, 504, 492, 476, 469, 478, 491, 502, 522, 541, 551, 556, 548, 532, 529, 530, 524, 515, 507, 509, 511, 498, 488, 481, 479, 484, 480, 472, 474, 483, 488, 488, 480, 474, 469, 463, 466, 468, 456, 446, 443, 437, 434, 437, 431, 426, 428, 429, 424, 419, 410, 409, 427, 433, 422, 415, 411, 408, 412, 420, 426, 435, 431, 415, 399, 391, 389, 383, 377, 368, 357, 350, 339, 335, 337, 333, 331, 328, 328, 331, 332, 341, 347, 359, 356, 337, 339, 355, 368, 353, 338, 347, 364, 375, 382, 391, 425, 454, 475, 501, 514, 526, 535, 546, 555, 559, 570, 577, 576, 587, 604, 612, 616, 620, 623, 627, 629, 627, 628, 634, 638, 642, 657, 669, 673, 680, 700, 729, 754, 774, 807, 851, 883, 906, 934, 950, 965, 989, 1002, 1014, 1030, 1055, 1090, 1114, 1122, 1124, 1118, 1091, 1049, 1008, 965, 925, 893, 861, 816, 776, 744, 705, 668, 639, 615, 594, 575, 560, 553, 553, 545, 533, 527, 527, 513, 496, 469, 442, 424, 400, 382, 373, 370, 371, 369, 365, 367, 374, 383, 400, 412, 419, 431, 435, 434, 432, 434, 438, 439, 435, 440, 441, 436, 440, 454, 460, 457, 458, 464, 474, 481, 487, 498, 501, 502, 508, 514, 524, 533, 549, 562, 564, 567, 578, 595, 611, 611, 605, 600, 596, 596, 599, 602, 607, 615, 620, 628, 635, 636, 636, 637, 635, 634, 642, 653, 655, 659, 664, 663, 668, 668, 656, 647, 644, 645, 645, 650, 668, 683, 693, 701, 708, 713, 714, 713, 713, 701, 682, 670, 670, 672, 671, 668, 658, 652, 643, 629, 629, 637, 640, 649, 669, 686, 698, 716, 742, 768, 798, 846, 887, 920, 937, 929, 911, 894, 882, 869, 851, 837, 815, 792, 777, 763, 751, 746, 734, 716, 700, 688, 680, 684, 697, 699, 702, 710, 717, 726, 737, 742, 740, 742, 755, 767, 767, 756, 746, 740, 736, 741, 750, 752, 756, 759, 758, 760, 764, 777, 796, 808, 810, 806, 797, 779, 767, 767, 775, 787, 791, 791, 794, 798, 798, 806, 811, 807, 814, 832, 853, 865, 876, 892, 886, 859, 830, 800, 776, 766, 763, 754, 747, 742, 736, 723, 716, 713, 699, 684, 681, 669, 651, 638, 625, 610, 600, 593, 588, 579, 565, 564, 566, 561, 559, 553, 545, 538, 533, 527, 525, 527, 526, 526, 527, 521, 509, 493, 475, 462, 448, 436, 421, 398, 377, 361, 355, 354, 351, 338, 321, 290, 275, 263, 240, 223, 217, 216, 203, 187, 182, 178, 176, 173, 170, 166, 163, 159, 155, 158, 166, 175, 185, 196, 207, 216, 230, 237, 235, 241, 249, 253, 259, 276, 285, 290, 295, 292, 300, 315, 319, 320, 325, 337, 341, 344, 350, 360, 362, 368, 376, 383, 402, 412, 416, 426, 437, 442, 445, 452, 457, 457, 474, 493, 506, 517, 534, 549, 549, 556, 577, 599, 607, 610, 622, 641, 646, 645, 648, 654, 669, 686, 698, 703, 705, 718, 736, 744, 748, 758, 773, 794, 818, 849, 884, 919, 949, 977, 1003, 1030, 1056, 1084, 1105, 1119, 1127, 1134, 1141, 1150, 1150, 1141, 1150, 1162, 1165, 1162, 1154, 1159, 1176, 1181, 1169, 1164, 1146, 1109, 1082, 1061, 1041, 1021, 1013, 1014, 1005, 989, 974, 946, 917, 887, 860, 835, 825, 826, 811, 791, 778, 761, 742, 725, 713, 707, 695, 678, 665, 646, 620, 600, 582, 559, 548, 540, 527, 519, 512, 496, 492, 492, 493, 484, 470, 475, 476, 463, 448, 432, 411, 386, 364, 341, 324, 320, 319, 310, 301, 291, 286, 288, 289, 291, 293, 292, 284, 276, 274, 265, 266, 271, 281, 298, 323, 344, 354, 361, 368, 368, 367, 377, 385, 391, 393, 391, 398, 403, 409, 415, 420, 429, 442, 444, 434, 427, 422, 417, 412, 404, 394, 378, 349, 327, 308, 291, 278, 259, 244, 233, 225, 209, 177, 150, 137, 128, 125, 122, 119, 116, 115, 115, 112, 109, 107, 105, 103, 100, 98, 97, 98, 97, 92, 91, 91, 90, 86, 85, 84, 83, 82, 81, 79, 78, 75, 74, 73, 71, 69, 66, 65, 65], "baseH": [0.0, 0.014779, 0.114932, 0.152642, 0.226979, 0.323632, 0.353968, 0.428786, 0.475556, 0.566177, 0.608504, 0.637571, 0.685741, 0.752368, 0.786463, 0.828707, 0.861751, 0.915344, 0.992792, 1.0653, 1.119328, 1.144026, 1.184215, 1.241607, 1.305677, 1.345208, 1.386604, 1.423106, 1.480752, 1.534999, 1.580236, 1.624822, 1.663561, 1.704559, 1.754704, 1.825603, 1.897948, 1.936528, 1.985333, 2.027236, 2.084868, 2.149409, 2.231301, 2.277731, 2.338341, 2.384284, 2.436981, 2.464252, 2.48872, 2.558849, 2.606409, 2.654182, 2.704916, 2.744912, 2.783897, 2.84187, 2.91015, 2.993756, 3.02888, 3.073873, 3.110057, 3.187273, 3.249347, 3.330554, 3.379424, 3.466342, 3.49934, 3.553768, 3.609903, 3.687556, 3.727688, 3.778035, 3.842821, 3.871644, 3.906382, 3.934438, 3.967982, 4.010301, 4.066163, 4.105921, 4.143426, 4.162257, 4.185708, 4.218957, 4.243118, 4.288424, 4.315194, 4.342973, 4.368657, 4.392158, 4.423394, 4.454595, 4.501386, 4.522297, 4.537603, 4.572592, 4.612166, 4.641489, 4.68874, 4.73227, 4.779226, 4.811695, 4.846819, 4.864739, 4.902587, 4.953306, 5.009527, 5.069077, 5.108948, 5.140276, 5.209496, 5.257602, 5.30539, 5.353382, 5.400042, 5.461658, 5.495524, 5.54431, 5.600731, 5.637917, 5.684923, 5.736471, 5.758944, 5.787433, 5.81739, 5.86823, 5.891354, 5.933185, 5.989187, 6.037739, 6.070581, 6.117546, 6.145692, 6.208977, 6.235998, 6.266247, 6.307618, 6.332709, 6.357403, 6.399966, 6.42775, 6.459923, 6.491694, 6.51857, 6.556529, 6.595151, 6.629691, 6.660758, 6.682295, 6.723657, 6.743529, 6.769222, 6.804935, 6.833241, 6.861982, 6.907862, 6.943102, 6.974735, 7.013429, 7.032177, 7.08041, 7.107606, 7.131228, 7.146417, 7.181971, 7.214865, 7.233027, 7.257541, 7.28697, 7.341534, 7.426586, 7.502057, 7.541734, 7.585015, 7.648225, 7.702601, 7.747053, 7.807244, 7.829984, 7.874625, 7.916408, 7.961341, 7.9952, 8.044447, 8.090788, 8.136219, 8.162144, 8.199919, 8.223173, 8.270375, 8.303233, 8.335756, 8.359318, 8.409564, 8.470384, 8.531512, 8.59728, 8.625152, 8.674594, 8.727006, 8.767006, 8.806749, 8.86327, 8.928473, 8.967377, 9.045491, 9.086235, 9.173271, 9.240241, 9.320456, 9.389882, 9.446519, 9.502729, 9.581799, 9.637195, 9.685472, 9.7351, 9.819231, 9.855742, 9.89113, 9.970188, 10.00901, 10.051275, 10.08204, 10.109383, 10.150753, 10.166909, 10.205746, 10.254592, 10.308866, 10.376596, 10.426887, 10.458138, 10.476592, 10.515093, 10.541608, 10.574223, 10.595288, 10.620879, 10.652374, 10.686636, 10.728679, 10.775832, 10.814654, 10.862951, 10.900737, 10.941439, 10.96601, 10.994394, 11.041829, 11.07302, 11.116304, 11.162497, 11.214906, 11.251394, 11.288576, 11.323059, 11.356854, 11.386252, 11.421968, 11.444227, 11.480236, 11.521276, 11.564547, 11.586673, 11.618205, 11.636849, 11.663979, 11.687284, 11.714438, 11.733816, 11.754434, 11.78949, 11.83456, 11.871651, 11.903175, 11.926304, 11.955115, 11.992478, 12.050034, 12.075109, 12.109881, 12.144072, 12.196052, 12.227647, 12.288396, 12.341612, 12.425337, 12.470274, 12.521369, 12.558274, 12.593778, 12.631229, 12.652909, 12.680963, 12.698744, 12.744011, 12.764199, 12.79294, 12.837004, 12.892759, 12.91813, 12.947812, 12.973368, 13.004123, 13.033906, 13.069895, 13.089668, 13.131332, 13.165896, 13.19712, 13.215162, 13.234257, 13.265366, 13.283284, 13.307692, 13.339353, 13.372181, 13.398349, 13.412011, 13.441253, 13.465361, 13.495759, 13.513836, 13.549218, 13.567399, 13.590926, 13.646054, 13.690505, 13.724265, 13.77282, 13.805672, 13.84395, 13.876258, 13.90435, 13.947017, 13.964794, 13.995796, 14.011626, 14.059398, 14.10284, 14.141478, 14.182765, 14.222787, 14.253471, 14.282154, 14.329887, 14.368032, 14.412439, 14.447939, 14.479126, 14.522543, 14.564984, 14.608073, 14.642248, 14.681265, 14.706947, 14.737206, 14.781281, 14.826656, 14.870993, 14.91994, 14.971962, 15.013897, 15.043814, 15.099763, 15.147627, 15.191803, 15.240753, 15.277828, 15.322615, 15.359695, 15.398753, 15.431361, 15.501994, 15.58366, 15.633579, 15.714281, 15.772629, 15.818512, 15.855843, 15.900104, 15.932521, 15.976556, 16.017339, 16.070973, 16.101902, 16.130986, 16.191493, 16.227441, 16.266898, 16.293013, 16.318172, 16.35195, 16.384947, 16.409188, 16.441326, 16.473953, 16.502384, 16.521026, 16.562, 16.62849, 16.659385, 16.703314, 16.760054, 16.799932, 16.87005, 16.925677, 17.003858, 17.073712, 17.141332, 17.192966, 17.283848, 17.339798, 17.397728, 17.456793, 17.520619, 17.568513, 17.606736, 17.661516, 17.769136, 17.84998, 17.906802, 17.947164, 17.974842, 18.014751, 18.064007, 18.108029, 18.16346, 18.2139, 18.253005, 18.287382, 18.33651, 18.382842, 18.425368, 18.475874, 18.532483, 18.567365, 18.614352, 18.6649, 18.706918, 18.745184, 18.784064, 18.807154, 18.829425, 18.866576, 18.902392, 18.930665, 18.966195, 18.988252, 19.030587, 19.066776, 19.106594, 19.152932, 19.200381, 19.236436, 19.273782, 19.307673, 19.332496, 19.352107, 19.407173, 19.479911, 19.512719, 19.554926, 19.595026, 19.657192, 19.708653, 19.761834, 19.784856, 19.804368, 19.819321, 19.847675, 19.877073, 19.900211, 19.924564, 19.960071, 19.989553, 20.015778, 20.090752, 20.125111, 20.157395, 20.184972, 20.222711, 20.283865, 20.33072, 20.360549, 20.41954, 20.443078, 20.471544, 20.506242, 20.533351, 20.56332, 20.597236, 20.637444, 20.690023, 20.727696, 20.74927, 20.771544, 20.814064, 20.877839, 20.911397, 20.952432, 20.972632, 20.993528, 21.009738, 21.029581, 21.053046, 21.074997, 21.096951, 21.127401, 21.16157, 21.203058, 21.242452, 21.260201, 21.283352, 21.303945, 21.330194, 21.349893, 21.396198, 21.435716, 21.460059, 21.480122, 21.504836, 21.532822, 21.554167, 21.575903, 21.601953, 21.632539, 21.649799, 21.670072, 21.691062, 21.730611, 21.77584, 21.813653, 21.851821, 21.87713, 21.92171, 21.965109, 21.983386, 22.011685, 22.031091, 22.060621, 22.088949, 22.121447, 22.140596, 22.155506, 22.166268, 22.197481, 22.225487, 22.264636, 22.306511, 22.345631, 22.385529, 22.423664, 22.446474, 22.497279, 22.55906, 22.626302, 22.67038, 22.709101, 22.798102, 22.847638, 22.962887, 23.054971, 23.141396, 23.212636, 23.240924, 23.272261, 23.314386, 23.354426, 23.38171, 23.422811, 23.460576, 23.525717, 23.558646, 23.602943, 23.631917, 23.672068, 23.695114, 23.718229, 23.763056, 23.811595, 23.859367, 23.890357, 23.939471, 23.973472, 23.999814, 24.028057, 24.069352, 24.117397, 24.155429, 24.184933, 24.23169, 24.254692, 24.289171, 24.33319, 24.389162, 24.423021, 24.445692, 24.482314, 24.514726, 24.559765, 24.620522, 24.668959, 24.694282, 24.729522, 24.761932, 24.781024, 24.807584, 24.818007, 24.857616, 24.900871, 24.954546, 24.992698, 25.024838, 25.048866, 25.090098, 25.118314, 25.153005, 25.179351, 25.242473, 25.273765, 25.294712, 25.33614, 25.37009, 25.399119, 25.422884, 25.460434, 25.487931, 25.51258, 25.555692, 25.613447, 25.656811, 25.695869, 25.746309, 25.779085, 25.807352, 25.835005, 25.873166, 25.908298, 25.956074, 25.982273, 26.007414, 26.023442, 26.052446, 26.076417, 26.105922, 26.129927, 26.153224, 26.171909, 26.21713, 26.240593, 26.261007, 26.299128, 26.340609, 26.374255, 26.41688, 26.462837, 26.489132, 26.504932, 26.534878, 26.58305, 26.615668, 26.641564, 26.681608, 26.705182, 26.738904, 26.761656, 26.798201, 26.820258, 26.843469, 26.863317, 26.881756, 26.91415, 26.937111, 26.971075, 27.005321, 27.025754, 27.064678, 27.116545, 27.162002, 27.185712, 27.208051, 27.235739, 27.306786, 27.356935, 27.387764, 27.415897, 27.428172, 27.446913, 27.482586, 27.510451, 27.590692, 27.634079, 27.660487, 27.695451, 27.739497, 27.753229, 27.792483, 27.831726, 27.881616, 27.926499, 27.96565, 27.993269, 28.023106, 28.067935, 28.1096, 28.151319, 28.201039, 28.224619, 28.271284, 28.310261, 28.341805, 28.375975, 28.418527, 28.457086, 28.517681, 28.575146, 28.601679, 28.640348, 28.668665, 28.713703, 28.741785, 28.772228, 28.838709, 28.88069, 28.910023, 28.927811, 28.95099, 28.972192, 29.030142, 29.058858, 29.093169, 29.116193, 29.154899, 29.179853, 29.204988, 29.237341, 29.27004, 29.310103, 29.332215, 29.382548, 29.41951, 29.455978, 29.492404, 29.537832, 29.557193, 29.600094, 29.642289, 29.671104, 29.692915, 29.715257, 29.746802, 29.81144, 29.843176, 29.888648, 29.941505, 29.980609, 30.045182, 30.083254, 30.100852, 30.147538, 30.227443, 30.258369, 30.30025, 30.329774, 30.381472, 30.416137, 30.447136, 30.465726, 30.499553, 30.53739, 30.582921, 30.609489, 30.652287, 30.676021, 30.723914, 30.787256, 30.820623, 30.853071, 30.885877, 30.923459, 30.985561, 31.034518, 31.142334, 31.180358, 31.252231, 31.285, 31.32842, 31.362872, 31.409196, 31.437492, 31.488106, 31.516463, 31.555304, 31.610169, 31.648503, 31.679175, 31.715575, 31.751813, 31.782047, 31.802913, 31.830226, 31.859421, 31.881232, 31.908069, 31.934208, 31.957068, 32.000858, 32.040058, 32.069707, 32.106119, 32.155165, 32.179723, 32.206645, 32.238919, 32.292932, 32.337856, 32.358336, 32.382733, 32.406462, 32.442809, 32.491821, 32.537842, 32.589845, 32.620231, 32.655009, 32.692115, 32.721736, 32.751055, 32.78822, 32.816302, 32.850399, 32.891639, 32.944813, 32.984962, 33.008656, 33.03507, 33.070383, 33.096129, 33.138208, 33.174768, 33.226769, 33.261994, 33.317195, 33.359907, 33.382015, 33.417569, 33.466036, 33.489961, 33.557697, 33.585343, 33.617029, 33.644487, 33.668971, 33.704485, 33.738031, 33.780889, 33.800985, 33.811976, 33.834564, 33.860922, 33.915011, 33.961845, 33.99506, 34.030507, 34.052802, 34.080767, 34.120862, 34.178694, 34.233084, 34.286203, 34.339764, 34.388085, 34.427893, 34.482106, 34.504385, 34.538335, 34.571691, 34.608659, 34.622617, 34.639994, 34.656452, 34.695731, 34.74283, 34.792371, 34.841165, 34.913882, 34.950193, 34.994578, 35.022565, 35.045529, 35.062231, 35.091135, 35.126234, 35.158181, 35.177969, 35.196952, 35.221396, 35.262739, 35.285932, 35.309196, 35.333688, 35.368004, 35.410103, 35.459525, 35.500074, 35.519623, 35.56332, 35.593132, 35.620267, 35.666577, 35.704217, 35.778891, 35.824417, 35.895014, 35.911064, 35.937484, 35.992298, 36.020114, 36.056076, 36.08983, 36.124129, 36.228397, 36.297254, 36.365648, 36.404616, 36.47232, 36.537155, 36.568355, 36.641064, 36.707371, 36.737432, 36.796567, 36.855126, 36.907787, 36.938357, 36.987441, 37.084779, 37.142527, 37.190407, 37.23105, 37.263987, 37.350669, 37.403694, 37.472172, 37.521887, 37.561161, 37.604032, 37.643355, 37.70581, 37.748218, 37.790342, 37.838886, 37.921747, 37.971622, 38.033854, 38.108751, 38.173944, 38.237573, 38.295806, 38.375348, 38.408532]}, "notes": [], "gpxName": "course.gpx", "totalKmGpx": 99.25, "totalDplusGpx": 5937, "builtAt": "2026-11-25 20:40", "surface": {"overall": {"山径": 30.2, "机耕路": 25.3, "公路": 17.4, "绿道": 12.5, "台阶": 10.6, "步道": 4.1}, "runs": [{"start_km": 0, "end_km": 4.1, "category": "绿道", "confidence": "official-roadbook"}, {"start_km": 4.1, "end_km": 10.5, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 10.5, "end_km": 15.0, "category": "台阶", "confidence": "official-roadbook"}, {"start_km": 15.0, "end_km": 17.0, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 17.0, "end_km": 19.0, "category": "机耕路", "confidence": "official-roadbook"}, {"start_km": 19.0, "end_km": 21.5, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 21.5, "end_km": 24.0, "category": "台阶", "confidence": "official-roadbook"}, {"start_km": 24.0, "end_km": 30.0, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 30.0, "end_km": 32.3, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 32.3, "end_km": 34.8, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 34.8, "end_km": 35.3, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 35.3, "end_km": 36.0, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 36.0, "end_km": 37.5, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 37.5, "end_km": 39.0, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 39.0, "end_km": 43.2, "category": "机耕路", "confidence": "official-roadbook"}, {"start_km": 43.2, "end_km": 47.6, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 47.6, "end_km": 49.1, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 49.1, "end_km": 53.0, "category": "机耕路", "confidence": "official-roadbook"}, {"start_km": 53.0, "end_km": 54.5, "category": "步道", "confidence": "official-roadbook"}, {"start_km": 54.5, "end_km": 57.5, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 57.5, "end_km": 62.4, "category": "机耕路", "confidence": "official-roadbook"}, {"start_km": 62.4, "end_km": 66.9, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 66.9, "end_km": 71.1, "category": "机耕路", "confidence": "official-roadbook"}, {"start_km": 71.1, "end_km": 72.3, "category": "绿道", "confidence": "official-roadbook"}, {"start_km": 72.3, "end_km": 78.3, "category": "机耕路", "confidence": "official-roadbook"}, {"start_km": 78.3, "end_km": 80.9, "category": "步道", "confidence": "official-roadbook"}, {"start_km": 80.9, "end_km": 84.4, "category": "台阶", "confidence": "official-roadbook"}, {"start_km": 84.4, "end_km": 87.6, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 87.6, "end_km": 89.6, "category": "山径", "confidence": "official-roadbook"}, {"start_km": 89.6, "end_km": 92.4, "category": "公路", "confidence": "official-roadbook"}, {"start_km": 92.4, "end_km": 99.5, "category": "绿道", "confidence": "official-roadbook"}], "per_cp": [{"cp": "CP1", "name": "五指山月牙湖北岸", "start_km": 0.0, "end_km": 12.3, "shares": {"山径": 52.0, "绿道": 33.3, "台阶": 14.6}}, {"cp": "CP2", "name": "月牙湖", "start_km": 12.3, "end_km": 24.0, "shares": {"台阶": 44.4, "公路": 21.4, "山径": 17.1, "机耕路": 17.1}}, {"cp": "CP3", "name": "瓦坑", "start_km": 24.0, "end_km": 31.1, "shares": {"山径": 84.5, "公路": 15.5}}, {"cp": "CP4", "name": "下溪村", "start_km": 31.1, "end_km": 37.5, "shares": {"山径": 50.0, "公路": 50.0}}, {"cp": "CP5", "name": "溪头村双水驿站", "start_km": 37.5, "end_km": 48.1, "shares": {"山径": 55.7, "机耕路": 39.6, "公路": 4.7}}, {"cp": "CP6", "name": "尧社", "start_km": 48.1, "end_km": 59.6, "shares": {"机耕路": 52.2, "公路": 34.8, "步道": 13.0}}, {"cp": "CP7", "name": "影村散围", "start_km": 59.6, "end_km": 71.1, "shares": {"机耕路": 60.9, "山径": 39.1}}, {"cp": "CP8", "name": "天堂顶机耕路口", "start_km": 71.1, "end_km": 78.3, "shares": {"机耕路": 83.3, "绿道": 16.7}}, {"cp": "CP9", "name": "石门公园桃花源", "start_km": 78.3, "end_km": 86.4, "shares": {"台阶": 43.2, "步道": 32.1, "公路": 24.7}}, {"cp": "CP10", "name": "高山漂流停车场", "start_km": 86.4, "end_km": 92.4, "shares": {"公路": 66.7, "山径": 33.3}}, {"cp": "FINISH", "name": "生态设计小镇（终点）", "start_km": 92.4, "end_km": 99.5, "shares": {"绿道": 100.0}}], "categories": {"绿道": {"color": "#0891B2", "label": "绿道"}, "公路": {"color": "#1D4ED8", "label": "公路"}, "步道": {"color": "#9CA3AF", "label": "步道"}, "台阶": {"color": "#DC2626", "label": "台阶"}, "山径": {"color": "#15803D", "label": "山径"}, "机耕路": {"color": "#CA8A04", "label": "机耕路"}}, "coverage": 100, "manual_notes": ["2026 官方路书赛道解析：绿道、公路、步道、台阶（含魔鬼阶梯）、山径、机耕路。"]}, "track": [[23.701252, 113.723557, 0.0], [23.70042, 113.722908, 0.115], [23.699753, 113.723961, 0.248], [23.698866, 113.726257, 0.502], [23.698399, 113.727036, 0.597], [23.697927, 113.727638, 0.679], [23.696875, 113.729408, 0.894], [23.695827, 113.730309, 1.048], [23.693941, 113.730888, 1.268], [23.693363, 113.731171, 1.339], [23.691679, 113.731369, 1.528], [23.690563, 113.731773, 1.66], [23.689672, 113.732071, 1.764], [23.687908, 113.733208, 1.993], [23.687021, 113.73394, 2.12], [23.686632, 113.734795, 2.23], [23.686787, 113.735558, 2.31], [23.68708, 113.736412, 2.403], [23.686918, 113.737053, 2.5], [23.687525, 113.738655, 2.677], [23.687786, 113.739502, 2.77], [23.687456, 113.740196, 2.853], [23.686701, 113.740448, 2.941], [23.685759, 113.740837, 3.054], [23.685251, 113.741081, 3.116], [23.684843, 113.741516, 3.183], [23.68516, 113.743553, 3.402], [23.686087, 113.744911, 3.575], [23.685808, 113.746078, 3.702], [23.684448, 113.747734, 3.931], [23.683805, 113.748184, 4.018], [23.684151, 113.748566, 4.077], [23.684835, 113.748718, 4.156], [23.685354, 113.748444, 4.245], [23.685072, 113.749359, 4.346], [23.685539, 113.750015, 4.433], [23.68655, 113.750069, 4.546], [23.687307, 113.750237, 4.637], [23.687824, 113.750214, 4.699], [23.688339, 113.750504, 4.768], [23.688816, 113.750664, 4.83], [23.689211, 113.751038, 4.893], [23.689825, 113.75145, 4.975], [23.690367, 113.751678, 5.041], [23.690863, 113.752029, 5.114], [23.691153, 113.752449, 5.173], [23.691288, 113.752991, 5.231], [23.691603, 113.753639, 5.306], [23.691795, 113.75399, 5.351], [23.692072, 113.754318, 5.398], [23.692221, 113.754959, 5.466], [23.692167, 113.755577, 5.533], [23.692585, 113.756256, 5.642], [23.692661, 113.755608, 5.713], [23.693344, 113.755447, 5.791], [23.693098, 113.755745, 5.84], [23.693155, 113.756317, 5.903], [23.693325, 113.756462, 5.966], [23.693487, 113.756172, 6.02], [23.693636, 113.756844, 6.091], [23.694038, 113.757492, 6.172], [23.694407, 113.757851, 6.248], [23.694363, 113.757301, 6.311], [23.695034, 113.75724, 6.4], [23.695145, 113.757462, 6.444], [23.695127, 113.757782, 6.481], [23.695499, 113.758278, 6.55], [23.695524, 113.75882, 6.617], [23.695938, 113.758873, 6.664], [23.695946, 113.759285, 6.726], [23.69589, 113.759758, 6.78], [23.696159, 113.760193, 6.835], [23.696585, 113.760078, 6.889], [23.697062, 113.759995, 6.944], [23.698023, 113.759651, 7.06], [23.6984, 113.75975, 7.107], [23.698793, 113.759598, 7.157], [23.699295, 113.759804, 7.224], [23.699945, 113.76004, 7.304], [23.699886, 113.76062, 7.371], [23.7001, 113.761223, 7.442], [23.700163, 113.76136, 7.473], [23.700706, 113.761185, 7.537], [23.701307, 113.761047, 7.605], [23.701748, 113.760895, 7.658], [23.702345, 113.761078, 7.728], [23.702908, 113.761192, 7.793], [23.703163, 113.761276, 7.824], [23.703447, 113.761276, 7.856], [23.703831, 113.761436, 7.903], [23.704067, 113.761635, 7.937], [23.704504, 113.762032, 8.002], [23.705027, 113.762489, 8.079], [23.705528, 113.762276, 8.146], [23.70607, 113.761757, 8.241], [23.706533, 113.761726, 8.294], [23.706829, 113.761688, 8.329], [23.707373, 113.76207, 8.406], [23.707563, 113.762581, 8.471], [23.707546, 113.763, 8.517], [23.707458, 113.763863, 8.608], [23.707607, 113.764275, 8.66], [23.70805, 113.764771, 8.735], [23.708801, 113.765137, 8.829], [23.709082, 113.765213, 8.863], [23.709042, 113.765511, 8.9], [23.708803, 113.765739, 8.938], [23.708755, 113.766487, 9.018], [23.70883, 113.767151, 9.087], [23.708771, 113.767662, 9.142], [23.708836, 113.768227, 9.201], [23.7087, 113.768936, 9.277], [23.708704, 113.769249, 9.312], [23.708456, 113.769981, 9.397], [23.708483, 113.770622, 9.463], [23.708792, 113.771141, 9.53], [23.708878, 113.771904, 9.61], [23.70896, 113.772369, 9.662], [23.708847, 113.773071, 9.736], [23.708738, 113.77388, 9.822], [23.708569, 113.774208, 9.866], [23.708715, 113.774513, 9.911], [23.708822, 113.774918, 9.954], [23.708904, 113.775368, 10.008], [23.709005, 113.776161, 10.1], [23.709019, 113.776672, 10.154], [23.709024, 113.777199, 10.208], [23.708849, 113.777802, 10.278], [23.708755, 113.778526, 10.355], [23.708521, 113.77919, 10.432], [23.708353, 113.779694, 10.497], [23.708038, 113.779938, 10.542], [23.707571, 113.779984, 10.595], [23.707354, 113.78035, 10.643], [23.707542, 113.780632, 10.681], [23.708075, 113.78083, 10.747], [23.708559, 113.781403, 10.83], [23.709034, 113.782127, 10.927], [23.709433, 113.782913, 11.02], [23.709427, 113.783401, 11.073], [23.70912, 113.783554, 11.112], [23.709032, 113.783867, 11.147], [23.708796, 113.78434, 11.211], [23.708832, 113.784721, 11.253], [23.708704, 113.785286, 11.314], [23.708458, 113.785294, 11.344], [23.707899, 113.785172, 11.41], [23.707617, 113.785591, 11.481], [23.707537, 113.78643, 11.569], [23.707376, 113.78717, 11.648], [23.707502, 113.788254, 11.76], [23.707375, 113.789085, 11.847], [23.707584, 113.789513, 11.898], [23.707762, 113.790184, 11.972], [23.707855, 113.790604, 12.018], [23.70813, 113.79081, 12.057], [23.708567, 113.791359, 12.155], [23.709421, 113.79229, 12.299], [23.709442, 113.792015, 12.394], [23.709524, 113.791527, 12.46], [23.710211, 113.791626, 12.538], [23.710228, 113.791222, 12.585], [23.710138, 113.791008, 12.611], [23.710104, 113.790779, 12.644], [23.710232, 113.790543, 12.676], [23.709986, 113.790001, 12.753], [23.7096, 113.789589, 12.82], [23.709421, 113.789001, 12.886], [23.709558, 113.788437, 12.947], [23.709766, 113.78801, 12.999], [23.709932, 113.787804, 13.03], [23.710152, 113.787392, 13.08], [23.710333, 113.786819, 13.142], [23.710533, 113.786308, 13.206], [23.710794, 113.785828, 13.265], [23.71125, 113.785355, 13.337], [23.711351, 113.78447, 13.432], [23.711985, 113.783592, 13.547], [23.712624, 113.78331, 13.632], [23.713087, 113.783104, 13.692], [23.713684, 113.782333, 13.8], [23.714998, 113.782249, 13.963], [23.715141, 113.781914, 14.004], [23.715416, 113.781792, 14.043], [23.715597, 113.782036, 14.087], [23.715895, 113.782135, 14.124], [23.716269, 113.782036, 14.167], [23.716839, 113.782478, 14.256], [23.717083, 113.783089, 14.326], [23.717415, 113.783409, 14.377], [23.717619, 113.784019, 14.446], [23.717808, 113.783775, 14.495], [23.718294, 113.783188, 14.578], [23.718561, 113.782486, 14.658], [23.718864, 113.781929, 14.731], [23.719189, 113.781342, 14.805], [23.719767, 113.7808, 14.891], [23.720726, 113.780602, 15.001], [23.720963, 113.78083, 15.037], [23.721252, 113.781143, 15.099], [23.721413, 113.780632, 15.155], [23.721586, 113.780334, 15.193], [23.721764, 113.780128, 15.225], [23.722231, 113.780479, 15.289], [23.722607, 113.780846, 15.346], [23.722883, 113.781013, 15.382], [23.723093, 113.781219, 15.418], [23.723166, 113.781509, 15.451], [23.723421, 113.781898, 15.504], [23.723679, 113.782295, 15.555], [23.723866, 113.782646, 15.598], [23.724085, 113.783012, 15.648], [23.724272, 113.783264, 15.682], [23.724573, 113.783554, 15.733], [23.724636, 113.783936, 15.776], [23.725035, 113.784142, 15.828], [23.72525, 113.784401, 15.869], [23.725401, 113.784561, 15.895], [23.725506, 113.78537, 15.98], [23.725695, 113.785782, 16.028], [23.725838, 113.786102, 16.07], [23.726082, 113.786293, 16.11], [23.726202, 113.786575, 16.142], [23.72681, 113.786697, 16.218], [23.726946, 113.787224, 16.278], [23.726793, 113.787437, 16.308], [23.726566, 113.78746, 16.342], [23.726646, 113.787956, 16.397], [23.72662, 113.788315, 16.437], [23.726822, 113.788315, 16.47], [23.726824, 113.788589, 16.511], [23.726801, 113.789017, 16.557], [23.726807, 113.789581, 16.615], [23.726885, 113.790131, 16.674], [23.726913, 113.790642, 16.727], [23.727055, 113.791008, 16.77], [23.727287, 113.791389, 16.819], [23.727629, 113.791801, 16.881], [23.727816, 113.791595, 16.913], [23.727884, 113.792015, 16.976], [23.728115, 113.792686, 17.054], [23.728439, 113.792892, 17.101], [23.728695, 113.792809, 17.136], [23.729126, 113.792862, 17.195], [23.729353, 113.793076, 17.231], [23.72978, 113.792976, 17.282], [23.730553, 113.793114, 17.373], [23.731062, 113.792961, 17.433], [23.731741, 113.792854, 17.515], [23.732025, 113.792717, 17.551], [23.732607, 113.792557, 17.621], [23.732971, 113.79258, 17.663], [23.732643, 113.792908, 17.723], [23.732004, 113.793312, 17.807], [23.732309, 113.79348, 17.883], [23.732552, 113.794113, 17.959], [23.73325, 113.794739, 18.077], [23.733706, 113.794914, 18.142], [23.733011, 113.795128, 18.223], [23.732517, 113.795418, 18.289], [23.732534, 113.796066, 18.361], [23.73254, 113.797234, 18.481], [23.732403, 113.797981, 18.559], [23.732355, 113.79895, 18.66], [23.732643, 113.799637, 18.741], [23.732637, 113.800262, 18.808], [23.733307, 113.800735, 18.9], [23.733013, 113.80088, 18.944], [23.732567, 113.801224, 19.012], [23.73266, 113.802505, 19.145], [23.732496, 113.803116, 19.213], [23.731976, 113.802917, 19.284], [23.731165, 113.802597, 19.382], [23.730593, 113.80291, 19.454], [23.730246, 113.803551, 19.53], [23.729433, 113.804619, 19.674], [23.72888, 113.805275, 19.772], [23.728662, 113.806458, 19.902], [23.728329, 113.806465, 19.94], [23.727787, 113.806442, 20.006], [23.727312, 113.807137, 20.099], [23.727154, 113.807594, 20.153], [23.726645, 113.807831, 20.216], [23.725826, 113.807579, 20.317], [23.72518, 113.808075, 20.407], [23.724655, 113.808357, 20.476], [23.724064, 113.808334, 20.543], [23.724234, 113.808617, 20.586], [23.724173, 113.808746, 20.621], [23.723541, 113.808563, 20.695], [23.722696, 113.808517, 20.792], [23.721863, 113.808899, 20.894], [23.721212, 113.808754, 20.968], [23.720249, 113.808716, 21.076], [23.719151, 113.80864, 21.202], [23.718592, 113.808434, 21.274], [23.718147, 113.808334, 21.325], [23.717697, 113.808121, 21.389], [23.717167, 113.807236, 21.498], [23.717089, 113.806526, 21.573], [23.717031, 113.806007, 21.629], [23.717045, 113.805641, 21.673], [23.71702, 113.805214, 21.717], [23.716787, 113.804771, 21.77], [23.716539, 113.804092, 21.846], [23.716503, 113.803551, 21.906], [23.716278, 113.803108, 21.96], [23.715834, 113.802238, 22.065], [23.715681, 113.801903, 22.104], [23.715481, 113.801468, 22.157], [23.715366, 113.800972, 22.212], [23.715488, 113.800194, 22.293], [23.715494, 113.799446, 22.372], [23.715796, 113.79882, 22.453], [23.715784, 113.79818, 22.52], [23.715708, 113.797592, 22.582], [23.715883, 113.79718, 22.638], [23.716177, 113.796722, 22.696], [23.716215, 113.796356, 22.74], [23.715815, 113.795914, 22.808], [23.715319, 113.795143, 22.907], [23.714975, 113.794792, 22.961], [23.714474, 113.794533, 23.025], [23.714081, 113.794022, 23.102], [23.71373, 113.79364, 23.158], [23.713064, 113.793594, 23.236], [23.711655, 113.793602, 23.395], [23.711786, 113.793266, 23.441], [23.711884, 113.79287, 23.486], [23.710583, 113.793037, 23.633], [23.709442, 113.793266, 23.763], [23.708733, 113.793175, 23.86], [23.708427, 113.793381, 23.91], [23.708101, 113.794174, 23.999], [23.708271, 113.794533, 24.042], [23.708136, 113.795341, 24.128], [23.70805, 113.795662, 24.163], [23.707657, 113.796349, 24.247], [23.707581, 113.796776, 24.294], [23.707418, 113.79705, 24.329], [23.706997, 113.797775, 24.418], [23.706732, 113.798355, 24.485], [23.706131, 113.798645, 24.567], [23.705662, 113.798904, 24.627], [23.705439, 113.799873, 24.73], [23.705238, 113.800674, 24.821], [23.705694, 113.801468, 24.919], [23.705561, 113.801949, 24.972], [23.705208, 113.802559, 25.05], [23.705299, 113.802948, 25.093], [23.705267, 113.803429, 25.144], [23.704941, 113.804276, 25.243], [23.704859, 113.804916, 25.311], [23.704691, 113.805519, 25.377], [23.704294, 113.806, 25.444], [23.704517, 113.806358, 25.493], [23.704714, 113.806763, 25.543], [23.704857, 113.807289, 25.607], [23.704735, 113.807747, 25.657], [23.704876, 113.808777, 25.771], [23.705021, 113.809113, 25.81], [23.705009, 113.809708, 25.873], [23.704966, 113.810196, 25.926], [23.705002, 113.81089, 25.997], [23.704975, 113.811821, 26.094], [23.705009, 113.812828, 26.2], [23.705414, 113.81369, 26.299], [23.70536, 113.81456, 26.391], [23.705067, 113.815559, 26.499], [23.705, 113.81617, 26.568], [23.705111, 113.81646, 26.608], [23.705303, 113.81691, 26.66], [23.705601, 113.81723, 26.711], [23.70602, 113.817268, 26.758], [23.706305, 113.818039, 26.856], [23.706308, 113.818466, 26.904], [23.70656, 113.819046, 26.971], [23.70668, 113.82029, 27.101], [23.7066, 113.820709, 27.146], [23.706482, 113.821198, 27.201], [23.706488, 113.822006, 27.284], [23.706675, 113.822746, 27.365], [23.706865, 113.82354, 27.451], [23.707226, 113.823975, 27.516], [23.707701, 113.824127, 27.572], [23.708302, 113.823929, 27.643], [23.708542, 113.823891, 27.673], [23.708609, 113.824493, 27.736], [23.708426, 113.824997, 27.798], [23.708269, 113.825493, 27.852], [23.708191, 113.825798, 27.886], [23.708212, 113.826408, 27.949], [23.708569, 113.826996, 28.027], [23.709188, 113.827393, 28.109], [23.709782, 113.828224, 28.22], [23.709719, 113.828796, 28.28], [23.709953, 113.829086, 28.328], [23.710566, 113.828697, 28.408], [23.710918, 113.828957, 28.457], [23.710865, 113.829308, 28.495], [23.710735, 113.829788, 28.546], [23.710285, 113.829956, 28.602], [23.70986, 113.830025, 28.653], [23.709324, 113.83007, 28.718], [23.709158, 113.82975, 28.761], [23.708763, 113.829704, 28.81], [23.708843, 113.83004, 28.848], [23.708557, 113.829979, 28.891], [23.708426, 113.830269, 28.934], [23.708075, 113.830048, 28.986], [23.707382, 113.83033, 29.069], [23.707352, 113.830803, 29.12], [23.707479, 113.8312, 29.171], [23.707586, 113.831787, 29.234], [23.707823, 113.832336, 29.298], [23.708265, 113.832909, 29.381], [23.708181, 113.833313, 29.428], [23.708145, 113.833931, 29.493], [23.708868, 113.834679, 29.606], [23.708519, 113.834557, 29.652], [23.708506, 113.834785, 29.684], [23.708549, 113.835335, 29.741], [23.708752, 113.835571, 29.776], [23.70929, 113.835464, 29.839], [23.710175, 113.835663, 29.943], [23.710947, 113.835831, 30.031], [23.711174, 113.835541, 30.073], [23.71187, 113.835365, 30.16], [23.7127, 113.83503, 30.26], [23.713194, 113.834679, 30.334], [23.714304, 113.834167, 30.471], [23.714529, 113.834557, 30.523], [23.715, 113.834755, 30.591], [23.715643, 113.834457, 30.693], [23.716301, 113.834038, 30.779], [23.716965, 113.834068, 30.854], [23.717667, 113.834122, 30.935], [23.717787, 113.834427, 30.97], [23.717329, 113.835052, 31.054], [23.717159, 113.835579, 31.114], [23.717125, 113.835854, 31.143], [23.717171, 113.836639, 31.225], [23.717052, 113.836945, 31.262], [23.716864, 113.83728, 31.309], [23.715996, 113.837303, 31.407], [23.715771, 113.837029, 31.448], [23.715366, 113.837181, 31.5], [23.714783, 113.836823, 31.575], [23.714081, 113.837021, 31.661], [23.713343, 113.83757, 31.776], [23.713549, 113.838699, 31.895], [23.713923, 113.839035, 31.949], [23.71431, 113.839752, 32.037], [23.714293, 113.840164, 32.081], [23.714865, 113.840309, 32.147], [23.715273, 113.840607, 32.202], [23.715622, 113.840996, 32.26], [23.716124, 113.841423, 32.335], [23.716425, 113.841934, 32.401], [23.717028, 113.842293, 32.481], [23.717022, 113.842781, 32.532], [23.717108, 113.843163, 32.583], [23.71755, 113.84314, 32.633], [23.717842, 113.843582, 32.692], [23.717482, 113.844131, 32.768], [23.717096, 113.844582, 32.831], [23.717197, 113.844902, 32.869], [23.71726, 113.84536, 32.919], [23.717047, 113.845566, 32.953], [23.716825, 113.846176, 33.028], [23.716759, 113.846489, 33.067], [23.717089, 113.846741, 33.116], [23.717611, 113.846863, 33.18], [23.717957, 113.846397, 33.242], [23.71851, 113.846626, 33.309], [23.71904, 113.84697, 33.38], [23.718979, 113.846413, 33.44], [23.718977, 113.846191, 33.465], [23.719191, 113.846115, 33.497], [23.719404, 113.846466, 33.544], [23.719952, 113.846489, 33.606], [23.72043, 113.846306, 33.663], [23.720589, 113.846252, 33.704], [23.720125, 113.847, 33.797], [23.720373, 113.847229, 33.835], [23.720474, 113.847961, 33.912], [23.720919, 113.848213, 33.978], [23.72102, 113.847786, 34.024], [23.721573, 113.847885, 34.089], [23.721859, 113.847984, 34.124], [23.722145, 113.848503, 34.194], [23.722639, 113.850052, 34.362], [23.723129, 113.850899, 34.465], [23.723513, 113.851257, 34.524], [23.723808, 113.850525, 34.608], [23.724754, 113.850624, 34.717], [23.725212, 113.850639, 34.769], [23.725735, 113.8507, 34.83], [23.72616, 113.850914, 34.884], [23.72653, 113.850517, 34.945], [23.72695, 113.850395, 34.995], [23.727129, 113.849838, 35.056], [23.727882, 113.849136, 35.167], [23.728273, 113.849297, 35.227], [23.728527, 113.849579, 35.267], [23.728909, 113.84993, 35.324], [23.729166, 113.850204, 35.369], [23.729361, 113.850113, 35.397], [23.729698, 113.85067, 35.468], [23.730101, 113.850761, 35.516], [23.730726, 113.851151, 35.605], [23.730831, 113.852135, 35.707], [23.731016, 113.852455, 35.748], [23.731445, 113.853065, 35.827], [23.731697, 113.853714, 35.902], [23.731789, 113.854202, 35.959], [23.731766, 113.854919, 36.035], [23.731874, 113.855492, 36.096], [23.73188, 113.85611, 36.159], [23.731432, 113.857269, 36.293], [23.731068, 113.857666, 36.353], [23.731098, 113.858864, 36.481], [23.731045, 113.859756, 36.572], [23.731094, 113.860741, 36.674], [23.7311, 113.861366, 36.739], [23.730804, 113.861771, 36.793], [23.730589, 113.862671, 36.888], [23.729776, 113.863052, 36.993], [23.72908, 113.863205, 37.073], [23.728176, 113.863617, 37.182], [23.728249, 113.86422, 37.262], [23.728769, 113.864754, 37.343], [23.728903, 113.865807, 37.452], [23.728907, 113.866287, 37.502], [23.728777, 113.866928, 37.57], [23.728542, 113.867493, 37.633], [23.728477, 113.868195, 37.709], [23.729082, 113.869133, 37.83], [23.729511, 113.869987, 37.93], [23.730232, 113.870155, 38.015], [23.730934, 113.870239, 38.093], [23.731449, 113.87075, 38.172], [23.73209, 113.871529, 38.279], [23.732897, 113.871735, 38.374], [23.733673, 113.871849, 38.466], [23.734005, 113.871643, 38.51], [23.734121, 113.871063, 38.571], [23.734739, 113.870613, 38.656], [23.735409, 113.870865, 38.741], [23.735632, 113.871452, 38.813], [23.736195, 113.871262, 38.884], [23.73694, 113.870872, 38.978], [23.737408, 113.870323, 39.056], [23.738144, 113.869995, 39.147], [23.738844, 113.870041, 39.227], [23.739157, 113.870239, 39.272], [23.739582, 113.870262, 39.325], [23.739962, 113.870171, 39.379], [23.740351, 113.870125, 39.424], [23.740849, 113.870041, 39.482], [23.740292, 113.870468, 39.573], [23.739916, 113.870987, 39.642], [23.739216, 113.871521, 39.739], [23.739471, 113.871552, 39.778], [23.739418, 113.871994, 39.828], [23.739576, 113.872704, 39.911], [23.739765, 113.87323, 39.975], [23.74008, 113.873657, 40.033], [23.739662, 113.873947, 40.093], [23.739616, 113.87429, 40.157], [23.73967, 113.87468, 40.199], [23.739353, 113.874687, 40.243], [23.738882, 113.874878, 40.304], [23.738859, 113.87532, 40.352], [23.738686, 113.875839, 40.409], [23.738306, 113.876778, 40.514], [23.738449, 113.877419, 40.583], [23.738222, 113.878288, 40.685], [23.738243, 113.878761, 40.743], [23.737881, 113.879021, 40.8], [23.73764, 113.879478, 40.855], [23.737823, 113.880196, 40.933], [23.737425, 113.880821, 41.012], [23.737566, 113.881134, 41.058], [23.737967, 113.881317, 41.11], [23.73778, 113.881805, 41.166], [23.737951, 113.882309, 41.223], [23.737719, 113.882614, 41.266], [23.737667, 113.883026, 41.312], [23.737762, 113.883827, 41.395], [23.737329, 113.883995, 41.451], [23.73683, 113.884499, 41.532], [23.736624, 113.885048, 41.596], [23.73629, 113.885406, 41.651], [23.736115, 113.886147, 41.729], [23.736017, 113.886887, 41.808], [23.735882, 113.887505, 41.876], [23.736006, 113.887856, 41.919], [23.736059, 113.887894, 41.946], [23.735928, 113.888542, 42.015], [23.735994, 113.888992, 42.068], [23.73633, 113.889503, 42.137], [23.737099, 113.889832, 42.232], [23.736879, 113.89019, 42.292], [23.736284, 113.890892, 42.391], [23.735699, 113.891594, 42.49], [23.735064, 113.89122, 42.572], [23.734859, 113.8909, 42.616], [23.734272, 113.890747, 42.686], [23.733725, 113.890877, 42.749], [23.733326, 113.890846, 42.798], [23.733046, 113.890602, 42.84], [23.732269, 113.890266, 42.937], [23.731941, 113.89003, 42.982], [23.731409, 113.889633, 43.062], [23.73119, 113.889053, 43.129], [23.730801, 113.889229, 43.18], [23.730179, 113.889381, 43.252], [23.729544, 113.889595, 43.329], [23.72913, 113.889572, 43.376], [23.728693, 113.889297, 43.441], [23.728052, 113.889671, 43.525], [23.727678, 113.890381, 43.612], [23.727459, 113.890839, 43.665], [23.726852, 113.890884, 43.749], [23.726511, 113.890419, 43.812], [23.726086, 113.890167, 43.866], [23.725754, 113.889793, 43.921], [23.7253, 113.88942, 43.985], [23.724817, 113.888969, 44.059], [23.724003, 113.888763, 44.157], [23.723431, 113.888939, 44.225], [23.723164, 113.888237, 44.303], [23.722652, 113.887787, 44.377], [23.722256, 113.887009, 44.473], [23.722208, 113.886574, 44.52], [23.722088, 113.885902, 44.59], [23.721828, 113.885246, 44.664], [23.721905, 113.884346, 44.757], [23.722094, 113.883911, 44.809], [23.722481, 113.883553, 44.872], [23.722572, 113.883072, 44.932], [23.723131, 113.882507, 45.018], [23.723423, 113.882011, 45.081], [23.723341, 113.881317, 45.154], [23.723467, 113.880852, 45.206], [23.723444, 113.880478, 45.247], [23.723486, 113.879845, 45.319], [23.723209, 113.879326, 45.381], [23.722626, 113.878967, 45.457], [23.722336, 113.878586, 45.515], [23.722256, 113.87809, 45.568], [23.721811, 113.877693, 45.632], [23.721277, 113.877121, 45.717], [23.720984, 113.876465, 45.793], [23.721098, 113.876007, 45.844], [23.720785, 113.875473, 45.91], [23.720388, 113.875259, 45.965], [23.719965, 113.875084, 46.029], [23.719885, 113.874313, 46.116], [23.719805, 113.873772, 46.173], [23.719952, 113.873146, 46.24], [23.719633, 113.87252, 46.314], [23.719173, 113.872208, 46.379], [23.718742, 113.872002, 46.436], [23.718508, 113.871696, 46.48], [23.718224, 113.871277, 46.534], [23.71805, 113.870682, 46.599], [23.717995, 113.870018, 46.667], [23.718225, 113.869331, 46.747], [23.71854, 113.868835, 46.812], [23.71855, 113.868095, 46.89], [23.718086, 113.867569, 46.966], [23.718197, 113.867271, 47.008], [23.718342, 113.867027, 47.049], [23.717846, 113.866585, 47.123], [23.717531, 113.866356, 47.166], [23.717331, 113.865929, 47.22], [23.717325, 113.865387, 47.282], [23.717216, 113.864807, 47.345], [23.717228, 113.86412, 47.422], [23.717199, 113.863571, 47.479], [23.716787, 113.863228, 47.546], [23.716326, 113.863091, 47.602], [23.716232, 113.862312, 47.684], [23.715685, 113.862427, 47.747], [23.714911, 113.862587, 47.835], [23.714455, 113.862595, 47.89], [23.714268, 113.862755, 47.923], [23.713684, 113.862938, 47.991], [23.713299, 113.864197, 48.148], [23.714102, 113.866051, 48.359], [23.714666, 113.866478, 48.436], [23.715027, 113.866951, 48.5], [23.7153, 113.867264, 48.545], [23.715635, 113.867821, 48.617], [23.715271, 113.86821, 48.676], [23.714392, 113.868576, 48.782], [23.714085, 113.869125, 48.861], [23.713247, 113.869164, 48.961], [23.712574, 113.869484, 49.044], [23.712154, 113.869904, 49.119], [23.712051, 113.870422, 49.178], [23.712379, 113.870651, 49.223], [23.712387, 113.87104, 49.263], [23.712477, 113.871361, 49.299], [23.712473, 113.871742, 49.348], [23.712507, 113.87252, 49.432], [23.712221, 113.8731, 49.501], [23.712381, 113.873665, 49.562], [23.712503, 113.874168, 49.617], [23.712334, 113.874565, 49.667], [23.711718, 113.875114, 49.756], [23.711679, 113.875893, 49.837], [23.712025, 113.876305, 49.895], [23.711727, 113.876572, 49.945], [23.711227, 113.876862, 50.021], [23.71015, 113.877769, 50.182], [23.709654, 113.878082, 50.248], [23.7092, 113.878288, 50.305], [23.709072, 113.878899, 50.374], [23.709476, 113.879364, 50.443], [23.709429, 113.87989, 50.498], [23.708904, 113.880547, 50.589], [23.708817, 113.881371, 50.674], [23.708801, 113.88237, 50.776], [23.708725, 113.883392, 50.881], [23.708712, 113.883926, 50.938], [23.708288, 113.884995, 51.058], [23.707897, 113.885773, 51.15], [23.707874, 113.886169, 51.197], [23.70812, 113.886284, 51.228], [23.708109, 113.886932, 51.297], [23.707848, 113.887794, 51.396], [23.707722, 113.8881, 51.431], [23.707338, 113.88858, 51.497], [23.706989, 113.889091, 51.565], [23.706818, 113.889389, 51.602], [23.706829, 113.889824, 51.648], [23.706385, 113.890015, 51.708], [23.70616, 113.890282, 51.749], [23.705671, 113.890541, 51.812], [23.706154, 113.890594, 51.869], [23.70661, 113.890747, 51.924], [23.70673, 113.89119, 51.973], [23.706839, 113.891655, 52.024], [23.706978, 113.892181, 52.081], [23.70681, 113.89254, 52.126], [23.706444, 113.892967, 52.187], [23.706573, 113.893555, 52.252], [23.706823, 113.89389, 52.298], [23.706923, 113.894547, 52.367], [23.706945, 113.895462, 52.463], [23.706999, 113.89592, 52.511], [23.70697, 113.896423, 52.563], [23.706934, 113.896675, 52.592], [23.706779, 113.897049, 52.635], [23.706545, 113.8974, 52.681], [23.70627, 113.897606, 52.722], [23.706217, 113.898232, 52.787], [23.706127, 113.898659, 52.838], [23.705923, 113.898872, 52.873], [23.705925, 113.899208, 52.913], [23.705717, 113.899681, 52.969], [23.705416, 113.899956, 53.015], [23.704943, 113.899979, 53.069], [23.704311, 113.899811, 53.143], [23.703966, 113.899345, 53.204], [23.703712, 113.898804, 53.269], [23.703485, 113.898499, 53.309], [23.703278, 113.898178, 53.35], [23.702961, 113.897705, 53.412], [23.70266, 113.897423, 53.457], [23.70223, 113.897087, 53.518], [23.701914, 113.896736, 53.576], [23.701904, 113.896294, 53.622], [23.701895, 113.895844, 53.668], [23.701885, 113.895157, 53.739], [23.701868, 113.894432, 53.814], [23.701687, 113.893906, 53.873], [23.701851, 113.893539, 53.917], [23.702213, 113.893311, 53.966], [23.702105, 113.893112, 53.992], [23.701729, 113.892899, 54.042], [23.701448, 113.892448, 54.099], [23.701345, 113.891945, 54.153], [23.701265, 113.891541, 54.196], [23.701284, 113.890976, 54.255], [23.701246, 113.890526, 54.301], [23.701113, 113.890167, 54.343], [23.701612, 113.890022, 54.402], [23.70188, 113.889847, 54.439], [23.701859, 113.889381, 54.487], [23.701525, 113.888962, 54.544], [23.701752, 113.888817, 54.581], [23.701797, 113.888527, 54.632], [23.701488, 113.888367, 54.671], [23.70101, 113.887741, 54.754], [23.700624, 113.887268, 54.82], [23.700367, 113.886841, 54.874], [23.700182, 113.886528, 54.913], [23.699837, 113.886101, 54.972], [23.699865, 113.885727, 55.012], [23.699638, 113.885063, 55.085], [23.699495, 113.884666, 55.129], [23.699142, 113.883972, 55.212], [23.699265, 113.883461, 55.268], [23.69961, 113.88311, 55.32], [23.69968, 113.882523, 55.389], [23.69936, 113.882179, 55.442], [23.699419, 113.88176, 55.485], [23.699081, 113.881332, 55.552], [23.698988, 113.881035, 55.585], [23.698622, 113.880844, 55.631], [23.698231, 113.881058, 55.693], [23.697893, 113.880989, 55.735], [23.697512, 113.881027, 55.781], [23.697296, 113.880783, 55.818], [23.697105, 113.88063, 55.845], [23.696938, 113.880455, 55.871], [23.69664, 113.880257, 55.911], [23.696247, 113.879509, 56.001], [23.696028, 113.879135, 56.054], [23.695787, 113.878143, 56.162], [23.696066, 113.877762, 56.217], [23.696894, 113.877663, 56.311], [23.697107, 113.877258, 56.369], [23.69692, 113.876297, 56.47], [23.696854, 113.875549, 56.552], [23.696068, 113.875557, 56.642], [23.695902, 113.875168, 56.691], [23.69618, 113.874817, 56.748], [23.696266, 113.874207, 56.817], [23.696556, 113.873299, 56.916], [23.696215, 113.872971, 56.974], [23.695765, 113.872536, 57.044], [23.695484, 113.871811, 57.134], [23.695648, 113.871147, 57.207], [23.695465, 113.870644, 57.264], [23.695339, 113.870155, 57.318], [23.694813, 113.869438, 57.419], [23.694935, 113.869141, 57.456], [23.694746, 113.868042, 57.572], [23.694323, 113.86734, 57.659], [23.693995, 113.866821, 57.726], [23.693716, 113.865959, 57.823], [23.693804, 113.865196, 57.909], [23.69397, 113.864548, 57.982], [23.693819, 113.864174, 58.03], [23.69342, 113.864418, 58.084], [23.693041, 113.864044, 58.147], [23.693169, 113.863625, 58.193], [23.693045, 113.862961, 58.263], [23.693356, 113.862396, 58.335], [23.693735, 113.862167, 58.385], [23.693588, 113.861931, 58.429], [23.692921, 113.861595, 58.513], [23.69252, 113.861572, 58.559], [23.691898, 113.861313, 58.633], [23.692501, 113.860863, 58.718], [23.692884, 113.85997, 58.824], [23.692795, 113.859329, 58.898], [23.692598, 113.858879, 58.95], [23.693079, 113.858643, 59.016], [23.693077, 113.858345, 59.064], [23.692511, 113.858185, 59.131], [23.692114, 113.85849, 59.189], [23.691811, 113.858521, 59.236], [23.691872, 113.858139, 59.277], [23.691969, 113.857536, 59.341], [23.692135, 113.856735, 59.425], [23.692345, 113.855949, 59.51], [23.692595, 113.855186, 59.593], [23.692732, 113.854332, 59.682], [23.692842, 113.854256, 59.722], [23.692953, 113.853668, 59.785], [23.693373, 113.852386, 59.926], [23.693407, 113.851738, 59.994], [23.693384, 113.851555, 60.027], [23.693069, 113.85173, 60.068], [23.692682, 113.851616, 60.115], [23.692326, 113.850922, 60.199], [23.691792, 113.850555, 60.27], [23.691042, 113.849953, 60.375], [23.69051, 113.850182, 60.441], [23.69001, 113.850601, 60.513], [23.689705, 113.850761, 60.558], [23.689226, 113.8507, 60.615], [23.688677, 113.850449, 60.681], [23.688766, 113.850136, 60.717], [23.688, 113.849342, 60.837], [23.687922, 113.848984, 60.876], [23.687588, 113.8489, 60.917], [23.68643, 113.848801, 61.048], [23.685987, 113.848289, 61.12], [23.685574, 113.848473, 61.174], [23.685192, 113.848579, 61.22], [23.68495, 113.848953, 61.276], [23.684723, 113.849693, 61.369], [23.684574, 113.849983, 61.404], [23.684107, 113.850098, 61.481], [23.683084, 113.84993, 61.6], [23.682238, 113.849007, 61.737], [23.681564, 113.848259, 61.845], [23.680967, 113.847191, 61.973], [23.680492, 113.847038, 62.035], [23.68014, 113.846977, 62.076], [23.680012, 113.846153, 62.163], [23.679842, 113.845482, 62.236], [23.68012, 113.844879, 62.305], [23.680153, 113.844513, 62.346], [23.680124, 113.844139, 62.397], [23.680466, 113.843605, 62.465], [23.680441, 113.843437, 62.487], [23.680258, 113.8433, 62.518], [23.679829, 113.842674, 62.601], [23.679586, 113.842392, 62.643], [23.679516, 113.84185, 62.7], [23.679543, 113.84137, 62.752], [23.679737, 113.841087, 62.791], [23.680265, 113.840652, 62.866], [23.680935, 113.840515, 62.944], [23.681416, 113.840431, 63.004], [23.68177, 113.8405, 63.046], [23.6824, 113.839943, 63.138], [23.682655, 113.839439, 63.198], [23.682911, 113.839233, 63.234], [23.683193, 113.838646, 63.302], [23.683556, 113.838326, 63.354], [23.683636, 113.837486, 63.458], [23.683107, 113.836685, 63.559], [23.68329, 113.836487, 63.621], [23.683624, 113.836433, 63.66], [23.684055, 113.836395, 63.71], [23.684855, 113.836189, 63.803], [23.685266, 113.835518, 63.897], [23.685286, 113.834785, 63.974], [23.684868, 113.83416, 64.053], [23.684965, 113.833885, 64.089], [23.685455, 113.833725, 64.156], [23.686014, 113.83345, 64.226], [23.686377, 113.83329, 64.273], [23.686699, 113.832916, 64.334], [23.686758, 113.832336, 64.4], [23.686535, 113.832138, 64.434], [23.686478, 113.831314, 64.519], [23.686508, 113.830551, 64.604], [23.686741, 113.83004, 64.663], [23.686613, 113.829529, 64.721], [23.686407, 113.829048, 64.779], [23.686232, 113.828529, 64.838], [23.686022, 113.828018, 64.899], [23.68572, 113.827774, 64.942], [23.68544, 113.827538, 64.983], [23.68552, 113.827065, 65.034], [23.685589, 113.826721, 65.072], [23.685154, 113.826477, 65.128], [23.684874, 113.826218, 65.172], [23.684641, 113.825912, 65.218], [23.684235, 113.825409, 65.287], [23.68384, 113.825043, 65.346], [23.683548, 113.824852, 65.385], [23.682999, 113.824478, 65.462], [23.682705, 113.82412, 65.513], [23.682531, 113.823799, 65.553], [23.682323, 113.823936, 65.582], [23.681875, 113.823837, 65.638], [23.681585, 113.823891, 65.68], [23.681763, 113.823387, 65.736], [23.681541, 113.822868, 65.797], [23.681593, 113.822586, 65.832], [23.681341, 113.823051, 65.89], [23.681063, 113.823174, 65.925], [23.68078, 113.823357, 65.965], [23.680363, 113.823227, 66.017], [23.679981, 113.823784, 66.096], [23.679811, 113.823936, 66.124], [23.679482, 113.824142, 66.169], [23.679003, 113.82402, 66.225], [23.678665, 113.823875, 66.304], [23.678761, 113.82354, 66.342], [23.678812, 113.822823, 66.425], [23.679102, 113.822159, 66.5], [23.679064, 113.821526, 66.566], [23.678989, 113.820786, 66.643], [23.679216, 113.820038, 66.726], [23.67914, 113.819321, 66.801], [23.679249, 113.818855, 66.852], [23.67926, 113.818665, 66.878], [23.679586, 113.817986, 66.957], [23.679544, 113.817543, 67.003], [23.679815, 113.816521, 67.116], [23.680353, 113.816002, 67.2], [23.680468, 113.815636, 67.241], [23.681122, 113.815872, 67.319], [23.681501, 113.81559, 67.372], [23.682314, 113.815262, 67.472], [23.682684, 113.815147, 67.519], [23.683102, 113.814774, 67.581], [23.683508, 113.814026, 67.672], [23.683517, 113.813492, 67.73], [23.683268, 113.812988, 67.798], [23.683336, 113.812263, 67.873], [23.683605, 113.811974, 67.916], [23.684099, 113.812119, 67.983], [23.684317, 113.811981, 68.024], [23.684164, 113.811584, 68.07], [23.684322, 113.811279, 68.107], [23.684637, 113.81102, 68.153], [23.68449, 113.810333, 68.228], [23.684294, 113.809624, 68.306], [23.683981, 113.809433, 68.347], [23.683874, 113.808784, 68.416], [23.684397, 113.808258, 68.496], [23.684824, 113.807533, 68.586], [23.685114, 113.807159, 68.641], [23.68545, 113.807159, 68.683], [23.685942, 113.806747, 68.754], [23.686338, 113.806175, 68.827], [23.686611, 113.80526, 68.928], [23.686939, 113.804504, 69.016], [23.686962, 113.804131, 69.057], [23.686726, 113.804085, 69.086], [23.686771, 113.803673, 69.129], [23.686604, 113.803802, 69.156], [23.686377, 113.802917, 69.252], [23.686293, 113.801895, 69.356], [23.686026, 113.801247, 69.43], [23.685928, 113.800468, 69.511], [23.685583, 113.800346, 69.554], [23.68541, 113.80069, 69.597], [23.685259, 113.8004, 69.632], [23.685139, 113.800156, 69.662], [23.684834, 113.800064, 69.698], [23.684961, 113.799385, 69.769], [23.684717, 113.798721, 69.844], [23.684267, 113.798538, 69.899], [23.684132, 113.797768, 69.98], [23.684752, 113.796799, 70.102], [23.68494, 113.79689, 70.137], [23.684776, 113.797607, 70.216], [23.685247, 113.7976, 70.271], [23.685604, 113.797462, 70.315], [23.686111, 113.797668, 70.376], [23.686459, 113.798187, 70.442], [23.686617, 113.798157, 70.462], [23.686441, 113.797668, 70.517], [23.686075, 113.797134, 70.587], [23.686026, 113.796432, 70.661], [23.685835, 113.795433, 70.772], [23.686007, 113.794502, 70.871], [23.686131, 113.79351, 70.975], [23.685993, 113.792931, 71.041], [23.686337, 113.792038, 71.142], [23.686426, 113.791512, 71.2], [23.686537, 113.790726, 71.281], [23.686312, 113.790176, 71.343], [23.685699, 113.789459, 71.448], [23.684973, 113.789864, 71.548], [23.684174, 113.790215, 71.646], [23.683771, 113.789276, 71.766], [23.683783, 113.787773, 71.919], [23.683496, 113.787605, 71.966], [23.683073, 113.78759, 72.015], [23.682405, 113.786629, 72.139], [23.681946, 113.786438, 72.212], [23.681398, 113.786362, 72.277], [23.680819, 113.785553, 72.384], [23.68058, 113.785393, 72.418], [23.680086, 113.785416, 72.473], [23.680281, 113.785873, 72.527], [23.680052, 113.786041, 72.578], [23.679924, 113.78627, 72.613], [23.680042, 113.786949, 72.687], [23.680218, 113.787857, 72.784], [23.679485, 113.788589, 72.898], [23.679171, 113.788994, 72.953], [23.67938, 113.789139, 72.986], [23.679825, 113.789131, 73.038], [23.680477, 113.789024, 73.113], [23.680815, 113.789513, 73.178], [23.68075, 113.79023, 73.253], [23.680456, 113.790787, 73.322], [23.68005, 113.790787, 73.373], [23.679455, 113.79084, 73.445], [23.678993, 113.790703, 73.499], [23.678104, 113.790764, 73.606], [23.677597, 113.790855, 73.665], [23.677862, 113.791183, 73.711], [23.677656, 113.791412, 73.748], [23.677618, 113.791672, 73.781], [23.677889, 113.791611, 73.814], [23.678162, 113.791847, 73.855], [23.678043, 113.792084, 73.888], [23.677332, 113.792297, 73.971], [23.677343, 113.793045, 74.054], [23.677649, 113.793274, 74.096], [23.677628, 113.793915, 74.164], [23.677773, 113.794388, 74.222], [23.67724, 113.794373, 74.282], [23.676968, 113.793953, 74.34], [23.676603, 113.793694, 74.39], [23.676567, 113.794006, 74.425], [23.67643, 113.79425, 74.462], [23.676394, 113.794632, 74.502], [23.676092, 113.79512, 74.566], [23.676214, 113.795654, 74.624], [23.676035, 113.796104, 74.676], [23.676157, 113.796318, 74.706], [23.676712, 113.795975, 74.78], [23.677008, 113.796432, 74.837], [23.677143, 113.797386, 74.937], [23.677517, 113.797981, 75.014], [23.677441, 113.798477, 75.072], [23.676994, 113.798515, 75.123], [23.676283, 113.79866, 75.206], [23.676413, 113.798805, 75.241], [23.676882, 113.799057, 75.304], [23.676868, 113.799553, 75.356], [23.676626, 113.799904, 75.403], [23.676401, 113.800453, 75.468], [23.676239, 113.80098, 75.525], [23.676102, 113.801483, 75.58], [23.675842, 113.80191, 75.633], [23.675581, 113.802162, 75.686], [23.675184, 113.8022, 75.733], [23.675037, 113.802513, 75.771], [23.675335, 113.80246, 75.808], [23.675781, 113.802681, 75.866], [23.675474, 113.803116, 75.926], [23.674929, 113.804192, 76.053], [23.674562, 113.804276, 76.096], [23.674093, 113.804237, 76.149], [23.673813, 113.804634, 76.202], [23.673416, 113.804787, 76.25], [23.673054, 113.804916, 76.293], [23.672619, 113.805336, 76.358], [23.671976, 113.805107, 76.435], [23.672163, 113.804871, 76.476], [23.672606, 113.804855, 76.533], [23.672213, 113.804726, 76.581], [23.671677, 113.804474, 76.648], [23.671171, 113.804359, 76.707], [23.670542, 113.804924, 76.799], [23.670628, 113.805099, 76.823], [23.67124, 113.805206, 76.897], [23.671459, 113.805763, 76.96], [23.671631, 113.80629, 77.026], [23.671307, 113.806808, 77.092], [23.670807, 113.807198, 77.161], [23.670706, 113.807579, 77.206], [23.671164, 113.807724, 77.26], [23.671083, 113.808121, 77.306], [23.67124, 113.808365, 77.34], [23.671642, 113.808838, 77.409], [23.672075, 113.809464, 77.49], [23.672209, 113.809868, 77.536], [23.671972, 113.810463, 77.603], [23.672134, 113.811043, 77.672], [23.671953, 113.811256, 77.702], [23.672098, 113.811699, 77.752], [23.672615, 113.811623, 77.813], [23.673056, 113.811485, 77.867], [23.672993, 113.81205, 77.932], [23.672396, 113.812675, 78.025], [23.671968, 113.813171, 78.096], [23.671387, 113.813805, 78.188], [23.671658, 113.813866, 78.224], [23.671843, 113.814087, 78.258], [23.671835, 113.814453, 78.301], [23.671598, 113.814842, 78.354], [23.671412, 113.815002, 78.383], [23.671427, 113.81604, 78.49], [23.670908, 113.816017, 78.553], [23.670391, 113.815918, 78.614], [23.669973, 113.815765, 78.666], [23.668974, 113.816177, 78.786], [23.668581, 113.816322, 78.835], [23.668013, 113.816238, 78.899], [23.667564, 113.816063, 78.955], [23.667326, 113.815948, 78.987], [23.667126, 113.815948, 79.012], [23.666714, 113.815895, 79.062], [23.666462, 113.815971, 79.095], [23.66621, 113.816055, 79.127], [23.665792, 113.816017, 79.175], [23.665672, 113.815811, 79.202], [23.665525, 113.815567, 79.233], [23.665213, 113.815247, 79.285], [23.665031, 113.815117, 79.313], [23.664827, 113.815063, 79.339], [23.664518, 113.814903, 79.379], [23.664347, 113.814331, 79.442], [23.664459, 113.814064, 79.479], [23.664536, 113.813568, 79.535], [23.664293, 113.813301, 79.575], [23.66416, 113.81292, 79.619], [23.663918, 113.812393, 79.68], [23.66353, 113.812378, 79.725], [23.663166, 113.812691, 79.786], [23.662546, 113.812683, 79.857], [23.662197, 113.812897, 79.905], [23.662027, 113.813148, 79.942], [23.661774, 113.81353, 79.992], [23.66144, 113.813637, 80.035], [23.66123, 113.813614, 80.062], [23.660892, 113.813705, 80.108], [23.660326, 113.81366, 80.175], [23.660023, 113.813637, 80.214], [23.65942, 113.813805, 80.287], [23.659117, 113.813744, 80.324], [23.658894, 113.813614, 80.353], [23.658472, 113.813446, 80.405], [23.657812, 113.813759, 80.485], [23.657459, 113.813927, 80.532], [23.657785, 113.813461, 80.593], [23.658346, 113.812683, 80.696], [23.65852, 113.812035, 80.767], [23.658472, 113.811424, 80.83], [23.658484, 113.81105, 80.869], [23.658401, 113.810661, 80.911], [23.65836, 113.81041, 80.938], [23.658157, 113.809929, 80.994], [23.658415, 113.809624, 81.04], [23.658443, 113.808823, 81.124], [23.658218, 113.808357, 81.179], [23.658236, 113.807686, 81.252], [23.658409, 113.807182, 81.308], [23.65836, 113.806656, 81.364], [23.658339, 113.806229, 81.409], [23.658245, 113.805794, 81.457], [23.658167, 113.805237, 81.516], [23.65797, 113.804703, 81.575], [23.657291, 113.804314, 81.663], [23.656851, 113.804214, 81.718], [23.656275, 113.803818, 81.794], [23.655703, 113.803482, 81.869], [23.655359, 113.803322, 81.911], [23.654926, 113.8032, 81.964], [23.654579, 113.803085, 82.006], [23.654222, 113.80294, 82.049], [23.65383, 113.80262, 82.105], [23.65346, 113.80233, 82.159], [23.653074, 113.801964, 82.217], [23.652603, 113.801483, 82.289], [23.652346, 113.800911, 82.355], [23.65222, 113.800484, 82.406], [23.651875, 113.800087, 82.463], [23.651699, 113.799629, 82.516], [23.651237, 113.799187, 82.586], [23.651161, 113.798668, 82.643], [23.650772, 113.797943, 82.737], [23.650267, 113.797501, 82.819], [23.650021, 113.797104, 82.874], [23.64978, 113.796814, 82.917], [23.649567, 113.796249, 82.981], [23.649826, 113.795677, 83.05], [23.649607, 113.795349, 83.094], [23.649494, 113.795013, 83.137], [23.649141, 113.794655, 83.192], [23.648956, 113.794121, 83.258], [23.648468, 113.794312, 83.322], [23.647856, 113.794548, 83.398], [23.647436, 113.794754, 83.453], [23.646873, 113.794899, 83.522], [23.64624, 113.795021, 83.597], [23.645662, 113.795166, 83.663], [23.644915, 113.795441, 83.753], [23.64455, 113.795418, 83.796], [23.644165, 113.795425, 83.84], [23.643642, 113.795448, 83.904], [23.643185, 113.794861, 83.994], [23.643345, 113.79422, 84.062], [23.643539, 113.7938, 84.119], [23.643803, 113.792976, 84.211], [23.643494, 113.791634, 84.353], [23.643497, 113.791077, 84.411], [23.643152, 113.790672, 84.469], [23.643068, 113.789978, 84.555], [23.643064, 113.789322, 84.628], [23.643366, 113.78907, 84.672], [23.643206, 113.78849, 84.734], [23.642963, 113.788139, 84.781], [23.642757, 113.787399, 84.862], [23.643188, 113.787148, 84.922], [23.64393, 113.787064, 85.009], [23.644203, 113.786461, 85.079], [23.644077, 113.786156, 85.124], [23.643932, 113.78614, 85.147], [23.643742, 113.786057, 85.174], [23.643568, 113.785889, 85.204], [23.643448, 113.785652, 85.239], [23.643066, 113.785042, 85.315], [23.642881, 113.784546, 85.373], [23.642424, 113.784203, 85.435], [23.641954, 113.783867, 85.499], [23.64167, 113.783653, 85.541], [23.641323, 113.783333, 85.601], [23.641354, 113.783058, 85.63], [23.641327, 113.782829, 85.662], [23.641361, 113.782524, 85.696], [23.641785, 113.782066, 85.765], [23.642471, 113.78141, 85.868], [23.643024, 113.781288, 85.933], [23.64452, 113.78064, 86.112], [23.645361, 113.780083, 86.225], [23.646465, 113.779274, 86.373], [23.647104, 113.778976, 86.451], [23.64835, 113.778587, 86.596], [23.649265, 113.778114, 86.71], [23.649664, 113.777405, 86.799], [23.648989, 113.776733, 86.905], [23.648304, 113.775887, 87.033], [23.647924, 113.775185, 87.117], [23.647976, 113.774658, 87.172], [23.648371, 113.773949, 87.257], [23.64893, 113.773499, 87.337], [23.648846, 113.772957, 87.402], [23.648193, 113.772705, 87.48], [23.647755, 113.7724, 87.548], [23.647699, 113.772179, 87.577], [23.647852, 113.771942, 87.609], [23.648113, 113.771805, 87.643], [23.648382, 113.77179, 87.678], [23.648237, 113.771973, 87.707], [23.648941, 113.772141, 87.788], [23.649435, 113.77256, 87.86], [23.649698, 113.77282, 87.9], [23.650265, 113.773102, 87.97], [23.650583, 113.773224, 88.009], [23.651175, 113.773399, 88.079], [23.651672, 113.773628, 88.14], [23.652157, 113.773811, 88.2], [23.652744, 113.774551, 88.3], [23.653158, 113.774803, 88.355], [23.653553, 113.774872, 88.4], [23.653961, 113.774826, 88.446], [23.654316, 113.775024, 88.495], [23.654629, 113.775276, 88.539], [23.654907, 113.775574, 88.584], [23.655148, 113.775696, 88.615], [23.655506, 113.776047, 88.671], [23.655706, 113.776474, 88.726], [23.655907, 113.776566, 88.756], [23.656244, 113.776161, 88.813], [23.65661, 113.776077, 88.861], [23.656919, 113.776146, 88.897], [23.657356, 113.776268, 88.948], [23.65782, 113.776169, 89.003], [23.658249, 113.776031, 89.055], [23.658594, 113.77623, 89.101], [23.658869, 113.776428, 89.138], [23.659203, 113.776649, 89.182], [23.65955, 113.776779, 89.224], [23.660055, 113.776924, 89.286], [23.660372, 113.776848, 89.323], [23.6609, 113.776764, 89.383], [23.661619, 113.77636, 89.474], [23.662409, 113.775482, 89.603], [23.662897, 113.775116, 89.67], [23.662912, 113.774689, 89.717], [23.662449, 113.774467, 89.774], [23.662239, 113.773544, 89.88], [23.662437, 113.773109, 89.931], [23.663113, 113.772636, 90.021], [23.663534, 113.772888, 90.078], [23.664227, 113.773476, 90.178], [23.664824, 113.774086, 90.27], [23.665482, 113.774277, 90.353], [23.666683, 113.773682, 90.505], [23.667341, 113.773582, 90.583], [23.667908, 113.773849, 90.652], [23.668682, 113.773491, 90.748], [23.669353, 113.773079, 90.842], [23.66921, 113.773361, 90.876], [23.669378, 113.773376, 90.898], [23.669872, 113.772987, 90.967], [23.670723, 113.773064, 91.063], [23.671001, 113.772751, 91.114], [23.67152, 113.772377, 91.185], [23.671881, 113.772392, 91.228], [23.671574, 113.772881, 91.291], [23.671606, 113.773262, 91.333], [23.672298, 113.773483, 91.415], [23.673433, 113.773048, 91.55], [23.675804, 113.7733, 91.827], [23.676516, 113.773239, 91.909], [23.677958, 113.772545, 92.085], [23.678555, 113.772896, 92.171], [23.67907, 113.773102, 92.243], [23.678719, 113.771828, 92.379], [23.678112, 113.770264, 92.553], [23.677588, 113.768936, 92.7], [23.677513, 113.768059, 92.79], [23.677549, 113.766609, 92.94], [23.677105, 113.765503, 93.064], [23.676281, 113.764053, 93.241], [23.676403, 113.763077, 93.342], [23.676085, 113.762688, 93.401], [23.676409, 113.761108, 93.568], [23.677235, 113.760025, 93.712], [23.677763, 113.759239, 93.813], [23.678179, 113.758003, 93.948], [23.678495, 113.757347, 94.024], [23.678926, 113.756721, 94.104], [23.679575, 113.755875, 94.219], [23.680645, 113.754784, 94.382], [23.682091, 113.75312, 94.617], [23.682713, 113.752129, 94.74], [23.682989, 113.751114, 94.849], [23.682726, 113.749802, 94.987], [23.682888, 113.74865, 95.107], [23.6835, 113.748077, 95.198], [23.683889, 113.748108, 95.244], [23.685017, 113.747284, 95.396], [23.686115, 113.745361, 95.628], [23.685806, 113.744423, 95.733], [23.684853, 113.742996, 95.913], [23.684885, 113.741402, 96.078], [23.685366, 113.741028, 96.147], [23.685944, 113.740776, 96.217], [23.686892, 113.740425, 96.329], [23.687672, 113.739922, 96.434], [23.687742, 113.739151, 96.516], [23.687376, 113.738182, 96.623], [23.687258, 113.736885, 96.79], [23.686859, 113.735748, 96.917], [23.686686, 113.735107, 96.986], [23.686701, 113.734169, 97.086], [23.687351, 113.733833, 97.167], [23.68886, 113.732544, 97.382], [23.690191, 113.731857, 97.546], [23.691057, 113.731552, 97.648], [23.692247, 113.731293, 97.785], [23.693607, 113.731087, 97.939], [23.694254, 113.730873, 98.016], [23.696352, 113.730057, 98.265], [23.697191, 113.728767, 98.429], [23.698183, 113.72731, 98.615], [23.698566, 113.726715, 98.689], [23.699169, 113.725243, 98.855], [23.700169, 113.723137, 99.097], [23.700901, 113.723206, 99.196], [23.701252, 113.723557, 99.249]], "start": {"lat": 23.701252, "lon": 113.723557}, "finish": {"lat": 23.701252, "lon": 113.723557}};</script>
+<script src="vendor/html2canvas.min.js"></script>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script>
+const DATA = window.RACE_DATA;
+const $ = (sel) => document.querySelector(sel);
+
+function hhmmToMin(s) {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(String(s).trim());
+  if (!m) return null;
+  const h = Number(m[1]), mm = Number(m[2]);
+  if (h > 23 || mm > 59) return null;
+  return h * 60 + mm;
+}
+function minToClock(absMin) {
+  const total = ((Math.round(absMin) % 1440) + 1440) % 1440;
+  const h = Math.floor(total / 60), m = total % 60;
+  return String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+}
+function daysLater(absMin) { return Math.floor(Math.round(absMin) / 1440); }
+function elapsedLabel(min) {
+  const m = Math.round(min);
+  const h = Math.floor(m / 60), r = m % 60;
+  return h + " h " + String(r).padStart(2, "0") + " m";
+}
+function nightAt(absMin) {
+  const t = ((Math.round(absMin) % 1440) + 1440) % 1440;
+  return t < DATA.sunriseMin || t > DATA.sunsetMin;
+}
+
+function computePlan(startMin, stops, paces) {
+  const totalAid = stops.reduce((a, b) => a + (Number(b) || 0), 0);
+  let cumMoving = 0, aidSoFar = 0;
+  const rows = [];
+  DATA.cps.forEach((cp, i) => {
+    const seg = DATA.segments[i];
+    const pace = Number(paces[i]) || 0;
+    const movingMin = pace * seg.lengthKm;
+    cumMoving += movingMin;
+    const arrival = startMin + cumMoving + aidSoFar;
+    const stop = Number(stops[i]) || 0;
+    const departure = arrival + stop;
+    aidSoFar += stop;
+    rows.push({
+      cp, seg, arrival, departure, movingMin,
+      cumElapsed: cumMoving + aidSoFar,
+      pace: pace,
+      night: nightAt(arrival),
+    });
+  });
+  const finish = rows.length ? rows[rows.length - 1].departure : startMin;
+  return { rows, finish, totalAid, movingTotal: cumMoving, paces: paces };
+}
+
+function modelPaces(targetHours, stops) {
+  const totalAid = stops.reduce((a, b) => a + (Number(b) || 0), 0);
+  const baseTotalHours = DATA.segments.reduce((a, s) => a + s.baseHours, 0);
+  const movingTargetMin = Math.max(30, targetHours * 60 - totalAid);
+  const scale = movingTargetMin / (baseTotalHours * 60);
+  return DATA.segments.map((s) => (s.lengthKm > 0 ? (s.baseHours * 60 * scale) / s.lengthKm : 0));
+}
+
+let PACE_ARR = [];
+let STOPS_DEFAULT = [];
+function currentStops() {
+  return DATA.cps.map((c, i) => {
+    const el = document.querySelector('input.stop[data-i="' + i + '"]');
+    return el ? Number(el.value) || 0 : (STOPS_DEFAULT[i] != null ? STOPS_DEFAULT[i] : c.aid);
+  });
+}
+
+function durLabel(min) {
+  const m = Math.round(min);
+  const h = Math.floor(m / 60), r = m % 60;
+  return h > 0 ? h + "h" + String(r).padStart(2, "0") : r + "m";
+}
+
+function escHtml(v) {
+  return String(v == null ? "" : v).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+}
+
+function barHtml(runs) {
+  if (!runs || !runs.length) return "";
+  const cats = (DATA.surface && DATA.surface.categories) || {};
+  const total = runs.reduce((sum, r) => sum + Math.max(0, r.end_km - r.start_km), 0) || 1;
+  const spans = runs.map((r) => {
+    const pct = (Math.max(0, r.end_km - r.start_km) / total) * 100;
+    const color = (cats[r.category] || {}).color || "#9CA3AF";
+    return '<span title="' + escHtml(r.category) + ' ' + r.start_km.toFixed(1) + '–' + r.end_km.toFixed(1) + ' km" style="width:' + pct.toFixed(2) + "%;background:" + color + '"></span>';
+  }).join("");
+  return '<div class="bar">' + spans + "</div>";
+}
+
+let SPARK_UID = 0;
+function sparkHtml(ele, wide, markerRatio) {
+  if (!ele || ele.length < 2) return "";
+  const W = wide ? 300 : 84, H = wide ? 44 : 26, P = 2;
+  const min = Math.min.apply(null, ele), max = Math.max.apply(null, ele);
+  const span = max - min || 1;
+  const pts = ele.map((e, i) => [
+    P + (i / (ele.length - 1)) * (W - 2 * P),
+    H - P - ((e - min) / span) * (H - 2 * P),
+  ]);
+  function smooth(ps) {
+    if (ps.length < 2) return "";
+    let d = "M " + ps[0][0].toFixed(1) + " " + ps[0][1].toFixed(1);
+    for (let i = 0; i < ps.length - 1; i++) {
+      const p0 = ps[Math.max(0, i - 1)], p1 = ps[i], p2 = ps[i + 1], p3 = ps[Math.min(ps.length - 1, i + 2)];
+      const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      d += " C " + c1x.toFixed(1) + " " + c1y.toFixed(1) + ", " + c2x.toFixed(1) + " " + c2y.toFixed(1) + ", " + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
+    }
+    return d;
+  }
+  const line = smooth(pts);
+  if (!wide) {
+    return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" width="84" height="26"><path d="' + line + '" fill="none" stroke="#1D4ED8" stroke-width="1.4" stroke-linecap="round"/></svg>';
+  }
+  const uid = "sparkg" + (++SPARK_UID);
+  let marker = "";
+  if (markerRatio != null && markerRatio >= 0 && markerRatio <= 1) {
+    const pos = markerRatio * (pts.length - 1);
+    const i0 = Math.floor(pos), i1 = Math.min(pts.length - 1, i0 + 1);
+    const t = pos - i0;
+    const mx = pts[i0][0] + (pts[i1][0] - pts[i0][0]) * t;
+    const my = pts[i0][1] + (pts[i1][1] - pts[i0][1]) * t;
+    marker = '<line x1="' + mx.toFixed(1) + '" y1="2" x2="' + mx.toFixed(1) + '" y2="' + (H - P) + '" stroke="#EA580C" stroke-width="1" stroke-dasharray="2 2" opacity="0.75"/>' +
+      '<circle cx="' + mx.toFixed(1) + '" cy="' + my.toFixed(1) + '" r="3.2" fill="#EA580C" stroke="#fff" stroke-width="1.2"/>';
+  }
+  const last = pts[pts.length - 1], first = pts[0];
+  const area = line + " L " + last[0].toFixed(1) + " " + (H - P) + " L " + first[0].toFixed(1) + " " + (H - P) + " Z";
+  return '<svg class="spark spark-wide" viewBox="0 0 ' + W + ' ' + H + '">' +
+    '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0%" stop-color="#94A3B8" stop-opacity="0.35"/>' +
+    '<stop offset="100%" stop-color="#94A3B8" stop-opacity="0"/>' +
+    '</linearGradient></defs>' +
+    '<line x1="0" y1="' + (H - P) + '" x2="' + W + '" y2="' + (H - P) + '" stroke="#e2e8f0" stroke-width="1"/>' +
+    '<path d="' + area + '" fill="url(#' + uid + ')"/>' +
+    '<path d="' + line + '" fill="none" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<circle cx="' + first[0].toFixed(1) + '" cy="' + first[1].toFixed(1) + '" r="2.4" fill="#fff" stroke="#1D4ED8" stroke-width="1.4"/>' +
+    '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="2.6" fill="#1D4ED8"/>' +
+    marker +
+    '</svg>';
+}
+
+function legendHtml(runs) {
+  if (!runs || !runs.length) return "";
+  const cats = (DATA.surface && DATA.surface.categories) || {};
+  const lens = {};
+  const order = [];
+  let total = 0;
+  runs.forEach((r) => {
+    const len = Math.max(0, Number(r.end_km) - Number(r.start_km));
+    if (len <= 0) return;
+    if (!(r.category in lens)) { lens[r.category] = 0; order.push(r.category); }
+    lens[r.category] += len;
+    total += len;
+  });
+  if (!total) return "";
+  return '<div class="mini-legend">' + order.map((cat) => {
+    const meta = cats[cat] || {};
+    const pct = Math.round((lens[cat] / total) * 100);
+    return '<span><i style="background:' + (meta.color || "#999") + '"></i>' + escHtml(meta.label || cat) + ' ' + pct + '%</span>';
+  }).join("") + "</div>";
+}
+
+function starsHtml(level) {
+  if (!level) return "";
+  const colors = { 5: "#B91C1C", 4: "#C2410C", 3: "#A16207", 2: "#4D7C0F", 1: "#15803D" };
+  const c = colors[level] || "#334155";
+  return '<span style="color:' + c + ';letter-spacing:1px">' + "★".repeat(level) + "☆".repeat(5 - level) + "</span>";
+}
+
+let M_SEL = 0;
+let LAST_PLAN = null;
+let LAST_START_MIN = DATA.startMin;
+let LOC_MARKER = null;
+let GPS = null;  // {lat, lon, km, acc, offRoute}
+let GPS_MSG = null;
+let USER_PICKED = false;
+
+function updateGps(pos) {
+  const lat = pos.coords.latitude, lon = pos.coords.longitude, acc = pos.coords.accuracy || 999;
+  let best = 0, bestD = Infinity;
+  for (let i = 0; i < DATA.track.length; i++) {
+    const t = DATA.track[i];
+    const dLat = (t[0] - lat) * 111320;
+    const dLon = (t[1] - lon) * 111320 * Math.cos(lat * Math.PI / 180);
+    const d = dLat * dLat + dLon * dLon;
+    if (d < bestD) { bestD = d; best = i; }
+  }
+  const distM = Math.sqrt(bestD);
+  const km = DATA.track[best][2];
+  const offRoute = distM > 2000;
+  const first = !GPS;
+  GPS = { lat, lon, km, acc, offRoute };
+  if (LOC_MARKER) {
+    LOC_MARKER.setLatLng([lat, lon]);
+    LOC_MARKER.setStyle({ opacity: 1, fillOpacity: 1 });
+  }
+  if (first && typeof MAP !== "undefined" && MAP) MAP.setView([lat, lon], 16);
+  if (offRoute) {
+    // 离赛道太远：不把当前位置当成赛道里程，也不打断用户选择的 CP
+    setGpsHint("GPS 不在赛道上（距轨迹 " + (distM / 1000).toFixed(1) + " km）");
+    mRender();
+    return;
+  }
+  if (!USER_PICKED) {
+    let idx = DATA.cps.findIndex((c) => c.km > km + 0.05);
+    if (idx < 0) idx = DATA.cps.length - 1;
+    M_SEL = idx;
+  }
+  mRender();
+  if (LAST_PLAN) renderPlanCards(LAST_PLAN, LAST_START_MIN);
+  setGpsHint(acc <= 50 ? "GPS 正常（±" + Math.round(acc) + "m）" : "信号弱（±" + Math.round(acc) + "m）");
+}
+
+let GPS_WATCH = null;
+function startWatch() {
+  if (!navigator.geolocation || GPS_WATCH) return;
+  GPS_WATCH = navigator.geolocation.watchPosition(
+    (pos) => updateGps(pos),
+    () => {},
+    { enableHighAccuracy: true, maximumAge: 20000, timeout: 30000 }
+  );
+}
+
+function locateMe() {
+  if (!navigator.geolocation) {
+    setGpsHint("此浏览器不支持定位");
+    return;
+  }
+  setGpsHint("定位中…");
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      updateGps(pos);
+      // 点击「定位我」总是把地图移回当前位置（即使不是首次定位）
+      if (typeof MAP !== "undefined" && MAP) {
+        MAP.setView([pos.coords.latitude, pos.coords.longitude], 16);
+      }
+      startWatch();
+    },
+    (err) => {
+      setGpsHint(err && err.code === 1 ? "未授权定位（可点「定位我」重试）" : "定位失败，信号弱或超时");
+    },
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 30000 }
+  );
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    if (GPS_WATCH) { navigator.geolocation.clearWatch(GPS_WATCH); GPS_WATCH = null; }
+  } else if (GPS) {
+    startWatch();
+  }
+});
+
+function setGpsHint(text) {
+  GPS_MSG = text;
+  const el = document.getElementById("gpsHint");
+  if (el) el.textContent = text;
+}
+
+function absMinutesOfIso(iso) {
+  if (!iso) return 0;
+  const d = new Date(iso);
+  const race = new Date(DATA.date + "T00:00:00");
+  return Math.round((d.getTime() - race.getTime()) / 60000);
+}
+
+function mRender() {
+  if (!LAST_PLAN) return;
+  const status = document.getElementById("mStatus");
+  const cpsBar = document.getElementById("mCps");
+  if (!status || !cpsBar) return;
+  const cps = DATA.cps;
+  const i = Math.max(0, Math.min(M_SEL, cps.length - 1));
+  const cp = cps[i];
+  const row = LAST_PLAN.rows[i];
+  const seg = DATA.segments[i];
+  const now = new Date();
+  const nowTxt = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+  function isoClock(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+  }
+  const cutoffMin = cp.cutoff ? absMinutesOfIso(cp.cutoff) : null;
+  const cutoffTxt = cutoffMin != null
+    ? minToClock(cutoffMin % 1440) + (Math.floor(cutoffMin / 1440) > 0 ? "⁺¹" : "")
+    : "";
+  const arriveTxt = minToClock(row.arrival) + (daysLater(row.arrival) > 0 ? "⁺¹" : "");
+  let marginTxt = "";
+  if (cp.cutoff) {
+    const margin = Math.round(absMinutesOfIso(cp.cutoff) - row.arrival);
+    marginTxt = margin >= 0 ? margin + " 分" : "超 " + (-margin) + " 分";
+  }
+  const segStart = i > 0 ? cps[i - 1].km : 0;
+  const gpsUsable = GPS && !GPS.offRoute;
+  const curKm = gpsUsable ? GPS.km : segStart;
+  const totalKm = DATA.distanceKm || 99.5;
+  const remainKm = Math.max(0, cp.km - curKm);
+  const segLabel = (i > 0 ? cps[i - 1].id : "起点") + "→" + cp.id;
+  const nowMinClock = now.getHours() * 60 + now.getMinutes();
+  const stops = currentStops();
+  let segDplus = Math.round(cp.dplus || 0);
+  let segDminus = Math.round(cp.dminus || 0);
+  let official = officialRemaining(i, curKm, gpsUsable);
+  let totalDplus = official.up;
+  let totalDminus = official.dn;
+  let segEta = arriveTxt;
+  let totalEta = LAST_PLAN
+    ? minToClock(LAST_PLAN.finish) + (daysLater(LAST_PLAN.finish) > 0 ? "⁺¹" : "")
+    : "—";
+  if (gpsUsable) {
+    segDplus = dplusBetween(curKm, cp.km);
+    segDminus = dminusBetween(curKm, cp.km);
+    official = officialRemaining(i, curKm, true);
+    totalDplus = official.up;
+    totalDminus = official.dn;
+    // 用当前计划（会随每段配速/停留修改）推算剩余时间，保证与卡片/预计冲线一致
+    const pace = LAST_PLAN.rows[i].pace || 0;
+    const planAtCur = row.arrival - Math.max(0, cp.km - curKm) * pace;
+    const etaSegAbs = nowMinClock + Math.max(0, row.arrival - planAtCur);
+    segEta = minToClock(etaSegAbs) + (etaSegAbs >= 1440 ? "⁺¹" : "");
+    const etaTotalAbs = nowMinClock + Math.max(0, LAST_PLAN.finish - planAtCur);
+    totalEta = minToClock(etaTotalAbs) + (etaTotalAbs >= 1440 ? "⁺¹" : "");
+  }
+  const totalRemain = Math.max(0, totalKm - curKm);
+  const gpsText = GPS_MSG || (GPS ? (GPS.acc <= 50 ? "GPS 正常（±" + Math.round(GPS.acc) + "m）" : "信号弱（±" + Math.round(GPS.acc) + "m）") : "GPS 未开启（点「定位我」）");
+  status.innerHTML =
+    '<div class="row"><span class="stat-title">行进状态</span>　现在 <b>' + nowTxt + '</b></div>' +
+    '<div class="row">当前分段：<b>' + escHtml(segLabel) + '</b></div>' +
+    '<div class="row">分段剩余：' + remainKm.toFixed(1) + ' km · ↑' + segDplus + ' m · ↓' + segDminus + ' m</div>' +
+    '<div class="row">预计完成：' + segEta + (cutoffTxt ? ' ｜ 关门：' + cutoffTxt : '') + '</div>' +
+    '<div class="row">全程剩余：' + totalRemain.toFixed(1) + ' km · ↑' + totalDplus + ' m · ↓' + totalDminus + ' m</div>' +
+    '<div class="row">预计完成：' + totalEta + '</div>' +
+    '<div class="row dim" id="gpsHint">' + escHtml(gpsText) + '</div>';
+  if (cpsBar.querySelectorAll(".m-cp").length !== cps.length) {
+    cpsBar.innerHTML = cps.map((c, idx) =>
+      '<button class="m-cp" type="button" data-i="' + idx + '">' + escHtml(c.id) + '</button>'
+    ).join("");
+  }
+  cpsBar.querySelectorAll(".m-cp").forEach((b, idx) => {
+    b.classList.toggle("active", idx === i);
+  });
+  const activeBtn = cpsBar.querySelector(".m-cp.active");
+  if (activeBtn) {
+    const l = activeBtn.offsetLeft, r = l + activeBtn.offsetWidth;
+    if (l < cpsBar.scrollLeft) cpsBar.scrollLeft = l - 8;
+    else if (r > cpsBar.scrollLeft + cpsBar.clientWidth) cpsBar.scrollLeft = r - cpsBar.clientWidth + 8;
+  }
+}
+
+function dplusBetween(a, b) {
+  const ks = DATA.profile.km, es = DATA.profile.ele;
+  let sum = 0;
+  for (let i = 1; i < ks.length; i++) {
+    const x0 = Math.max(a, ks[i - 1]), x1 = Math.min(b, ks[i]);
+    if (x1 <= x0) continue;
+    const frac = (x1 - x0) / ((ks[i] - ks[i - 1]) || 1);
+    const d = (es[i] - es[i - 1]) * frac;
+    if (d > 3) sum += d;
+  }
+  return Math.round(sum);
+}
+function dminusBetween(a, b) {
+  const ks = DATA.profile.km, es = DATA.profile.ele;
+  let sum = 0;
+  for (let i = 1; i < ks.length; i++) {
+    const x0 = Math.max(a, ks[i - 1]), x1 = Math.min(b, ks[i]);
+    if (x1 <= x0) continue;
+    const frac = (x1 - x0) / ((ks[i] - ks[i - 1]) || 1);
+    const d = (es[i] - es[i - 1]) * frac;
+    if (d < -3) sum += -d;
+  }
+  return Math.round(sum);
+}
+
+function baseHAt(km) {
+  const ks = DATA.profile.km, hs = DATA.profile.baseH;
+  if (!ks.length) return 0;
+  if (km <= ks[0]) return hs[0];
+  if (km >= ks[ks.length - 1]) return hs[hs.length - 1];
+  let lo = 0, hi = ks.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (ks[mid] <= km) lo = mid; else hi = mid; }
+  const t = (km - ks[lo]) / ((ks[hi] - ks[lo]) || 1);
+  return hs[lo] + (hs[hi] - hs[lo]) * t;
+}
+function officialRemaining(i, curKm, gpsUsable) {
+  const cps = DATA.cps;
+  const cp = cps[i];
+  const segStart = i > 0 ? cps[i - 1].km : 0;
+  let up = 0, dn = 0;
+  if (gpsUsable) {
+    up += Math.max(0, (cp.dplus || 0) - dplusBetween(segStart, curKm));
+    dn += Math.max(0, (cp.dminus || 0) - dminusBetween(segStart, curKm));
+  } else {
+    up += (cp.dplus || 0);
+    dn += (cp.dminus || 0);
+  }
+  for (let j = i + 1; j < cps.length; j++) {
+    up += cps[j].dplus || 0;
+    dn += cps[j].dminus || 0;
+  }
+  return { up: Math.round(up), dn: Math.round(dn) };
+}
+
+function movingScale() {
+  const totalAid = currentStops().reduce((a, b) => a + (Number(b) || 0), 0);
+  const movingTarget = Math.max(30, getTargetHours() * 60 - totalAid);
+  const baseTotal = DATA.profile.baseH[DATA.profile.baseH.length - 1] || 1;
+  return movingTarget / (baseTotal * 60);
+}
+
+function renderPlanCards(plan, startMin) {
+  const box = document.getElementById("mPlanCards");
+  if (!box) return;
+  if (!window.matchMedia("(max-width: 640px)").matches) { box.innerHTML = ""; return; }
+  const stops = currentStops();
+  const gpsKm = (GPS && !GPS.offRoute) ? GPS.km : null;
+  box.innerHTML = plan.rows.map((r, i) => {
+    const cp = r.cp, seg = r.seg;
+    const segStart = i > 0 ? plan.rows[i - 1].cp.km : 0;
+    let markerRatio = null;
+    if (gpsKm != null && gpsKm >= segStart && gpsKm <= cp.km) {
+      markerRatio = (gpsKm - segStart) / ((cp.km - segStart) || 1);
+    }
+    const prevDep = i > 0 ? plan.rows[i - 1].departure : startMin;
+    const diff = cp.diff ? "★".repeat(cp.diff) + "☆".repeat(5 - cp.diff) : "";
+    return '<div class="m-plan-card">' +
+      '<div class="ph"><span>' + escHtml(cp.id) + ' · ' + escHtml(cp.name) + '</span><span>' + diff + '</span></div>' +
+      '<div class="nums">' + cp.km.toFixed(1) + ' km ｜ 段 ' + seg.lengthKm.toFixed(1) + ' km ｜ ↑' + Math.round(cp.dplus || 0) + ' ｜ ↓' + Math.round(cp.dminus || 0) + '</div>' +
+      '<div class="arr">预计到达 <b>' + minToClock(r.arrival) + '</b> ｜ 预计离开 <b>' + minToClock(r.departure) + '</b> ｜ 耗时 ' + durLabel(r.arrival - prevDep) + '</div>' +
+      barHtml(cp.surfaceRuns) +
+      legendHtml(cp.surfaceRuns) +
+      '<div style="margin:6px 0">' + sparkHtml(cp.ele, true, markerRatio) + '</div>' +
+      (cp.note ? '<div class="cmt">' + escHtml(cp.note) + '</div>' : '') +
+      '<div class="edit">配速 <input class="m-pace numinput" type="text" inputmode="decimal" data-i="' + i + '" value="' + (Number(PACE_ARR[i]) || 0).toFixed(1) + '"> 分/km ｜ 停留 <input class="m-stop numinput" type="text" inputmode="numeric" data-i="' + i + '" value="' + (Number(stops[i]) || 0) + '">分</div>' +
+    '</div>';
+  }).join("");
+}
+
+function render() {
+  const startMin = hhmmToMin($("#start").value) ?? DATA.startMin;
+  const stops = currentStops();
+  const plan = computePlan(startMin, stops, PACE_ARR);
+  const elapsedMin = plan.finish - startMin;
+
+  $("#c-finish").textContent = minToClock(plan.finish) + (daysLater(plan.finish) > 0 ? "⁺¹" : "");
+  $("#c-move").textContent = elapsedLabel(plan.movingTotal);
+  $("#c-aid").textContent = elapsedLabel(plan.totalAid);
+  if (DATA.cutoffHours) {
+    const bufferMin = DATA.cutoffHours * 60 - elapsedMin;
+    $("#c-buffer").textContent = bufferMin >= 0 ? elapsedLabel(bufferMin) : "超关门 " + elapsedLabel(-bufferMin);
+    $("#c-buffer").style.color = bufferMin >= 0 ? "" : "#b91c1c";
+  }
+
+  const tbody = $("#plan-rows");
+  tbody.innerHTML = plan.rows.map((r, i) => {
+    const cp = r.cp;
+    const dayMark = daysLater(r.arrival) > 0 ? "⁺¹" : "";
+    const dpm = (cp.dplus ? "+" + Math.round(cp.dplus) : "0") + "／" + (cp.dminus ? "−" + Math.round(cp.dminus) : "0");
+    const prevDep = i > 0 ? plan.rows[i - 1].departure : startMin;
+    const legMin = r.arrival - prevDep;
+    return '<tr class="' + (r.night ? "night" : "") + '">' +
+      '<td data-label="CP">' + escHtml(cp.id) + '</td>' +
+      '<td data-label="地点">' + escHtml(cp.name) + '</td>' +
+      '<td class="num" data-label="累计 km">' + cp.km.toFixed(1) + '</td>' +
+      '<td class="num" data-label="分段 km">' + r.seg.lengthKm.toFixed(1) + '</td>' +
+      '<td class="num" data-label="D+／D−">' + dpm + '</td>' +
+      '<td class="num" data-label="难度">' + starsHtml(cp.diff) + '</td>' +
+      '<td data-label="路况">' + barHtml(cp.surfaceRuns) + '</td>' +
+      '<td data-label="高程">' + sparkHtml(cp.ele) + '</td>' +
+      '<td data-label="备注">' + escHtml(cp.features) + '</td>' +
+      '<td class="num" data-label="到达">' + minToClock(r.arrival) + dayMark + '</td>' +
+      '<td class="num" data-label="耗时">' + durLabel(legMin) + '</td>' +
+      '<td class="num" data-label="配速">' + '<input class="pace numinput" type="text" inputmode="decimal" data-i="' + i + '" value="' + (Number(PACE_ARR[i]) || 0).toFixed(1) + '"> 分/km</td>' +
+      '<td class="num" data-label="停留">' + '<input class="stop numinput" type="text" inputmode="numeric" data-i="' + i + '" value="' + (Number(stops[i]) || 0) + '">分</td>' +
+      '<td class="num" data-label="离开">' + minToClock(r.departure) + (daysLater(r.departure) > 0 ? "⁺¹" : "") + '</td></tr>';
+  }).join("");
+
+  renderChart(plan, startMin, stops);
+  LAST_PLAN = plan;
+  LAST_START_MIN = startMin;
+  mRender();
+  renderPlanCards(plan, startMin);
+  updateMapMarkers(plan);
+  save(startMin, plan.finish - startMin > 0 ? (plan.finish - startMin) / 60 : 0, stops);
+  $("#status").textContent = "已按输入重算（数据 " + DATA.builtAt + " 生成）";
+}
+
+function dminusBetween(a, b) {
+  const ks = DATA.profile.km, es = DATA.profile.ele;
+  let sum = 0;
+  for (let i = 1; i < ks.length; i++) {
+    const x0 = Math.max(a, ks[i - 1]), x1 = Math.min(b, ks[i]);
+    if (x1 <= x0) continue;
+    const frac = (x1 - x0) / ((ks[i] - ks[i - 1]) || 1);
+    const d = (es[i] - es[i - 1]) * frac;
+    if (d < -3) sum += -d;
+  }
+  return Math.round(sum);
+}
+
+function baseHAt(km) {
+  const ks = DATA.profile.km, bs = DATA.profile.baseH;
+  if (km <= ks[0]) return 0;
+  if (km >= ks[ks.length - 1]) return bs[bs.length - 1];
+  let lo = 0, hi = ks.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (ks[mid] < km) lo = mid + 1; else hi = mid;
+  }
+  const span = ks[lo] - ks[lo - 1];
+  const t = span > 0 ? (km - ks[lo - 1]) / span : 0;
+  return bs[lo - 1] + (bs[lo] - bs[lo - 1]) * t;
+}
+
+
+function renderChart(plan, startMin, stops) {
+  // 宽度跟随容器（大屏拉满），但内部字号固定，不随画布缩放放大
+  const chartEl = document.getElementById("chart");
+  const W = Math.max(960, Math.min(2000, Math.round((chartEl ? chartEl.clientWidth : 1400) - 12)));
+  const H = Math.round(Math.min(470, Math.max(320, W * 0.24)));
+  const L = 70, R = 90, T = 80, B = 62;
+  const profKm = DATA.profile.km, profEle = DATA.profile.ele;
+  const totalKm = profKm[profKm.length - 1] || 1;
+  const X = (km) => L + (km / totalKm) * (W - L - R);
+  const maxEle = Math.max.apply(null, profEle.concat([10]));
+  const Y = (e) => H - B - (e / (maxEle * 1.1)) * (H - T - B);
+  let svg = '<svg class="profile" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="高程剖面（横轴=距离，含日夜）">';
+
+  // CP 时间锚点：用于「在某个位置是什么时候」与日夜判断
+  const anchors = plan.rows.map((r) => ({
+    km: r.cp.km,
+    tArr: r.arrival - startMin,
+    tDep: r.departure - startMin,
+  }));
+  function tArrAtKm(km) {
+    let i = 0;
+    while (i < anchors.length && anchors[i].km < km - 1e-9) i++;
+    const next = anchors[Math.min(i, anchors.length - 1)];
+    if (!next) return 0;
+    const prev = i === 0 ? { km: 0, tDep: 0 } : anchors[i - 1];
+    const b0 = baseHAt(prev.km), b1 = baseHAt(next.km);
+    const f = b1 > b0 ? (baseHAt(km) - b0) / (b1 - b0) : 0;
+    return prev.tDep + f * (next.tArr - prev.tDep);
+  }
+  const tArr = profKm.map((km) => tArrAtKm(km));
+  const kmAtAbs = (tAbs) => {
+    for (let i = 1; i < profKm.length; i++) {
+      if ((tArr[i - 1] - tAbs) * (tArr[i] - tAbs) <= 0 && tArr[i] !== tArr[i - 1]) {
+        const f = (tAbs - tArr[i - 1]) / (tArr[i] - tArr[i - 1]);
+        return profKm[i - 1] + f * (profKm[i] - profKm[i - 1]);
+      }
+    }
+    return null;
+  };
+
+  // 夜间灰底（按公里位置着色：该位置在夜里通过）
+  let shadeStart = null;
+  for (let i = 0; i < profKm.length; i++) {
+    const isNight = nightAt(startMin + tArr[i]);
+    if (isNight && shadeStart === null) shadeStart = profKm[i];
+    if (!isNight && shadeStart !== null) {
+      const x0 = X(shadeStart), x1 = X(profKm[i]);
+      svg += '<rect x="' + x0.toFixed(1) + '" y="' + T + '" width="' + Math.max(0, x1 - x0).toFixed(1) +
+        '" height="' + (H - T - B) + '" fill="#e9ecf3"/>';
+      shadeStart = null;
+    }
+  }
+  if (shadeStart !== null) {
+    const x0 = X(shadeStart), x1 = X(totalKm);
+    svg += '<rect x="' + x0.toFixed(1) + '" y="' + T + '" width="' + Math.max(0, x1 - x0).toFixed(1) +
+      '" height="' + (H - T - B) + '" fill="#e9ecf3"/>';
+  }
+
+  // 海拔网格
+  for (let e = 0; e <= maxEle; e += 200) {
+    const y = Y(e).toFixed(1);
+    svg += '<line x1="' + L + '" y1="' + y + '" x2="' + (W - R) + '" y2="' + y + '" stroke="#f1f4f9"/>';
+    svg += '<text x="' + (L - 6) + '" y="' + (Number(y) + 4) + '" text-anchor="end" font-size="11.5" fill="#64748b">' + e + '</text>';
+  }
+
+  // 日落/日出竖线（换算成公里位置）
+  const absStart = startMin, absEnd = startMin + (plan.finish - startMin);
+  for (let d = Math.floor(absStart / 1440); d <= Math.floor(absEnd / 1440); d++) {
+    [["日落", d * 1440 + DATA.sunsetMin], ["日出", d * 1440 + DATA.sunriseMin]].forEach(([label, absT]) => {
+      if (absT <= absStart || absT >= absEnd) return;
+      const km = kmAtAbs(absT - startMin);
+      if (km === null) return;
+      const x = X(km).toFixed(1);
+      svg += '<line x1="' + x + '" y1="' + T + '" x2="' + x + '" y2="' + (H - B) + '" stroke="#94a3b8" stroke-dasharray="4 3"/>';
+      svg += '<text x="' + (Number(x) + 3) + '" y="' + (H - B - 4) + '" font-size="11" fill="#64748b">' + label + " " + minToClock(absT % 1440) + '</text>';
+    });
+  }
+
+  // 高程曲线（横轴=距离；CP 停留不进入曲线，因此不会拉长/压平地形）
+  const pts = profKm.map((km, i) => X(km).toFixed(1) + "," + Y(profEle[i]).toFixed(1)).join(" ");
+  svg += '<polyline fill="none" stroke="#1f4e79" stroke-width="1.8" points="' + pts + '"/>';
+
+  // CP 竖线 + 到达时刻（名称/时间仍显示，位置按公里）
+  plan.rows.forEach((r, i) => {
+    const x = Number(X(r.cp.km).toFixed(1));
+    const color = r.night ? "#7c3aed" : "#b06a6a";
+    svg += '<line x1="' + x + '" y1="' + T + '" x2="' + x + '" y2="' + (H - B) + '" stroke="' + color + '" stroke-width="1"/>';
+    // 三行标签：CP 编号 / 简称 / 到达时刻，避免挤成一行
+    const name = r.cp.short || r.cp.name || "";
+    const time = minToClock(r.arrival) + (daysLater(r.arrival) > 0 ? "⁺¹" : "");
+    const lines = [r.cp.id, name, time].filter((v, idx) => v && !(idx === 2 && name === ""));
+    const lineH = 11.5;
+    const baseY = T - 9;
+    lines.forEach((line, li) => {
+      const y = baseY - (lines.length - 1 - li) * lineH;
+      const weight = li === 0 ? "700" : "500";
+      const size = li === 0 ? "10" : "9.5";
+      svg += '<text x="' + x + '" y="' + y.toFixed(1) + '" text-anchor="middle" font-size="' + size +
+        '" font-weight="' + weight + '" fill="' + color + '" stroke="#fff" stroke-width="2.2" paint-order="stroke">' +
+        escHtml(line) + '</text>';
+    });
+  });
+
+  // 路况带（按公里）
+  if (DATA.surface && DATA.surface.runs && DATA.surface.runs.length) {
+    const by0 = H - B + 9, bh = 9;
+    DATA.surface.runs.forEach((run) => {
+      const x0 = X(run.start_km), x1 = X(run.end_km);
+      if (x1 - x0 < 0.6) return;
+      const meta = (DATA.surface.categories || {})[run.category] || {};
+      svg += '<rect x="' + x0.toFixed(1) + '" y="' + by0 + '" width="' + (x1 - x0).toFixed(1) +
+        '" height="' + bh + '" fill="' + (meta.color || "#9CA3AF") + '" opacity="0.9"/>';
+    });
+    svg += '<text x="' + L + '" y="' + (by0 - 4) + '" font-size="11" fill="#475569">路况带（官方路书）</text>';
+  }
+
+  // 距离坐标：刻度直接按 CP 点距离（0 / 12.1 / 24.0 … / 99.5 km）
+  const kmY = H - B + 34;
+  plan.rows.forEach((r) => {
+    const x = Number(X(r.cp.km).toFixed(1));
+    svg += '<line x1="' + x + '" y1="' + (H - B) + '" x2="' + x + '" y2="' + (H - B + 4) + '" stroke="#94a3b8"/>';
+    svg += '<text x="' + x + '" y="' + kmY + '" text-anchor="middle" font-size="11.5" fill="#475569">' +
+      r.cp.km.toFixed(1) + '</text>';
+  });
+  svg += '<text x="' + L + '" y="' + kmY + '" text-anchor="start" font-size="11" fill="#64748b">距离 (km)</text>';
+  svg += '<text x="' + (W - R) + '" y="' + (H - 6) + '" text-anchor="end" font-size="11.5" fill="#64748b">' +
+    "阴影＝夜间通过 ｜ 竖线＝CP 到达（紫＝夜）" + '</text>';
+
+  // 联动光标
+  svg += '<line id="cxLine" x1="0" y1="' + T + '" x2="0" y2="' + (H - B) + '" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 3" visibility="hidden"/>';
+  svg += '<circle id="cxDot" r="4.5" fill="#F59E0B" stroke="#fff" stroke-width="1.5" visibility="hidden"/>';
+  svg += '<text id="cxText" font-size="12" fill="#92400E" font-weight="700" text-anchor="middle" stroke="#fff" stroke-width="3" paint-order="stroke" visibility="hidden"></text>';
+  svg += '</svg>';
+  $("#chart").innerHTML = svg;
+
+  PLAN_CTX.ok = true;
+  PLAN_CTX.plan = plan;
+  PLAN_CTX.stops = stops;
+  PLAN_CTX.startMin = startMin;
+  PLAN_CTX.totalMin = plan.finish - startMin;
+  PLAN_CTX.W = W; PLAN_CTX.H = H; PLAN_CTX.L = L; PLAN_CTX.R = R; PLAN_CTX.T = T; PLAN_CTX.B = B;
+  PLAN_CTX.X = X; PLAN_CTX.Y = Y; PLAN_CTX.totalKm = totalKm;
+  PLAN_CTX.tArrAtKm = tArrAtKm;
+
+  const svgEl = document.querySelector("#chart svg");
+  if (svgEl) {
+    svgEl.addEventListener("mousemove", (ev) => {
+      const rect = svgEl.getBoundingClientRect();
+      const vx = ((ev.clientX - rect.left) / rect.width) * W;
+      const km = ((vx - L) / (W - L - R)) * totalKm;
+      if (km >= 0 && km <= totalKm) updateCursor(Math.max(0, Math.min(totalKm, km)));
+    });
+    svgEl.addEventListener("mouseleave", hideCursor);
+  }
+}
+
+let MAP = null;
+let MAP_MARKERS = [];
+let MAP_CURSOR = null;
+const PLAN_CTX = { ok: false };
+
+function trackPtAtKm(km) {
+  const t = DATA.track;
+  if (!t || !t.length) return null;
+  if (km <= t[0][2]) return [t[0][0], t[0][1]];
+  if (km >= t[t.length - 1][2]) return [t[t.length - 1][0], t[t.length - 1][1]];
+  let lo = 0, hi = t.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (t[mid][2] < km) lo = mid + 1; else hi = mid;
+  }
+  const a = t[lo - 1], b = t[lo];
+  const span = b[2] - a[2];
+  const f = span > 0 ? (km - a[2]) / span : 0;
+  return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
+}
+
+function eleAtKm(km) {
+  const ks = DATA.profile.km, es = DATA.profile.ele;
+  if (km <= ks[0]) return es[0];
+  if (km >= ks[ks.length - 1]) return es[es.length - 1];
+  let lo = 0, hi = ks.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (ks[mid] < km) lo = mid + 1; else hi = mid;
+  }
+  const span = ks[lo] - ks[lo - 1];
+  const f = span > 0 ? (km - ks[lo - 1]) / span : 0;
+  return es[lo - 1] + (es[lo] - es[lo - 1]) * f;
+}
+
+
+function updateCursor(km) {
+  if (!PLAN_CTX.ok || km === null || km === undefined) return;
+  const c = PLAN_CTX;
+  const t = c.tArrAtKm ? c.tArrAtKm(km) : 0;
+  const x = c.X(km);
+  const e = eleAtKm(km);
+  const y = c.Y(e);
+  const line = document.getElementById("cxLine");
+  const dot = document.getElementById("cxDot");
+  const label = document.getElementById("cxText");
+  if (line) { line.setAttribute("x1", x); line.setAttribute("x2", x); line.setAttribute("visibility", "visible"); }
+  if (dot) { dot.setAttribute("cx", x); dot.setAttribute("cy", y); dot.setAttribute("visibility", "visible"); }
+  if (label) {
+    const text = minToClock(c.startMin + t) + " · " + km.toFixed(1) + " km · " + Math.round(e) + " m";
+    const tx = Math.min(Math.max(x, c.L + 72), c.W - c.R - 72);
+    label.setAttribute("x", tx);
+    // 放在图中段，避开顶部 CP 标签与底部刻度
+    label.setAttribute("y", (c.T + (c.H - c.T - c.B) * 0.42).toFixed(1));
+    label.textContent = text;
+    label.setAttribute("visibility", "visible");
+  }
+  if (MAP_CURSOR) {
+    const p = trackPtAtKm(km);
+    MAP_CURSOR.setLatLng(p);
+    MAP_CURSOR.setStyle({ opacity: 1, fillOpacity: 0.95 });
+  }
+}
+
+function hideCursor() {
+  ["cxLine", "cxDot", "cxText"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute("visibility", "hidden");
+  });
+  if (MAP_CURSOR) MAP_CURSOR.setStyle({ opacity: 0, fillOpacity: 0 });
+}
+
+function initMap() {
+  const box = document.getElementById("map");
+  if (!box) return;
+  if (typeof L === "undefined") {
+    box.innerHTML = '<div style="padding:18px;color:#64748b">地图库未载入（vendor/leaflet 缺失）</div>';
+    return;
+  }
+  const isMobileMap = window.matchMedia("(max-width: 640px)").matches;
+  MAP = L.map("map", { zoomControl: true, scrollWheelZoom: false, dragging: !isMobileMap, touchZoom: true });
+  L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", {
+    maxZoom: 17,
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(MAP);
+
+  const track = DATA.track;
+  const base = L.polyline(track.map((p) => [p[0], p[1]]), { color: "#94a3b8", weight: 6, opacity: 0.55 }).addTo(MAP);
+  if (DATA.surface && DATA.surface.runs && DATA.surface.categories) {
+    DATA.surface.runs.forEach((run) => {
+      const meta = DATA.surface.categories[run.category] || {};
+      const color = meta.color || "#94a3b8";
+      const pts = [trackPtAtKm(run.start_km)];
+      for (const p of track) {
+        if (p[2] > run.start_km + 1e-6 && p[2] < run.end_km - 1e-6) pts.push([p[0], p[1]]);
+      }
+      pts.push(trackPtAtKm(run.end_km));
+      if (pts.length >= 2) L.polyline(pts, { color: color, weight: 5, opacity: 0.95 }).addTo(MAP);
+    });
+  }
+  L.circleMarker([DATA.start.lat, DATA.start.lon], { radius: 7, color: "#fff", weight: 2, fillColor: "#15803D", fillOpacity: 1 })
+    .bindTooltip("起点", { permanent: true, direction: "left", offset: [-8, 0], className: "cp-map-label" }).addTo(MAP);
+  L.circleMarker([DATA.finish.lat, DATA.finish.lon], { radius: 7, color: "#fff", weight: 2, fillColor: "#B91C1C", fillOpacity: 1 })
+    .bindTooltip("终点", { permanent: true, direction: "right", offset: [8, 0], className: "cp-map-label" }).addTo(MAP);
+  DATA.cps.forEach((cp) => {
+    MAP_MARKERS.push(
+      L.circleMarker([0, 0], { radius: 6, color: "#fff", weight: 2, fillColor: "#1D4ED8", fillOpacity: 1 })
+        .bindTooltip(cp.id, { permanent: true, direction: "right", offset: [8, 0], className: "cp-map-label" })
+        .addTo(MAP)
+    );
+  });
+  MAP_CURSOR = L.circleMarker([0, 0], { radius: 8, color: "#fff", weight: 2, fillColor: "#F59E0B", fillOpacity: 0, opacity: 0 }).addTo(MAP);
+  MAP.fitBounds(base.getBounds(), { padding: [24, 24] });
+  const resetBtn = document.getElementById("mapReset");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      MAP.fitBounds(base.getBounds(), { padding: [24, 24] });
+    });
+  }
+  LOC_MARKER = L.circleMarker([0, 0], { radius: 7, color: "#fff", weight: 2, fillColor: "#EA580C", fillOpacity: 1 }).addTo(MAP);
+  LOC_MARKER.setStyle({ opacity: 0, fillOpacity: 0 });
+  const locateBtn = document.getElementById("mapLocate");
+  if (locateBtn) locateBtn.addEventListener("click", () => { USER_PICKED = false; locateMe(); });
+
+  // 滚轮缩放：Ctrl/⌘ + 滚轮直接缩放；或先点一下地图，鼠标移出后恢复页面滚动
+  const mapBox = document.getElementById("map");
+  mapBox.addEventListener("wheel", (ev) => {
+    if (!(ev.ctrlKey || ev.metaKey)) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    MAP.setZoom(MAP.getZoom() + (ev.deltaY > 0 ? -1 : 1));
+  }, { passive: false });
+  MAP.on("click", () => MAP.scrollWheelZoom.enable());
+  mapBox.addEventListener("mouseleave", () => MAP.scrollWheelZoom.disable());
+
+  MAP.on("mousemove", (ev) => {
+    if (!PLAN_CTX.ok) return;
+    let best = Infinity, bestKm = null;
+    DATA.track.forEach((p) => {
+      const d = (p[0] - ev.latlng.lat) * (p[0] - ev.latlng.lat) + (p[1] - ev.latlng.lng) * (p[1] - ev.latlng.lng);
+      if (d < best) { best = d; bestKm = p[2]; }
+    });
+    if (bestKm !== null && best < 0.004 * 0.004) updateCursor(bestKm);
+    else hideCursor();
+  });
+  MAP.on("mouseout", hideCursor);
+}
+
+function updateMapMarkers(plan) {
+  if (!MAP) return;
+  plan.rows.forEach((r, i) => {
+    const m = MAP_MARKERS[i];
+    if (!m) return;
+    m.setLatLng([r.cp.lat, r.cp.lon]);
+    m.setStyle({ fillColor: r.night ? "#7C3AED" : "#1D4ED8" });
+    const diff = r.cp.diff ? "★".repeat(r.cp.diff) + "☆".repeat(5 - r.cp.diff) : "";
+    m.bindPopup(
+      "<b>" + r.cp.id + (r.cp.short ? " " + r.cp.short : "") + "</b><br>" +
+      r.cp.name + "<br>" +
+      r.cp.km.toFixed(1) + " km ｜ 到达 " + minToClock(r.arrival) + " ｜ 离开 " + minToClock(r.departure) +
+      (diff ? "<br>难度 " + diff : "")
+    );
+  });
+}
+
+function getTargetHours() {
+  const h = Number(($("#targetH") || {}).value) || 0;
+  const m = Number(($("#targetM") || {}).value) || 0;
+  return Math.min(48, Math.max(0.5, h + m / 60)) || DATA.targetHours;
+}
+function setTargetHours(v) {
+  const total = Math.round(v * 60);
+  if ($("#targetH")) $("#targetH").value = Math.floor(total / 60);
+  if ($("#targetM")) $("#targetM").value = total % 60;
+}
+
+const KEY = "race-plan:" + DATA.id;
+function save(startMin, target, stops) {
+  try {
+    const next = JSON.stringify({ startMin, target, stops, paces: PACE_ARR });
+    const cur = localStorage.getItem(KEY);
+    if (cur && cur !== next) localStorage.setItem(KEY + ":undo", cur);
+    localStorage.setItem(KEY, next);
+  } catch (e) {}
+}
+function undoOnce() {
+  try {
+    const prev = localStorage.getItem(KEY + ":undo");
+    if (!prev) return false;
+    localStorage.setItem(KEY, prev);
+    localStorage.removeItem(KEY + ":undo");
+    return true;
+  } catch (e) { return false; }
+}
+function restore() {
+  try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) { return null; }
+}
+
+function init() {
+  const saved = restore();
+  $("#start").value = minToClock(saved ? saved.startMin : DATA.startMin);
+  setTargetHours(saved ? saved.target : DATA.targetHours);
+  STOPS_DEFAULT = saved ? saved.stops : DATA.cps.map((c) => c.aid);
+  PACE_ARR = saved && saved.paces && saved.paces.length === DATA.cps.length
+    ? saved.paces.slice()
+    : modelPaces(saved ? saved.target : DATA.targetHours, STOPS_DEFAULT);
+  render();
+  $("#start").addEventListener("change", render);
+  // 数字输入框：聚焦时全选；首次输入直接覆盖旧值
+  // 数字输入框：点中全选；首次输入直接覆盖；只允许数字和一个小数点
+  document.addEventListener("focusin", (e) => {
+    const t = e.target;
+    if (t && t.matches && t.matches("input.numinput")) {
+      t.dataset.fresh = "1";
+      setTimeout(() => {
+        try { t.focus(); t.setSelectionRange(0, t.value.length); } catch (err) {}
+      }, 0);
+    }
+  });
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t && t.matches && t.matches("input.numinput")) {
+      setTimeout(() => { try { t.setSelectionRange(0, t.value.length); } catch (err) {} }, 0);
+    }
+  });
+  document.addEventListener("beforeinput", (e) => {
+    const t = e.target;
+    if (t && t.matches && t.matches("input.numinput") && t.dataset.fresh === "1" &&
+        e.inputType && e.inputType.indexOf("insert") === 0) {
+      t.value = "";
+      t.dataset.fresh = "0";
+    }
+  });
+  document.addEventListener("input", (e) => {
+    const t = e.target;
+    if (t && t.matches && t.matches("input.numinput")) {
+      const fixed = t.value.replace(/[^0-9.]/g, "").split(".").slice(0, 2).join(".");
+      if (fixed !== t.value) t.value = fixed;
+    }
+  });
+  document.addEventListener("focusout", (e) => {
+    if (e.target && e.target.dataset) e.target.dataset.fresh = "0";
+  });
+  function onTargetChange() {
+    // 改目标用时：按当前配速比例缩放，命中新目标
+    const targetHours = getTargetHours();
+    const stops = currentStops();
+    const aidMin = stops.reduce((a, b) => a + (Number(b) || 0), 0);
+    const movingNow = PACE_ARR.reduce((a, p, i) => a + (Number(p) || 0) * DATA.segments[i].lengthKm, 0);
+    const movingWant = Math.max(30, targetHours * 60 - aidMin);
+    const factor = movingNow > 0 ? movingWant / movingNow : 1;
+    PACE_ARR = PACE_ARR.map((p) => Math.max(2, (Number(p) || 0) * factor));
+    render();
+  }
+  ["targetH", "targetM"].forEach((id) => {
+    const el = $("#" + id);
+    if (el) el.addEventListener("change", onTargetChange);
+  });
+  initMap();
+  render();
+  const planCards = document.getElementById("mPlanCards");
+  if (planCards) planCards.addEventListener("change", (e) => {
+    const t = e.target;
+    if (!t) return;
+    const i = Number(t.getAttribute("data-i"));
+    if (t.classList.contains("m-stop")) {
+      const el = document.querySelector('input.stop[data-i="' + i + '"]');
+      if (el) { el.value = t.value; render(); }
+    } else if (t.classList.contains("m-pace")) {
+      const v = Number(t.value);
+      if (Number.isFinite(v) && v > 0) { PACE_ARR[i] = v; render(); }
+    }
+  });
+  let SCROLL_LOCK = false;
+  const cpsBar = document.getElementById("mCps");
+  if (cpsBar) cpsBar.addEventListener("click", (e) => {
+    const b = e.target.closest(".m-cp");
+    if (!b) return;
+    M_SEL = Number(b.getAttribute("data-i")) || 0;
+    USER_PICKED = true;
+    SCROLL_LOCK = true;
+    mRender();
+    const planBox = document.getElementById("mPlanCards");
+    if (planBox) {
+      const card = planBox.querySelectorAll(".m-plan-card")[M_SEL];
+      if (card) {
+        const left = card.getBoundingClientRect().left - planBox.getBoundingClientRect().left + planBox.scrollLeft;
+        planBox.scrollTo({ left, behavior: "smooth" });
+        setTimeout(() => { SCROLL_LOCK = false; }, 500);
+      }
+    }
+  });
+  const planBox = document.getElementById("mPlanCards");
+  if (planBox) {
+    let raf = null;
+    planBox.addEventListener("scroll", () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        if (SCROLL_LOCK) return;
+        const cards = planBox.querySelectorAll(".m-plan-card");
+        if (!cards.length) return;
+        const center = planBox.getBoundingClientRect().left + planBox.clientWidth / 2;
+        let idx = 0, bestD = Infinity;
+        cards.forEach((c, i) => {
+          const r = c.getBoundingClientRect();
+          const d = Math.abs((r.left + r.width / 2) - center);
+          if (d < bestD) { bestD = d; idx = i; }
+        });
+        if (idx !== M_SEL) { M_SEL = idx; mRender(); }
+      });
+    });
+  }
+  if (!window.matchMedia("(max-width: 640px)").matches) {
+    document.querySelectorAll("details.m-collapse").forEach((d) => { d.open = true; });
+  }
+  setInterval(() => { if (LAST_PLAN) mRender(); }, 30000);
+  // 打开页面自动尝试定位；未授权/失败不影响计划信息
+  setTimeout(() => { if (!GPS) locateMe(); }, 900);
+  $("#plan-rows").addEventListener("change", (e) => {
+    if (!e.target) return;
+    if (e.target.classList.contains("stop")) { render(); return; }
+    if (e.target.classList.contains("pace")) {
+      const i = Number(e.target.getAttribute("data-i"));
+      const v = Number(e.target.value);
+      if (Number.isFinite(v) && v > 0) { PACE_ARR[i] = v; render(); }
+      return;
+    }
+  });
+  document.querySelectorAll(".pre-tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tab = btn.getAttribute("data-tab");
+      document.querySelectorAll(".pre-tab").forEach((b) => b.classList.toggle("active", b === btn));
+      document.querySelectorAll(".pre-pane").forEach((pane) => {
+        pane.hidden = pane.getAttribute("data-pane") !== tab;
+      });
+    });
+  });
+  const saveBtn = $("#saveImage");
+  if (saveBtn) saveBtn.addEventListener("click", savePlanImage);
+  const savePlanImg = $("#savePlanImg");
+  if (savePlanImg) savePlanImg.addEventListener("click", saveWholePlan);
+  const previewShare = $("#imgPreviewShare");
+  if (previewShare) previewShare.addEventListener("click", sharePlanImage);
+  const previewClose = $("#imgPreviewClose");
+  if (previewClose) previewClose.addEventListener("click", () => document.getElementById("imgPreview").classList.remove("show"));
+  $("#reset").addEventListener("click", () => {
+    // 优先回退到上一版保存的设置；没有历史时才回默认
+    if (undoOnce()) { location.reload(); return; }
+    $("#start").value = minToClock(DATA.startMin);
+    STOPS_DEFAULT = DATA.cps.map((c) => c.aid);
+    DATA.cps.forEach((c, i) => {
+      const el = document.querySelector('input.stop[data-i="' + i + '"]');
+      if (el) el.value = c.aid;
+    });
+    PACE_ARR = modelPaces(DATA.targetHours, STOPS_DEFAULT);
+    setTargetHours(DATA.targetHours);
+    render();
+  });
+}
+
+let _resizeTimer = null;
+let _lastWidth = window.innerWidth;
+window.addEventListener("resize", () => {
+  // 软键盘只改高度：不重绘，避免输入框被替换、键盘收起
+  if (window.innerWidth === _lastWidth) return;
+  _lastWidth = window.innerWidth;
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => { try { render(); } catch (e) {} }, 180);
+});
+
+async function saveElementAsImage(target, filename) {
+  if (!target) return;
+  if (!window.html2canvas) {
+    $("#status").textContent = "图片组件未加载（需联网），可用系统截图";
+    return;
+  }
+  $("#status").textContent = "正在生成图片…";
+  try {
+    const canvas = await html2canvas(target, { scale: 2, backgroundColor: "#ffffff", useCORS: true });
+    const a = document.createElement("a");
+    a.download = filename;
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+    $("#status").textContent = "已保存图片";
+  } catch (e) {
+    $("#status").textContent = "生成失败，可用系统截图";
+  }
+}
+
+function savePlanImage() {
+  saveElementAsImage(document.querySelector(".table-scroll"), (DATA.id || "race") + "-表格.png");
+}
+
+function previewImage(dataUrl) {
+  const box = document.getElementById("imgPreview");
+  const img = document.getElementById("imgPreviewSrc");
+  if (!box || !img) return;
+  img.src = dataUrl;
+  box.classList.add("show");
+}
+
+let PLAN_IMG_FILE = null;
+
+async function saveWholePlan() {
+  if (!window.html2canvas) {
+    $("#status").textContent = "图片组件未加载（需联网），可用系统截图";
+    return;
+  }
+  $("#status").textContent = "正在生成计划图片…";
+  const cards = document.querySelectorAll("#mPlanCards .m-plan-card");
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "position:absolute;left:0;top:0;width:360px;background:#fff;padding:14px;box-sizing:border-box;z-index:-1;";
+  const title = document.createElement("div");
+  title.style.cssText = "font-size:17px;font-weight:700;margin-bottom:10px;color:#0f172a;";
+  title.textContent = (DATA.name || "越野赛") + " · 完赛计划";
+  wrap.appendChild(title);
+  cards.forEach((c) => {
+    const clone = c.cloneNode(true);
+    clone.style.width = "100%";
+    clone.style.flex = "none";
+    clone.style.margin = "0 0 10px";
+    wrap.appendChild(clone);
+  });
+  document.body.appendChild(wrap);
+  try {
+    // iOS/Safari canvas 高度有限（约 4096），按高度自适应缩放，避免长图生成失败
+    const maxH = 3900;
+    const fitScale = Math.min(2, Math.max(1, maxH / (wrap.scrollHeight || 1)));
+    const canvas = await html2canvas(wrap, { scale: fitScale, backgroundColor: "#ffffff", useCORS: true });
+    const dataUrl = canvas.toDataURL("image/png");
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    PLAN_IMG_FILE = blob ? new File([blob], "conghua100-100k-plan.png", { type: "image/png" }) : null;
+    const shareBtn = document.getElementById("imgPreviewShare");
+    if (shareBtn) shareBtn.hidden = !(PLAN_IMG_FILE && navigator.canShare && navigator.canShare({ files: [PLAN_IMG_FILE] }));
+    previewImage(dataUrl);
+    $("#status").textContent = "长按图片保存到相册";
+  } catch (e) {
+    window.__saveErr = String((e && e.message) || e);
+    $("#status").textContent = "生成失败，可用系统截图";
+  } finally {
+    wrap.remove();
+  }
+}
+
+async function sharePlanImage() {
+  if (!PLAN_IMG_FILE || !navigator.share) {
+    $("#status").textContent = "当前浏览器不支持分享，长按图片保存";
+    return;
+  }
+  try {
+    await navigator.share({ files: [PLAN_IMG_FILE], title: "从化一百 100K 计划" });
+    $("#status").textContent = "已打开分享，选择「存储图像」保存到相册";
+  } catch (e) {
+    $("#status").textContent = "分享取消或不可用，可长按图片保存";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</main><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}</script></body></html>
